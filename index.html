@@ -86,16 +86,48 @@ button:disabled{cursor:default;opacity:.45}
 #game header .coins{justify-self:end}
 h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(--accent);text-shadow:0 3px 0 var(--accent-deep),0 6px 14px rgba(0,0,0,.4);transform:rotate(-3deg)}
 .row2{display:flex;align-items:center;gap:6px}
-.powers{display:flex;gap:6px}
-.pw{position:relative;width:40px;height:40px;border-radius:12px;background:var(--glass);border:1.5px solid var(--glass-edge);font-size:19px;display:grid;place-items:center}
-.pw b{position:absolute;right:-5px;top:-6px;min-width:17px;height:17px;padding:0 4px;box-sizing:border-box;border-radius:9px;background:var(--accent);color:var(--ink);font:800 12px/17px var(--display)}
-.pw b.zero{background:#5b4a9a;color:var(--fg)}
+.powers{display:flex;gap:5px}
+/* power-up buttons: a coloured tile with a drawn icon, a short name under it, a count badge; long-press explains it */
+.pw{position:relative;width:46px;display:flex;flex-direction:column;align-items:center;gap:2px;touch-action:none;-webkit-touch-callout:none}
+.pw .tileic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));
+  box-shadow:0 3px 0 var(--c3),inset 0 2px 0 rgba(255,255,255,.45);transition:transform .12s}
+.pw .tileic svg{width:28px;height:28px;filter:drop-shadow(0 1.5px 0 rgba(0,0,0,.25))}
+.pw:active .tileic{transform:translateY(2px) scale(.94);box-shadow:0 1px 0 var(--c3)}
+.pw span{font:800 10px/1 var(--display);color:#fff;text-shadow:0 1px 2px rgba(40,20,80,.6);white-space:nowrap}
+.pw b{position:absolute;right:-3px;top:-6px;min-width:17px;height:17px;padding:0 4px;box-sizing:border-box;border-radius:9px;background:var(--accent);color:var(--ink);font:800 12px/17px var(--display);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.pw b.zero{background:#fff;color:#7b4cc0}
+.pw.on .tileic{box-shadow:0 0 0 3px #fff3b0,0 0 16px #ffd23f}
+.tip{position:fixed;z-index:90;width:min(260px,calc(100vw - 32px));padding:12px 14px;border-radius:18px;background:#fff;color:#2b1863;box-shadow:0 12px 30px rgba(30,10,70,.35);
+  display:grid;grid-template-columns:44px 1fr;gap:4px 10px;align-items:center;animation:popIn .3s cubic-bezier(.2,1.5,.4,1);pointer-events:none}
+.tip .tileic{grid-row:span 2;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.tip .tileic svg{width:30px;height:30px}
+.tip h4{margin:0;font:800 17px/1.1 var(--display)}
+.tip p{margin:0;font-size:13px;line-height:1.3;color:#5b4f86;grid-column:2}
+.tip small{grid-column:1/-1;font-size:12px;color:#7b4cc0;font-weight:700;margin-top:2px}
+.tip::before{content:"";position:absolute;top:-7px;left:var(--ax,30px);width:14px;height:14px;background:#fff;transform:rotate(45deg);border-radius:2px}
+/* star + timer widget in the game header */
+.starbar{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(40,20,90,.28);border:1.5px solid rgba(255,255,255,.35)}
+.starbar i{font-style:normal;font-size:16px;line-height:1;filter:drop-shadow(0 1px 0 rgba(0,0,0,.3));transition:opacity .3s,transform .3s}
+.starbar i.off{opacity:.28;transform:scale(.8);filter:grayscale(1)}
+.starbar b{font:800 15px/1 var(--display);color:#fff;font-variant-numeric:tabular-nums;min-width:36px;text-align:right}
+.res-stars{display:flex;justify-content:center;gap:6px;margin:4px 0}
+.res-stars i{font-style:normal;font-size:52px;line-height:1;opacity:.18;filter:grayscale(1);transform:scale(.6)}
+.res-stars i.on{animation:starIn .55s cubic-bezier(.2,1.8,.4,1) forwards}
+.res-stars i:nth-child(2){font-size:62px;transform:translateY(-8px) scale(.6)}
+@keyframes starIn{0%{opacity:1;filter:none;transform:scale(2.2) rotate(-30deg)}100%{opacity:1;filter:none;transform:scale(1)}}
+.res-facts{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.res-facts span{padding:6px 10px;border-radius:12px;background:var(--panel);font-size:13px;font-weight:700;color:var(--fg)}
+.pw-ic{background:none!important}
+.pw-ic .tileic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 3px 0 var(--c3),inset 0 2px 0 rgba(255,255,255,.45)}
+.pw-ic svg{width:32px;height:32px}
+.node .stars{position:absolute;bottom:-17px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:-1px;white-space:nowrap;filter:drop-shadow(0 1px 0 rgba(0,0,0,.35))}
+.node.hard em{bottom:-36px}
 .pw.on{border-color:var(--accent);box-shadow:0 0 14px rgba(255,210,63,.6)}
-#bz{--p:0;flex:1;min-width:0;position:relative;overflow:hidden;padding:4px 8px;border-radius:14px;background:var(--glass);border:2px solid var(--glass-edge);color:var(--fg);line-height:1.05;display:flex;flex-direction:column;align-items:center;transition:transform .15s}
+#bz{--p:0;flex:1;min-width:0;align-self:stretch;justify-content:center;position:relative;overflow:hidden;padding:4px 4px;border-radius:14px;background:var(--glass);border:2px solid var(--glass-edge);color:var(--fg);line-height:1.05;display:flex;flex-direction:column;align-items:center;transition:transform .15s}
 #bz:active{transform:scale(.94)}
 #bz::before{content:"";position:absolute;inset:0;width:calc(var(--p) * 100%);background:color-mix(in srgb,var(--accent) 30%,transparent);transition:width .25s}
-#bz span{position:relative;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:.5px;color:var(--accent)}
-#bz small{position:relative;font-size:12px;font-weight:700;color:var(--muted)}
+#bz span{position:relative;font-family:var(--display);font-weight:800;font-size:clamp(12px,3.8vw,17px);color:var(--accent);white-space:nowrap}
+#bz small{position:relative;font-size:11px;font-weight:700;color:#efe7ff;white-space:nowrap}
 #bz.free{background:var(--accent);border-color:#fff3b0;box-shadow:0 4px 0 var(--accent-deep),0 0 20px rgba(255,210,63,.5);animation:wiggle 1.4s infinite}
 #bz.free span,#bz.free small{color:var(--ink)}
 #bz.free::before{display:none}
@@ -104,7 +136,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #hint{position:absolute;left:0;right:0;top:0;margin:0;font-size:13px;font-weight:700;line-height:1.25;color:#fff;text-shadow:0 1px 2px rgba(40,20,80,.55);text-align:center;text-wrap:balance;pointer-events:none}
 #hint.alert{color:#fff3b0}
-#game .pill,#game .icon,#game .pw,#game #bz{background:rgba(40,20,90,.28);border-color:rgba(255,255,255,.35)}
+#game .pill,#game .icon,#game #bz{background:rgba(40,20,90,.28);border-color:rgba(255,255,255,.35)}
 #game h1{text-shadow:0 3px 0 var(--accent-deep),0 4px 10px rgba(40,20,80,.35)}
 
 /* ---- sheets & cards ---- */
@@ -140,14 +172,23 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 
 /* ---- level map ---- */
 #map{padding:0;max-width:none}
-.maphead{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 16px;background:linear-gradient(var(--bg),rgba(26,17,64,.85) 70%,transparent)}
+.maphead{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 16px;background:linear-gradient(rgba(74,40,140,.92),rgba(74,40,140,.6) 70%,transparent)}
 .maphead h2{margin:0;font-family:var(--display);font-weight:800;font-size:24px;color:var(--accent);text-shadow:0 3px 0 var(--accent-deep)}
 #mapScroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin-top:-56px;scrollbar-width:none}
 #mapScroll::-webkit-scrollbar{display:none}
 #mapInner{position:relative;max-width:520px;margin:0 auto;overflow:hidden}
 #mapInner svg{position:absolute;inset:0;pointer-events:none}
-.zone{position:absolute;left:-40px;right:-40px;background:radial-gradient(70% 50% at 50% 50%,color-mix(in srgb,var(--t) 70%,transparent),transparent 75%)}
-.sign{position:absolute;transform:translate(-50%,-50%) rotate(-3deg);padding:6px 12px;border-radius:12px;background:#5a3410;border:3px solid #8a5a24;color:#ffe8b0;font-family:var(--display);font-weight:800;font-size:13px;line-height:1.15;text-align:center;max-width:140px;box-shadow:0 5px 0 #3a2008,0 10px 18px rgba(0,0,0,.35)}
+.zone{position:absolute;left:0;right:0;overflow:hidden}
+.zone .hills{position:absolute;left:0;bottom:0;width:100%;height:150px}
+.cloud{position:absolute;width:90px;height:28px;border-radius:20px;background:rgba(255,255,255,.75);transform:scale(var(--s));animation:drift 40s linear infinite;filter:drop-shadow(0 4px 6px rgba(60,30,120,.15))}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:40px;height:40px;left:14px;top:-20px}
+.cloud::after{width:30px;height:30px;left:44px;top:-13px}
+@keyframes drift{0%{translate:-40px 0}50%{translate:40px 0}100%{translate:-40px 0}}
+#map{background:#c6a3f0}
+.node .stars i{font-style:normal}
+.node .stars i.off{filter:grayscale(1);opacity:.4}
+.sign{position:absolute;transform:translate(-50%,-50%) rotate(-3deg);padding:6px 12px;border-radius:12px;background:#5a3410;border:3px solid #8a5a24;color:#ffe8b0;font-family:var(--display);font-weight:800;font-size:13px;line-height:1.15;text-align:center;max-width:150px;box-sizing:border-box;box-shadow:0 5px 0 #3a2008,0 10px 18px rgba(0,0,0,.35)}
 .sign b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#ffd23f}
 .deco{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 35% 30%,#fff8,var(--c) 45%,color-mix(in srgb,var(--c) 55%,black));box-shadow:0 4px 10px rgba(0,0,0,.3)}
 .twinkle{position:absolute;color:#fff;pointer-events:none;animation:twinkle 2.4s ease-in-out infinite;font-size:14px}
@@ -248,7 +289,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 <div id="game" class="screen" hidden>
   <header>
     <div class="left"><button class="icon" id="pauseBtn" aria-label="Pauză">⏸</button><span class="pill" id="lvl">Niv. 1</span></div>
-    <h1>Bazinga!</h1>
+    <div class="starbar" id="starbar" aria-label="Stele și timp"><i>⭐</i><i>⭐</i><i>⭐</i><b id="clock">0:00</b></div>
     <span class="pill coins" id="gCoins"><i></i><b class="coinN">0</b></span>
   </header>
   <div class="row2">
@@ -328,7 +369,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 
 <!-- RESULT -->
 <div id="result" class="modal" hidden><div class="card">
-  <h2 id="rT"></h2><p id="rP"></p><div class="stack" id="rB"></div>
+  <h2 id="rT"></h2><div id="rX"></div><p id="rP"></p><div class="stack" id="rB"></div>
 </div></div>
 
 <script>
@@ -341,14 +382,21 @@ const themeOf=n=>THEMES[Math.floor((n-1)/10)%THEMES.length];
 const FLOOR='#dde1f6',TILE='#eef1ff',TILE_EDGE='#ccd1ec';
 const KEYS=Object.keys(COLORS);
 const NSLOTS=28, NCOL=4, MAXCHARGE=12, LOOP_SEC=5, UNDO_COST=10, UNDO_DEPTH=5;
-const FUNNEL_EXTRA=9;            // the funnel can hold one extra block's worth of balls
+const FUNNEL_EXTRA=18;           // the funnel can hold two extra blocks' worth of balls
 const GRAV=4200, SUBSTEPS=6, E_BALL=.1, E_WALL=.12, FRICTION=.012, DAMP=.5; // heavy, low-bounce marbles that still roll
+// power-ups: drawn SVG icons on coloured tiles (c = gradient top, gradient bottom, tile edge), a short label and an explanation
 const POWERS=[
-  {id:'magnet', icon:'🧲',name:'Magnet',    price:60,desc:'Toate bilele de pe bandă sar în cutiile potrivite, chiar și în cele din spate.'},
-  {id:'hammer', icon:'🔨',name:'Ciocan',    price:40,desc:'Sparge orice bloc, chiar dacă nu are drum liber în jos.'},
-  {id:'belt',   icon:'➕',name:'Bandă+',    price:50,desc:'Adaugă 6 locuri pe bandă pentru nivelul curent.'},
-  {id:'lens',   icon:'🔍',name:'Lupă',      price:25,desc:'Arată culoarea tuturor blocurilor ❓ de pe tablă.'},
-  {id:'shuffle',icon:'🔀',name:'Rearanjare',price:45,desc:'Aduce în față cutiile pentru culorile care sunt deja pe bandă.'}];
+  {id:'magnet', name:'Magnet', price:60,c:['#ffe1e6','#ffb3c1','#d9768c'],desc:'Toate bilele de pe bandă sar în cutiile potrivite, chiar și în cele din spate.',
+    svg:'<svg viewBox="0 0 32 32"><path d="M8 5v11a8 8 0 0 0 16 0V5" fill="none" stroke="#f23d57" stroke-width="7"/><rect x="4.5" y="3" width="7" height="5.5" rx="1.2" fill="#eef1f8"/><rect x="20.5" y="3" width="7" height="5.5" rx="1.2" fill="#eef1f8"/><path d="M7.8 14v2a8.2 8.2 0 0 0 4 7" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/></svg>'},
+  {id:'hammer', name:'Ciocan', price:40,c:['#fff0d6','#ffc86b','#d38f2a'],desc:'Sparge orice bloc, chiar dacă nu are drum liber în jos.',
+    svg:'<svg viewBox="0 0 32 32"><g transform="rotate(-40 16 16)"><rect x="14.3" y="10" width="4.4" height="20" rx="2.2" fill="#b86b30"/><rect x="15.2" y="11" width="1.4" height="18" rx=".7" fill="#e7a36a"/><rect x="6.5" y="3.5" width="19" height="9.5" rx="2.6" fill="#cfd6e6"/><rect x="6.5" y="3.5" width="19" height="3.6" rx="1.8" fill="#fff" opacity=".75"/><rect x="21.5" y="3.5" width="4" height="9.5" rx="1.6" fill="#97a2bd"/></g></svg>'},
+  {id:'belt',   name:'Bandă+', price:50,c:['#e2fbe7','#97e6aa','#3fa65a'],desc:'Adaugă 6 locuri pe bandă pentru nivelul curent.',
+    svg:'<svg viewBox="0 0 32 32"><rect x="1.5" y="13" width="25" height="13" rx="6.5" fill="#fff"/><rect x="4" y="15.5" width="20" height="8" rx="4" fill="#c4c9e8"/><circle cx="8.6" cy="19.5" r="2.8" fill="#f23d57"/><circle cx="14" cy="19.5" r="2.8" fill="#2e6ef5"/><circle cx="19.4" cy="19.5" r="2.8" fill="#ffd000"/><circle cx="25" cy="8.5" r="6.8" fill="#22c55e" stroke="#fff" stroke-width="2"/><path d="M25 5v7M21.5 8.5h7" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>'},
+  {id:'lens',   name:'Lupă',   price:25,c:['#e1f2ff','#94ccff','#3f86d6'],desc:'Arată culoarea tuturor blocurilor ❓ de pe tablă.',
+    svg:'<svg viewBox="0 0 32 32"><path d="M19.5 19.5l8 8" stroke="#8a5530" stroke-width="5.5" stroke-linecap="round"/><circle cx="13" cy="13" r="9.5" fill="#d8f1ff" stroke="#f3f5fa" stroke-width="3.6"/><circle cx="13" cy="13" r="11.3" fill="none" stroke="#9aa5bf" stroke-width="1"/><path d="M8.3 11a5.2 5.2 0 0 1 4.2-4.2" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/><text x="13.5" y="17.6" font-size="12" text-anchor="middle" font-weight="900" fill="#2e6ef5" font-family="Arial,sans-serif">?</text></svg>'},
+  {id:'shuffle',name:'Amestec',price:45,c:['#d4b8ff','#9a4dff','#6a24c9'],desc:'Rearanjează cutiile de jos: le aduce în față pe cele cu culorile care sunt deja pe bandă.',
+    svg:'<svg viewBox="0 0 32 32"><path d="M3.5 9.5h5c6.5 0 8.5 13 15 13h2" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M3.5 22.5h5c6.5 0 8.5-13 15-13h2" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M23 4.5l6 5-6 5zM23 17.5l6 5-6 5z" fill="#fff"/></svg>'}];
+const powerTile=p=>`<i class="tileic" style="--c1:${p.c[0]};--c2:${p.c[1]};--c3:${p.c[2]}">${p.svg}</i>`;
 const UI={frame:'#2a1b63',cell:'#3a2a80',belt:'#2a1b63',beltRim:'#6a55c8',slot:'rgba(255,255,255,.07)',glass:'rgba(160,140,255,.10)',glassRim:'#7d68d8',hidden:'#6c7d98',hiddenDeep:'#4e5c75'};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -376,6 +424,15 @@ function reach(grid,rows,cols){
 function ballsOf(c){return c.mix?[c.mix[0],c.mix[0],c.mix[0],c.mix[1],c.mix[1],c.mix[1],c.mix[2],c.mix[2],c.mix[2]]:Array(9).fill(c.color)}
 
 const isHard=n=>n%10===0;
+/* star rating: start from 3, lose one for going over the target time, another for going far over (×1.6),
+   and one per power-up used (max 2). Bazinga! undo is earned with combos, so it costs nothing. */
+const STAR_COINS=[0,10,25,50];
+const parTime=(nBlocks,hard)=>Math.round((10+nBlocks*2.4)*(hard?1.3:1));
+const fmtTime=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+function starsFor(t,par,powers){let s=3;if(t>par)s--;if(t>par*1.6)s--;return Math.max(0,s-Math.min(2,powers))}
+const bestStars=n=>(store.get('stars',{})[n]||0);
+function saveStars(n,s){const all=store.get('stars',{});if(s>(all[n]||0)){all[n]=s;store.set('stars',all)}}
+const starRow=(n,cls='')=>`<span class="stars ${cls}">${[0,1,2].map(i=>`<i class="${i<n?'':'off'}">⭐</i>`).join('')}</span>`;
 // difficulty knobs; every 10th level gets a genuinely harder set
 function difficulty(n){
   const hard=isHard(n);
@@ -418,7 +475,7 @@ function makeLevel(n){
   for(let i=0;i<holders.length;i++){const j=Math.min(holders.length-1,i+Math.floor(r()*(w+1)));[holders[i],holders[j]]=[holders[j],holders[i]]}
   const colsH=Array.from({length:NCOL},()=>[]);
   holders.forEach(color=>{let best=0,bv=1e9;for(let k=0;k<NCOL;k++){const v=colsH[k].length+r()*1.3;if(v<bv){bv=v;best=k}}colsH[best].push({color,k:best,taken:0,filled:0,balls:[],leaving:false,lt:0,y:null})});
-  return{level:n,hard:D.hard,theme:themeOf(n),nColors,nBlocks:blocks.length,rows,cols,grid,colsH,bb:[],offset:0,cap:D.cap,hist:[],hammer:false,
+  return{level:n,hard:D.hard,theme:themeOf(n),par:parTime(blocks.length,D.hard),powersUsed:0,nColors,nBlocks:blocks.length,rows,cols,grid,colsH,bb:[],offset:0,cap:D.cap,hist:[],hammer:false,
     balls:[],shards:[],emitters:[],fx:[],falling:[],texts:[],charge:0,combo:0,lastDone:-9,over:false,stuckT:0,shake:0,time:0,tappable:tap0,earned:0};
 }
 
@@ -427,7 +484,7 @@ const cv=$('#cv'),ctx=cv.getContext('2d');let S,L,dpr=Math.min(devicePixelRatio|
 function layout(){
   const rc=$('#stage').getBoundingClientRect(),W=rc.width,H=rc.height;
   dpr=Math.min(devicePixelRatio||1,3);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
-  const r=Math.max(22,Math.min(34,W*.072)),hArea=Math.max(130,H*.24);
+  const r=Math.max(22,Math.min(34,W*.072)),hArea=Math.max(108,H*.19); // boxes area: ~2.5 visible boxes, leaves more room for the block board
   const edge=r+r*.55+14; // room for the belt's rim
   const cy=H-hArea-r-8,x1=edge,x2=W-edge,Ls=x2-x1,P=2*Ls+2*Math.PI*r,sp=P/NSLOTS;
   const ballR=Math.min(sp*.43,r*.55);
@@ -438,7 +495,7 @@ function layout(){
   const ex=x1+Ls/2,ey=cy-r;
   // a waiting ball rests just above the belt balls, never on top of them
   const neckHalf=ballR*1.45,gateY=ey-ballR-2,neckTop=gateY-ballR*2.6;
-  const funnelH=Math.max(70,Math.min(130,H*.14)),mouthY=neckTop-funnelH;
+  const funnelH=Math.max(58,Math.min(110,H*.11)),mouthY=neckTop-funnelH;
   const bBottom=mouthY-4,hintSpace=HINTS[S.level]||S.hard?38:4;
   const cs=Math.min((W-8)/S.cols,(bBottom-hintSpace)/S.rows,76);
   const bx=(W-cs*S.cols)/2,by=bBottom-cs*S.rows;
@@ -806,6 +863,8 @@ function emit(dt){
   }
 }
 const topHolder=k=>S.colsH[k].find(h=>!h.leaving);
+// the box a ball can drop into: the top one, or the one right under it once every slot above is already claimed by balls in flight
+const openHolder=k=>S.colsH[k].find(h=>!h.leaving&&h.taken<3);
 
 function refreshReach(){
   S.tappable=reach(S.grid,S.rows,S.cols);
@@ -829,7 +888,7 @@ function undo(){
   Object.assign(S,snap,{fx:[],texts:[],shards:[],over:false,stuckT:0,hammer:false});
   S.charge=0;
   const r=$('#bz').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:40,colors:['#ffd23f','#fff3b0','#ff78c8'],speed:380,grav:500});
-  if(m.power){inv[m.power]++;saveInv()}
+  if(m.power){inv[m.power]++;saveInv();S.powersUsed=Math.max(0,S.powersUsed-1)} // refunded, so it no longer costs a star
   layout(); // belt capacity may have changed back
   if(m.x!=null){const c=S.grid[m.y][m.x];c.pop=1;
     S.fx.push({k:'rewind',x:L.bx+m.x*L.cs+L.cs/2,y:L.by+m.y*L.cs+L.cs/2,r:L.cs*.6,t:0,life:.55})}
@@ -846,10 +905,13 @@ function tapAt(px,py){
   const c=S.grid[y][x];if(c.t!=='block')return;
   const hammer=S.hammer;
   if(!hammer&&!S.tappable.has(y*S.cols+x)){c.pop=.5;sfx.bad();return}
-  if(room()<9){S.shake=.35;sfx.bad();buzz(40);text('Pâlnia e plină!',L.W/2,L.mouthY+10,20,false,'#ff9fb0');return}
+  if(room()<9){S.shake=.35;sfx.bad();buzz(40);
+    // say what is actually full: usually the belt (the funnel only fills once the belt has no room)
+    const msg=S.balls.length+queued()>=9?'Pâlnia e plină!':'Banda e aproape plină!';
+    text(msg,L.W/2,L.mouthY+10,20,false,'#f23d57');return}
   snapshot(hammer?{x,y,power:'hammer'}:{x,y});
   const cx=L.bx+x*L.cs+L.cs/2,cy=L.by+y*L.cs+L.cs/2;
-  if(hammer){S.hammer=false;inv.hammer--;saveInv();sfx.power();c.hidden=false;S.shake=.25;text('Poc!',cx,cy-10,26);setHint()}
+  if(hammer){S.hammer=false;inv.hammer--;saveInv();S.powersUsed++;sfx.power();c.hidden=false;S.shake=.25;text('Poc!',cx,cy-10,26);setHint()}
   // opening sequence: squash → balls pop out one by one (rising notes) → shell shrinks, ring + sparks
   const e={x:cx,y:cy,colors:ballsOf(c),i:0,t:-.09,cs:L.cs};
   S.emitters.push(e);
@@ -911,14 +973,16 @@ function usePower(id){
   const r=POWER_FN[id]();
   if(r===false){if(id!=='hammer')S.hist.pop();sfx.bad();return}
   if(r==='toggle'){sfx.ui();return} // the hammer is spent when it actually breaks a block
-  inv[id]--;saveInv();sfx.power();buzz(20);
+  inv[id]--;saveInv();sfx.power();buzz(20);S.powersUsed++;
 }
 
 function update(dt){
   // turbo: when every colour left on the belt already has an open box waiting (and nothing is still falling in),
   // the belt speeds up smoothly so those balls reach their boxes quickly, then eases back to normal
-  const tops=[0,1,2,3].map(topHolder).filter(h=>h&&h.taken<3).map(h=>h.color);
-  const rush=!S.over&&S.bb.length>0&&!S.balls.length&&!S.emitters.length&&S.bb.every(b=>tops.includes(b.c));
+  const tops=[0,1,2,3].map(openHolder).filter(Boolean).map(h=>h.color);
+  // ...and always once every block is broken: nothing left to decide, so no point waiting
+  const boardEmpty=!S.grid.some(r=>r.some(c=>c.t==='block'));
+  const rush=!S.over&&S.bb.length>0&&!S.balls.length&&!S.emitters.length&&(boardEmpty||S.bb.every(b=>tops.includes(b.c)));
   if(rush&&!S.rush){text('⏩ Turbo',L.W/2,L.cy+L.r+L.beltR+22,18,false,S.theme.line);tone(300,900,.25,'sine',.06)}
   S.rush=rush;S.speedMul=(S.speedMul||1)+((rush?3.5:1)-(S.speedMul||1))*Math.min(1,dt*(rush?6:6));
   S.time+=dt;S.offset=(S.offset-L.speed*S.speedMul*dt+L.P)%L.P;S.shake=Math.max(0,S.shake-dt);
@@ -934,10 +998,10 @@ function update(dt){
     if(s0<bs0-L.sp&&s1<bs0-L.sp||s0>bs1+L.sp&&s1>bs1+L.sp||Math.abs(s0-s1)>L.P/2)return true; // not near the bottom run (or wrapped)
     const xa=xOn(s0),xb=xOn(s1),lo=Math.min(xa,xb)-L.sp*.5,hi=Math.max(xa,xb)+L.sp*.5;
     const order=[...Array(NCOL).keys()].sort((p,q)=>Math.abs(L.colX[p]-xa)-Math.abs(L.colX[q]-xa)); // first column reached wins
-    for(const k of order){const cx=L.colX[k];if(cx<lo||cx>hi)continue;const h=topHolder(k);
-      if(h&&h.color===b.c&&h.taken<3){S.falling.push({color:b.c,x0:cx,y0:L.cy+L.r,h,idx:h.taken++,t:0});sfx.drop();return false}}
+    for(const k of order){const cx=L.colX[k];if(cx<lo||cx>hi)continue;const h=openHolder(k);
+      if(h&&h.color===b.c){S.falling.push({color:b.c,x0:cx,y0:L.cy+L.r,h,idx:h.taken++,t:0});sfx.drop();return false}}
     return true});
-  for(let i=S.falling.length-1;i>=0;i--){const f=S.falling[i];f.t+=dt/.3;if(f.t>=1){S.falling.splice(i,1);f.h.balls[f.idx]=f.color;(f.h.land=f.h.land||[])[f.idx]=S.time;f.h.filled++;if(f.h.filled===3)holderDone(f.h)}}
+  for(let i=S.falling.length-1;i>=0;i--){const f=S.falling[i];f.t+=dt/.24;if(f.t>=1){S.falling.splice(i,1);f.h.balls[f.idx]=f.color;(f.h.land=f.h.land||[])[f.idx]=S.time;f.h.filled++;if(f.h.filled===3)holderDone(f.h)}}
   S.colsH.forEach(col=>{let d=0;for(let i=col.length-1;i>=0;i--){const h=col[i];if(h.leaving){h.lt+=dt/.35;if(h.lt>=1)col.splice(i,1)}}
     col.forEach(h=>{if(h.leaving)return;const ty=holderY(d++);if(h.y==null)h.y=ty;h.y+=(ty-h.y)*Math.min(1,dt*14)})});
   for(let i=S.texts.length-1;i>=0;i--){S.texts[i].t+=dt/1.1;if(S.texts[i].t>=1)S.texts.splice(i,1)}
@@ -952,11 +1016,19 @@ function checkEnd(dt){
   const blocksLeft=S.grid.some(r=>r.some(c=>c.t==='block'));
   if(!blocksLeft&&!bc&&!S.balls.length){S.over=true;sfx.win();
     const prog=store.get('level',1),unlocked=S.level>=prog;if(unlocked)store.set('level',S.level+1);
+    // stars: bonus coins only for stars above your previous best on this level (replays can't farm it)
+    const stars=starsFor(S.time,S.par,S.powersUsed),best=bestStars(S.level),bonus=stars>best?STAR_COINS[stars]-STAR_COINS[best]:0;
+    saveStars(S.level,stars);if(bonus)addCoins(bonus,false);
     celebrate();
-    setTimeout(()=>{result(S.hard?'Nivel greu învins!':'Nivel complet!',`Nivelul ${S.level} e gata.`,[
+    setTimeout(()=>{result(S.hard?'Nivel greu învins!':['Ai reușit!','Bine!','Super!','Perfect!'][stars],
+      stars===3?'Rapid și fără power-up-uri. Bravo!':stars<best?`Recordul tău rămâne ${best} ⭐`:'Termină mai repede și fără power-up-uri pentru 3 stele.',[
       {label:'Continuă',fn:()=>goMap(unlocked?S.level+1:0)},{label:'Rejoacă',ghost:true,fn:()=>playLevel(S.level,true)}]);
-      countUp(S.earned)},700);return}
-  const tops=[0,1,2,3].map(topHolder).filter(h=>h&&h.taken<3);
+      $('#rX').innerHTML=`<div class="res-stars">${[0,1,2].map(()=>'<i>⭐</i>').join('')}</div>
+        <div class="res-facts"><span>⏱ ${fmtTime(S.time)} / țintă ${fmtTime(S.par)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>${bonus?`<span>⭐ bonus +${bonus}</span>`:''}</div>`;
+      $$('#rX .res-stars i').forEach((el,i)=>{if(i<stars)setTimeout(()=>{el.classList.add('on');[880,1175,1568].forEach((f,j)=>j===i&&tone(f,f*1.5,.25,'triangle',.16));buzz(20);
+        const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:18,colors:['#ffd23f','#fff3b0','#ff8c2a'],speed:300,grav:400})},350+i*380)});
+      setTimeout(()=>{countUp(S.earned+bonus);paintCoins(true)},350+stars*380)},700);return}
+  const tops=[0,1,2,3].map(openHolder).filter(Boolean);
   const moving=S.bb.some(b=>tops.some(h=>h.color===b.c));
   const canTap=room()>=9&&S.tappable.size>0;
   if(moving||canTap){S.stuckT=0;return}
@@ -983,7 +1055,15 @@ function setHint(){const h=$('#hint');if(S.hammer){h.textContent='🔨 Atinge or
 let screen='home',paused=false;
 function showScreen(s){screen=s;$('#home').hidden=s!=='home';$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
   // the game screen takes its zone's colours; menus keep the night look
-  document.body.style.background=s==='game'&&S?`linear-gradient(${S.theme.bg2},${S.theme.bg} 45%)`:''}
+  document.body.style.background=s==='game'&&S?gameBg(S.theme):''}
+// level backdrop: zone colours + a soft light from above + faint candy stripes + floating bokeh "marbles"
+function gameBg(T){
+  const bokeh=`<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><defs><radialGradient id='g' cx='.35' cy='.3'><stop offset='0' stop-color='#fff' stop-opacity='.55'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></radialGradient></defs>
+    <circle cx='28' cy='36' r='22' fill='url(#g)'/><circle cx='150' cy='22' r='10' fill='url(#g)'/><circle cx='186' cy='130' r='28' fill='url(#g)'/><circle cx='70' cy='140' r='14' fill='url(#g)'/>
+    <circle cx='112' cy='88' r='6' fill='url(#g)'/><circle cx='30' cy='196' r='9' fill='url(#g)'/><circle cx='200' cy='205' r='5' fill='url(#g)'/><circle cx='120' cy='190' r='17' fill='url(#g)'/></svg>`;
+  return `radial-gradient(130% 50% at 50% -8%,rgba(255,255,255,.5),transparent 62%),url("data:image/svg+xml,${encodeURIComponent(bokeh)}"),`+
+    `repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 18px,transparent 18px 36px),linear-gradient(${T.bg2},${T.bg} 55%,${shade(T.bg,-.15)})`;
+}
 const openModals=()=>$$('.modal').some(m=>!m.hidden);
 function showModal(id){$('#'+id).hidden=false;paused=true;sfx.ui()}
 function hideModal(id){$('#'+id).hidden=true;paused=openModals()}
@@ -991,29 +1071,50 @@ $$('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest
 $$('.modal').forEach(m=>m.addEventListener('pointerdown',e=>{if(e.target===m&&m.id!=='result')hideModal(m.id)}));
 
 function result(t,p,btns){
-  $('#rT').textContent=t;$('#rP').textContent=p;const box=$('#rB');box.innerHTML='';
+  $('#rT').textContent=t;$('#rP').textContent=p;$('#rX').innerHTML='';const box=$('#rB');box.innerHTML='';
   btns.forEach(b=>{const el=document.createElement('button');el.className='btn'+(b.ghost?' ghost':'');el.textContent=b.label;el.disabled=!!b.disabled;
     el.onclick=()=>{hideModal('result');b.fn()};box.appendChild(el)});
   showModal('result');
 }
 
+// tap = use; press and hold = a bubble that explains the power-up (released without using it)
 function buildPowers(){
-  $('#powers').innerHTML=POWERS.map(p=>`<button class="pw" data-p="${p.id}" aria-label="${p.name}">${p.icon}<b></b></button>`).join('');
-  $$('.pw').forEach(b=>b.addEventListener('click',()=>usePower(b.dataset.p)));
+  $('#powers').innerHTML=POWERS.map(p=>`<button class="pw" data-p="${p.id}" aria-label="${p.name}: ${p.desc}">${powerTile(p)}<span>${p.name}</span><b></b></button>`).join('');
+  $$('.pw').forEach(b=>{let timer=null,shown=false;
+    const down=e=>{e.preventDefault();shown=false;clearTimeout(timer);timer=setTimeout(()=>{shown=true;showTip(b);buzz(15)},420)};
+    const up=e=>{clearTimeout(timer);if(shown){hideTip();shown=false;return}if(e.type==='pointerup')usePower(b.dataset.p)};
+    b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);
+    b.addEventListener('pointerleave',()=>{clearTimeout(timer);if(shown){hideTip();shown=false}});
+    b.addEventListener('pointercancel',()=>{clearTimeout(timer);hideTip();shown=false});
+    b.addEventListener('contextmenu',e=>e.preventDefault());
+    b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();usePower(b.dataset.p)}})});
 }
+function showTip(btn){
+  hideTip();const p=POWERS.find(q=>q.id===btn.dataset.p),r=btn.getBoundingClientRect(),t=document.createElement('div');
+  t.className='tip';t.id='tip';
+  t.innerHTML=`${powerTile(p)}<h4>${p.name}</h4><p>${p.desc}</p><small>Ai: ${inv[p.id]} · Atinge scurt ca să-l folosești</small>`;
+  document.body.appendChild(t);
+  const w=t.offsetWidth,left=Math.max(12,Math.min(innerWidth-w-12,r.left+r.width/2-w/2));
+  t.style.left=left+'px';t.style.top=(r.bottom+10)+'px';t.style.setProperty('--ax',(r.left+r.width/2-left-7)+'px');sfx.ui();
+}
+function hideTip(){const t=$('#tip');t&&t.remove()}
 let lastHud='';
 function hud(){
+  // live rating: the clock ticks only while you play, and stars drop as you pass the target time or use power-ups
+  const sec=Math.floor(S.time),st=starsFor(S.time,S.par,S.powersUsed);
+  if(sec!==hud.sec){hud.sec=sec;$('#clock').textContent=fmtTime(sec)}
+  if(st!==hud.st){if(hud.st>st&&hud.st!=null)shakeEl($('#starbar'));hud.st=st;$$('#starbar i').forEach((e,i)=>e.classList.toggle('off',i>=st))}
   const free=S.charge>=MAXCHARGE,key=[S.level,free,S.charge,S.hammer,S.hist.length,coins,...POWERS.map(p=>inv[p.id])].join();
   if(key===lastHud)return;lastHud=key;
   $('#lvl').textContent='Niv. '+S.level;
   const bz=$('#bz');bz.style.setProperty('--p',S.charge/MAXCHARGE);bz.classList.toggle('free',free&&S.hist.length>0);
-  $('#bzSub').textContent=free?'⟲ Anulează mutarea':`Combo ${S.charge}/${MAXCHARGE}`;
+  $('#bzSub').textContent=free?'⟲ Anulează':`Combo ${S.charge}/${MAXCHARGE}`;
   $$('.pw').forEach(b=>{const n=inv[b.dataset.p],badge=b.querySelector('b');badge.textContent=n>0?n:'+';badge.classList.toggle('zero',n<=0);b.classList.toggle('on',b.dataset.p==='hammer'&&S.hammer)});
 }
 
 function openShop(highlight){
   const list=$('#shopList');
-  list.innerHTML=POWERS.map(p=>`<div class="item" data-id="${p.id}"><div class="ic">${p.icon}</div>
+  list.innerHTML=POWERS.map(p=>`<div class="item" data-id="${p.id}"><div class="ic pw-ic">${powerTile(p)}</div>
     <div><h3>${p.name}</h3><p>${p.desc}</p><span class="own">Ai: <b>${inv[p.id]}</b></span></div>
     <button class="buy" data-buy="${p.id}" ${coins<p.price?'disabled':''}>${p.price} <span class="coin"></span></button></div>`).join('');
   list.querySelectorAll('[data-buy]').forEach(b=>b.addEventListener('click',()=>buy(b.dataset.buy)));
@@ -1035,7 +1136,7 @@ function paintHome(){const l=store.get('level',1);$('#playLvl').textContent='Niv
   $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':''}
 function start(n,quiet){
   $$('.modal').forEach(m=>m.hidden=true);
-  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';
+  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;
   if(!quiet)levelIntro(n);
   window.claude?.hot?.snapshot?.(()=>({level:S.level,screen}));
 }
@@ -1154,7 +1255,11 @@ function buildMap(justUnlocked){
   const pos=i=>({x:cx+Math.sin(i*.85)*amp,y:H-120-(i-1)*MAP_SP});
   const r=rng(77);let html='';
   for(let z=0;z<N/10;z++){const yb=pos(z*10+1).y+MAP_SP*.5,yt=pos(z*10+10).y-MAP_SP*.5;
-    html+=`<div class="zone" style="top:${yt}px;height:${yb-yt}px;--t:${ZONE_TINT[z%ZONE_TINT.length]}"></div>`}
+    // each zone is a band in the same colours as its levels, with rolling hills at its foot and drifting clouds
+    const T=THEMES[z%THEMES.length];let clouds='';
+    for(let c=0;c<3;c++)clouds+=`<i class="cloud" style="left:${(10+r()*70).toFixed(1)}%;top:${(8+r()*55).toFixed(1)}%;--s:${(.6+r()*.7).toFixed(2)};animation-delay:-${(r()*30).toFixed(1)}s"></i>`;
+    html+=`<div class="zone" style="top:${yt}px;height:${yb-yt}px;background:linear-gradient(${T.bg2},${T.bg})">${clouds}
+      <svg class="hills" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70C60 30 120 40 180 64S300 28 400 56V140H0Z" fill="${shade(T.bg,-.1)}"/><path d="M0 100C80 66 150 86 220 94S330 70 400 86V140H0Z" fill="${shade(T.bg,-.2)}"/></svg></div>`}
   for(let i=1;i<=N;i++){const p=pos(i),side=p.x<cx?1:-1; // decorations on the side away from the road
     if(r()<.7){const c=KEYS[Math.floor(r()*KEYS.length)],s=14+r()*26;html+=`<i class="deco" style="--c:${COLORS[c]};width:${s}px;height:${s}px;left:${cx+side*(amp+30+r()*40)-s/2}px;top:${p.y-20+r()*40}px"></i>`}
     if(r()<.5)html+=`<span class="twinkle" style="left:${cx+side*(40+r()*(amp+40))}px;top:${p.y-40+r()*30}px;animation-delay:${(r()*2.4).toFixed(2)}s">✦</span>`}
@@ -1169,7 +1274,8 @@ function buildMap(justUnlocked){
   // zone signposts stand beside the first level of each zone, on the side away from the road
   for(let z=0;z<N/10;z++){const p=pos(z*10+1);html+=`<div class="sign" style="left:${p.x<cx?cx+W/4:cx-W/4}px;top:${p.y+10}px"><b>Zona ${z+1}</b>${ZONES[z%ZONES.length]}</div>`}
   for(let i=1;i<=N;i++){const p=pos(i),hard=isHard(i),cls=(i<prog?'done':i===prog?'cur':'lock')+(hard?' hard':'')+(i===justUnlocked?' unlock':'');
-    html+=`<button class="node ${cls}" data-l="${i}" style="left:${p.x}px;top:${p.y}px" aria-label="Nivelul ${i}${hard?', greu':''}">${hard?'<span class="flame">🔥</span>':''}${i}${hard?'<em>GREU</em>':''}</button>`}
+    const bs=bestStars(i);
+    html+=`<button class="node ${cls}" data-l="${i}" style="left:${p.x}px;top:${p.y}px" aria-label="Nivelul ${i}${hard?', greu':''}${i<prog?`, ${bs} stele`:''}">${hard?'<span class="flame">🔥</span>':''}${i}${hard?'<em>GREU</em>':''}${i<prog?starRow(bs):''}</button>`}
   const from=justUnlocked>1?pos(justUnlocked-1):pos(prog);
   html+=`<div class="player" id="player" style="left:${from.x}px;top:${from.y}px"></div>`;
   inner.style.height=H+'px';inner.innerHTML=html;
@@ -1189,7 +1295,9 @@ function openLevelPop(n){
   $('#lpT').textContent='Nivelul '+n;
   const b=$('#lpBadge');b.className='lvl-badge'+(D.hard?' hard':'');b.textContent=D.hard?'🔥 NIVEL GREU':n<store.get('level',1)?'✓ Terminat':'Nivel nou';
   $('#lpFacts').innerHTML=`<span>🎨 ${probe.nColors} culori</span><span>🧱 ${probe.nBlocks} blocuri</span><span>🎢 ${D.cap} locuri</span>`;
-  $('#lpP').textContent=D.hard?'Bandă mai scurtă, mai multe culori și mai multe surprize. Pregătește-ți power-up-urile!':'Sparge blocurile și umple toate cutiile.';
+  const bs=bestStars(n);
+  $('#lpP').innerHTML=(D.hard?'Bandă mai scurtă, mai multe culori și mai multe surprize. Pregătește-ți power-up-urile!':'Sparge blocurile și umple toate cutiile.')+
+    `<br><b>⭐⭐⭐</b> sub <b>${fmtTime(probe.par)}</b>, fără power-up-uri`+(bs?`<br>Recordul tău: ${'⭐'.repeat(bs)}`:'');
   $('#lpGo').onclick=()=>playLevel(n);
   showModal('lvlPop');
 }
