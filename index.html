@@ -117,6 +117,11 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 @keyframes starIn{0%{opacity:1;filter:none;transform:scale(2.2) rotate(-30deg)}100%{opacity:1;filter:none;transform:scale(1)}}
 .res-facts{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 .res-facts span{padding:6px 10px;border-radius:12px;background:var(--panel);font-size:13px;font-weight:700;color:var(--fg)}
+#play .holdbar{position:absolute;left:0;bottom:0;height:6px;width:calc(var(--hold,0) * 100%);border-radius:0 0 22px 22px;background:#ff4d6d;pointer-events:none}
+.numin{font:800 36px/1 var(--display);text-align:center;padding:10px;border-radius:16px;border:2px solid var(--glass-edge);background:var(--panel);color:var(--accent);width:100%;box-sizing:border-box}
+.numin:focus{outline:3px solid var(--accent);outline-offset:2px}
+.err{color:var(--bad)!important;min-height:18px;font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .pw-ic{background:none!important}
 .pw-ic .tileic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 3px 0 var(--c3),inset 0 2px 0 rgba(255,255,255,.45)}
 .pw-ic svg{width:32px;height:32px}
@@ -266,7 +271,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   </div>
   <p class="logo" id="logo" aria-label="Bazinga!"></p>
   <p class="tag">Sparge blocuri. Umple cutii. Fă farse.</p>
-  <button class="btn" id="play"><span class="shine"></span>▶ Joacă<small id="playLvl">Nivelul 1</small></button>
+  <button class="btn" id="play"><span class="shine"></span><span class="holdbar" aria-hidden="true"></span>▶ Joacă<small id="playLvl">Nivelul 1</small></button>
   <p class="gift" id="gift"></p>
   <div class="tiles">
     <button class="tile" id="hShop">🛒<span>Magazin</span></button>
@@ -343,6 +348,16 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   </div>
 </div></div>
 
+<!-- TEST MODE: unlock up to a level (hold Joacă for 5 s) -->
+<div id="unlock" class="modal" hidden><form class="card" id="unlockForm" novalidate>
+  <div class="card-head"><h2>Mod test</h2><button type="button" class="x" data-close aria-label="Închide">✕</button></div>
+  <p>La ce nivel ai ajuns? Toate nivelurile până la el se deblochează.</p>
+  <label for="unlockN" class="sr">Nivel</label>
+  <input id="unlockN" class="numin" type="number" inputmode="numeric" min="1" max="9999" required>
+  <p class="err" id="unlockErr" role="alert"></p>
+  <button class="btn" type="submit">Deblochează</button>
+</form></div>
+
 <!-- LEVEL START POPUP -->
 <div id="lvlPop" class="modal" hidden><div class="card">
   <div class="card-head"><span></span><button class="x" data-close aria-label="Închide">✕</button></div>
@@ -400,7 +415,18 @@ const powerTile=p=>`<i class="tileic" style="--c1:${p.c[0]};--c2:${p.c[1]};--c3:
 const UI={frame:'#2a1b63',cell:'#3a2a80',belt:'#2a1b63',beltRim:'#6a55c8',slot:'rgba(255,255,255,.07)',glass:'rgba(160,140,255,.10)',glassRim:'#7d68d8',hidden:'#6c7d98',hiddenDeep:'#4e5c75'};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const store={get(k,d){try{const v=localStorage.getItem('bz2_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('bz2_'+k,JSON.stringify(v))}catch(e){}}};
+/* progress storage: written to localStorage AND mirrored to IndexedDB. If the browser wipes one of them
+   (iOS clean-ups, private tabs, preview sandboxes), the other restores it on the next start. */
+const idb={db:null,
+  open(){if(this.p)return this.p;this.p=new Promise(res=>{try{const q=indexedDB.open('bazinga',1);q.onupgradeneeded=()=>q.result.createObjectStore('kv');
+    q.onsuccess=()=>{this.db=q.result;res(this.db)};q.onerror=()=>res(null)}catch(e){res(null)}});return this.p},
+  async put(k,v){const db=await this.open();if(!db)return;try{db.transaction('kv','readwrite').objectStore('kv').put(JSON.stringify(v),k)}catch(e){}},
+  async all(){const db=await this.open();if(!db)return{};return new Promise(res=>{try{const out={},c=db.transaction('kv').objectStore('kv').openCursor();
+    c.onsuccess=()=>{const cur=c.result;if(cur){out[cur.key]=JSON.parse(cur.value);cur.continue()}else res(out)};c.onerror=()=>res(out)}catch(e){res({})}})}};
+const store={mem:{},
+  get(k,d){try{const v=localStorage.getItem('bz2_'+k);if(v!=null)return JSON.parse(v)}catch(e){}return k in this.mem?this.mem[k]:d},
+  set(k,v){this.mem[k]=v;try{localStorage.setItem('bz2_'+k,JSON.stringify(v))}catch(e){}idb.put(k,v)}};
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}   // ask the browser not to auto-evict our data
 function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function shuffle(a,r){for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function shade(hex,amt){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const t=amt<0?0:255,p=Math.abs(amt);r=Math.round(r+(t-r)*p);g=Math.round(g+(t-g)*p);b=Math.round(b+(t-b)*p);return`rgb(${r},${g},${b})`}
@@ -433,10 +459,14 @@ function starsFor(t,par,powers){let s=3;if(t>par)s--;if(t>par*1.6)s--;return Mat
 const bestStars=n=>(store.get('stars',{})[n]||0);
 function saveStars(n,s){const all=store.get('stars',{});if(s>(all[n]||0)){all[n]=s;store.set('stars',all)}}
 const starRow=(n,cls='')=>`<span class="stars ${cls}">${[0,1,2].map(i=>`<i class="${i<n?'':'off'}">⭐</i>`).join('')}</span>`;
-// difficulty knobs; every 10th level gets a genuinely harder set
+/* difficulty knobs. Levels 1–10 are the hand-tuned tutorial curve (kept exactly as they were).
+   From 11 on the generator is endless: every level picks a board shape and width from its own seed,
+   difficulty creeps up per zone of 10 but is capped so level 500 is still fair,
+   every 10th level is HARD and the level right after it is a breather. */
+const SHAPES=['flat','towers','twin','peak','stairs','zigzag'];
 function difficulty(n){
   const hard=isHard(n);
-  return{hard,
+  if(n<=10)return{hard,shape:null,maxColors:7,
     cols:hard?5:Math.min(3+Math.floor((n+1)/2),5),
     rows:Math.min(3+Math.floor(n/2)+(hard?1:0),7),
     extraColors:hard?1:0,
@@ -445,19 +475,43 @@ function difficulty(n){
     mixP:n>=4?Math.min(.08+.01*n,.18)+(hard?.06:0):0,
     window:(1+Math.floor(n/3))*(hard?2:1)+(hard?2:0),   // how far holders get shuffled from the natural order
     cap:hard?22:NSLOTS};
+  const tier=Math.floor((n-1)/10),breather=n%10===1,rr=rng(n*104729+3);
+  const wide=n>=20&&(hard||rr()<.4);
+  return{hard,breather,shape:SHAPES[Math.floor(rr()*SHAPES.length)],shapeRng:rr,
+    cols:wide?6:5, rows:breather?6:7,
+    extraColors:hard?1:0, maxColors:breather?6:hard&&n>=20?8:7,
+    emptyP:breather?.22:hard?.05:.14,
+    hidP:breather?.15:Math.min(.22+.01*tier,.38)+(hard?.15:0),
+    mixP:breather?.06:Math.min(.1+.006*tier,.18)+(hard?.05:0),
+    window:breather?2:hard?Math.min(9+tier,14):Math.min(3+Math.floor(tier/2),6),
+    cap:breather?NSLOTS:hard?(tier>=6?20:22):(tier>=10?26:NSLOTS)};
+}
+// column heights above the always-solid bottom 3 rows, per board shape
+function shapeHeights(shape,cols,top,rr){
+  const mid=(cols-1)/2,flip=rr()<.5;
+  return Array.from({length:cols},(_,x)=>{const xi=flip?cols-1-x:x;let h;
+    switch(shape){
+      case'flat':h=top;break;
+      case'towers':h=Math.floor(rr()*(top+1));break;
+      case'twin':h=(x===0||x===cols-1||(cols>5&&(x===1||x===cols-2)&&rr()<.5))?top:Math.floor(top/3);break;
+      case'peak':h=Math.max(1,top-Math.round(Math.abs(x-mid)*top/(cols/2)));break;
+      case'stairs':h=Math.max(1,Math.round((xi+1)*top/cols));break;
+      default:h=x%2?top:Math.ceil(top/2);   // zigzag
+    }return Math.max(0,Math.min(top,h))});
 }
 function makeLevel(n){
   const r=rng(n*7919+13),D=difficulty(n);
   const cols=D.cols, rows=D.rows;
   const grid=[];
-  const colH=Array.from({length:cols},()=>rows-(rows>3&&r()<.5?1+Math.floor(r()*Math.min(2,rows-3)):0));
+  const colH=D.shape?shapeHeights(D.shape,cols,rows-3,D.shapeRng).map(h=>3+h)
+    :Array.from({length:cols},()=>rows-(rows>3&&r()<.5?1+Math.floor(r()*Math.min(2,rows-3)):0));
   for(let y=0;y<rows;y++){grid.push([]);for(let x=0;x<cols;x++){
     let t=y<rows-colH[x]?'void':'block';
     if(t==='block'&&n>=2&&y>=rows-3&&r()<D.emptyP)t='empty';
     grid[y].push({t,seed:r()*3});
   }}
   const blocks=grid.flat().filter(c=>c.t==='block');
-  const nColors=Math.min(3+Math.floor((n-1)/2)+D.extraColors,7,Math.max(2,Math.floor(blocks.length/2)));
+  const nColors=Math.min(3+Math.floor((n-1)/2)+D.extraColors,D.maxColors,Math.max(2,Math.floor(blocks.length/2)));
   const pal=shuffle(KEYS.slice(),r).slice(0,nColors);
   const assign=shuffle(blocks.map((_,i)=>pal[i%nColors]),r);
   // only draw from the RNG when mixes are possible, so early levels keep their layouts
@@ -1246,6 +1300,10 @@ function countUp(n){const box=$('#rP');box.innerHTML+=`<span class="earn">+<b id
 
 /* ---- level map: a winding candy road, level 1 at the bottom ---- */
 const ZONES=['Orașul Bilelor','Pădurea de Bomboane','Fabrica de Farse','Lacul Lucios','Vulcanul Vesel','Galaxia Bazinga'];
+// after the first six, zone names are composed endlessly from a place and a flavour
+const ZPLACE=['Insula','Valea','Castelul','Grădina','Peștera','Muntele','Orașul','Lacul','Pădurea','Fabrica','Portul','Turnul'];
+const ZFLAVOR=['Curcubeului','Caramelei','Stelelor','Norilor','Jeleului','Vrăjitorului','Lunii','Farselor','Bilelor','Acadelelor','Glazurii','Bulelor'];
+const zoneName=z=>z<ZONES.length?ZONES[z]:`${ZPLACE[(z*5)%ZPLACE.length]} ${ZFLAVOR[(z*7+3)%ZFLAVOR.length]}`;
 const ZONE_TINT=['#5b2bb0','#1f6aa8','#a8237f','#14907e','#c0541f','#3b3bc4'];
 const MAP_SP=96;
 function goMap(justUnlocked){transition(()=>{$$('.modal').forEach(m=>m.hidden=true);paused=false;showScreen('map');buildMap(justUnlocked)})}
@@ -1272,7 +1330,7 @@ function buildMap(justUnlocked){
     <path d="${d}" fill="none" stroke="#fff" stroke-width="30" stroke-dasharray="10 12" opacity=".85"/>
     <path d="${d}" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="4" transform="translate(-7,-3)"/></svg>`;
   // zone signposts stand beside the first level of each zone, on the side away from the road
-  for(let z=0;z<N/10;z++){const p=pos(z*10+1);html+=`<div class="sign" style="left:${p.x<cx?cx+W/4:cx-W/4}px;top:${p.y+10}px"><b>Zona ${z+1}</b>${ZONES[z%ZONES.length]}</div>`}
+  for(let z=0;z<N/10;z++){const p=pos(z*10+1);html+=`<div class="sign" style="left:${p.x<cx?cx+W/4:cx-W/4}px;top:${p.y+10}px"><b>Zona ${z+1}</b>${zoneName(z)}</div>`}
   for(let i=1;i<=N;i++){const p=pos(i),hard=isHard(i),cls=(i<prog?'done':i===prog?'cur':'lock')+(hard?' hard':'')+(i===justUnlocked?' unlock':'');
     const bs=bestStars(i);
     html+=`<button class="node ${cls}" data-l="${i}" style="left:${p.x}px;top:${p.y}px" aria-label="Nivelul ${i}${hard?', greu':''}${i<prog?`, ${bs} stele`:''}">${hard?'<span class="flame">🔥</span>':''}${i}${hard?'<em>GREU</em>':''}${i<prog?starRow(bs):''}</button>`}
@@ -1308,7 +1366,22 @@ logo.innerHTML=[...'Bazinga'].map((ch,i)=>`<span style="--i:${i}">${ch}</span>`)
 logo.addEventListener('click',()=>{initAudio();logo.classList.remove('boing');void logo.offsetWidth;logo.classList.add('boing');sfx.boing();buzz([10,20,10]);
   const r=logo.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:45,speed:520,grav:700})});
 
-$('#play').addEventListener('click',()=>{initAudio();firstGift=false;goMap(0)});
+/* Joacă: a normal tap opens the map. TEST MODE: hold it for 5 seconds → choose the level you had reached,
+   and everything up to it unlocks (progress lost while the game is being tested). */
+(()=>{const btn=$('#play');let timer=null,held=false,startT=0,raf=0;
+  const fill=()=>{const p=Math.min(1,(performance.now()-startT)/5000);btn.style.setProperty('--hold',p);if(p<1&&timer)raf=requestAnimationFrame(fill)};
+  btn.addEventListener('pointerdown',()=>{held=false;startT=performance.now();clearTimeout(timer);
+    timer=setTimeout(()=>{held=true;timer=null;btn.style.setProperty('--hold',0);buzz([30,40,30]);sfx.unlock();openUnlock()},5000);raf=requestAnimationFrame(fill)});
+  const cancel=()=>{clearTimeout(timer);timer=null;cancelAnimationFrame(raf);btn.style.setProperty('--hold',0)};
+  btn.addEventListener('pointerup',cancel);btn.addEventListener('pointerleave',cancel);btn.addEventListener('pointercancel',cancel);
+  btn.addEventListener('contextmenu',e=>e.preventDefault());
+  btn.addEventListener('click',e=>{if(held){held=false;e.preventDefault();return}initAudio();firstGift=false;goMap(0)})})();
+function openUnlock(){const inp=$('#unlockN');inp.value=store.get('level',1);showModal('unlock');setTimeout(()=>inp.select(),300)}
+$('#unlockForm').addEventListener('submit',e=>{e.preventDefault();const n=parseInt($('#unlockN').value,10),err=$('#unlockErr');
+  if(!(n>=1&&n<=9999)){err.textContent='Scrie un număr între 1 și 9999.';shakeEl($('#unlock .card'));return}
+  err.textContent='';store.set('level',n);hideModal('unlock');paintHome();
+  const r=$('#play').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:60,speed:600,grav:600});
+  banner(`Deblocat!<small>până la nivelul ${n}</small>`)});
 $('#mapBack').addEventListener('click',goHome);
 $('#pMap').addEventListener('click',()=>goMap(0));
 $('#hShop').addEventListener('click',()=>openShop());
@@ -1343,6 +1416,14 @@ addEventListener('resize',()=>{sizeHome();sizeFx();if(S&&screen==='game')layout(
 document.fonts&&document.fonts.ready.then(()=>{spriteCache={}});
 
 buildPowers();sizeHome();sizeFx();paintCoins();
+// restore anything localStorage lost from the IndexedDB mirror, and mirror what only localStorage has
+(async()=>{const saved=await idb.all();let restored=false;
+  for(const k of ['level','coins','inv','stars','settings','muted']){
+    let local=null;try{local=localStorage.getItem('bz2_'+k)}catch(e){}
+    if(local==null&&k in saved){store.mem[k]=saved[k];try{localStorage.setItem('bz2_'+k,JSON.stringify(saved[k]))}catch(e){}restored=true}
+    else if(local!=null&&!(k in saved))idb.put(k,JSON.parse(local))}
+  if(restored){coins=store.get('coins',0);inv=store.get('inv',inv);Object.assign(SET,store.get('settings',{}));firstGift=false;
+    paintCoins();if(screen==='home')paintHome();lastHud=''}})();
 const boot=d=>{if(d&&d.screen==='game'&&d.level)start(d.level);else showScreen('home');requestAnimationFrame(frame)};
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
 </script>
