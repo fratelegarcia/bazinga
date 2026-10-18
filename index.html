@@ -484,7 +484,13 @@ function difficulty(n){
     hidP:breather?.15:Math.min(.22+.01*tier,.38)+(hard?.15:0),
     mixP:breather?.06:Math.min(.1+.006*tier,.18)+(hard?.05:0),
     window:breather?2:hard?Math.min(9+tier,14):Math.min(3+Math.floor(tier/2),6),
-    cap:breather?NSLOTS:hard?(tier>=6?20:22):(tier>=10?26:NSLOTS)};
+    cap:beltCap(n,hard,breather)};
+}
+// belt capacity grows with the level (later levels have more blocks and colours);
+// hard levels keep 6 slots fewer than the normal levels around them, breathers get 2 extra
+function beltCap(n,hard,breather){
+  const base=n<=10?NSLOTS:n<=30?30:n<=60?32:34;
+  return hard?base-6:breather?Math.min(34,base+2):base;
 }
 // column heights above the always-solid bottom 3 rows, per board shape
 function shapeHeights(shape,cols,top,rr){
@@ -565,9 +571,10 @@ function layout(){
   walls.forEach(w=>{const[x1,y1,x2,y2]=w;let nx=-(y2-y1),ny=x2-x1;const l=Math.hypot(nx,ny);nx/=l;ny/=l;
     const px=w===walls[6]?ex:inX,py=w===walls[6]?neckTop:inY;
     if((px-x1)*nx+(py-y1)*ny<0){nx=-nx;ny=-ny}w.push(nx,ny)});
-  // Bandă+ fits more balls on the same loop by drawing belt balls a bit smaller
-  const beltR=ballR*Math.min(1,NSLOTS/S.cap);
-  L={W,H,r,cy,x1,x2,Ls,P,sp,ballR,beltR,link:beltR*2+1,cw,holeR,hh,hd,colX,hTop,gap,bBottom,cs,bx,by,sE:Ls/2,ex,ey,speed:P/LOOP_SEC,
+  // the loop always has exactly S.cap sockets, evenly spaced, so a full belt looks full:
+  // fewer slots on hard levels = wider spacing; Bandă+ = more slots, so belt balls get a bit smaller to fit
+  const link=P/S.cap-.01,beltR=Math.min(ballR,(link-1)/2);
+  L={W,H,r,cy,x1,x2,Ls,P,sp,ballR,beltR,link,cw,holeR,hh,hd,colX,hTop,gap,bBottom,cs,bx,by,sE:Ls/2,ex,ey,speed:P/LOOP_SEC,
      neckHalf,gateY,neckTop,mouthY,mx0,mx1,walls};
   S.colsH.forEach(col=>{let d=0;col.forEach(h=>{if(!h.leaving){h.y=holderY(d);d++}})});
   spriteCache={};
@@ -1001,7 +1008,8 @@ const POWER_FN={
     if(!n){text('Nicio bilă de atras',L.W/2,L.mouthY,20,false,'#ff9fb0');return false}
     text('MAGNET!',L.W/2,L.cy,44,true);return true},
   hammer(){S.hammer=!S.hammer;setHint();return 'toggle'},
-  belt(){if(S.cap>=NSLOTS+12){text('Banda e deja la maxim',L.W/2,L.mouthY,20,false,'#ff9fb0');return false}
+  // beyond 40 slots the belt balls would get too small to read
+  belt(){if(S.cap+6>40){text('Banda e deja la maxim',L.W/2,L.mouthY,20,false,'#ff9fb0');return false}
     S.cap+=6;layout();text('+6 locuri!',L.W/2,L.cy,34,true,'#4ade80');return true},
   lens(){let n=0;S.grid.flat().forEach(c=>{if(c.t==='block'&&c.hidden){c.hidden=false;c.pop=1;n++}});
     if(!n){text('Nu e niciun bloc ascuns',L.W/2,L.mouthY,20,false,'#ff9fb0');return false}
@@ -1102,7 +1110,7 @@ const HINTS={1:'Atinge blocurile cu drum liber în jos. Poți sparge mai multe d
   4:'Blocurile în dungi sunt Cutii Bazinga: scot câte 3 bile din fiecare culoare pe care o arată.',
   5:'Folosește power-up-urile din bara de sus. Le cumperi din Magazin cu monede.'};
 function setHint(){const h=$('#hint');if(S.hammer){h.textContent='🔨 Atinge orice bloc ca să-l spargi.';h.classList.add('alert')}
-  else if(S.hard&&!HINTS[S.level]){h.textContent='🔥 NIVEL GREU: bandă de doar 22 de locuri și mai multe culori.';h.classList.add('alert')}
+  else if(S.hard&&!HINTS[S.level]){h.textContent=`🔥 NIVEL GREU: bandă de doar ${S.cap} de locuri și mai multe culori.`;h.classList.add('alert')}
   else{h.textContent=HINTS[S.level]||'';h.classList.remove('alert')}}
 
 /* ================= UI: screens, HUD, shop, modals ================= */
