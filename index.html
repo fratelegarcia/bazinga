@@ -219,6 +219,38 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 .diffbtn.hard.on{border-color:#ff2d2d;box-shadow:0 0 14px rgba(255,45,45,.6)}
 .starbar.warn{border-color:#ff4d6d;animation:warnPulse .8s ease-in-out infinite}
 .starbar.warn b{color:#ffd0d8}
+.starbar.arc i{display:none}
+#arcade{position:relative;font-size:23px;padding:10px 32px 8px;border-radius:18px;display:flex;flex-direction:column;align-items:center;line-height:1;margin-top:-4px;
+  background:linear-gradient(#6ee7ff,#2b9fe6);color:#fff;text-shadow:0 2px 0 rgba(0,50,100,.35);box-shadow:0 6px 0 #1a6aa8,0 0 26px rgba(80,200,255,.35)}
+#arcade .shine{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+#arcade .shine::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:sweep 3.2s ease-in-out 1s infinite}
+#arcade small{font-family:var(--body);font-weight:700;font-size:13px;opacity:.92;margin-top:4px;text-shadow:none}
+#arcade:active{transform:translateY(4px) scale(.97);box-shadow:0 2px 0 #1a6aa8}
+.sk.r-arcade{--rc:#22c9f0;background:radial-gradient(120% 80% at 50% 0%,rgba(34,201,240,.3),transparent 70%),#10183a}
+.sk.r-arcade .rar{background:linear-gradient(90deg,#22c9f0,#ff3df0)}
+#arcade .dot{position:absolute;top:-7px;right:-7px;min-width:22px;height:22px;padding:0 5px;box-sizing:border-box;border-radius:11px;background:#ff4d6d;color:#fff;font:800 13px/22px var(--display);text-shadow:none;box-shadow:0 2px 0 #a3203a;animation:breathe 1.4s ease-in-out infinite}
+.banner.fever{color:#fff;text-shadow:0 5px 0 #c2367a,0 0 40px rgba(255,61,240,.95)}
+.arow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:18px;background:var(--panel);border:2px solid var(--glass-edge)}
+.arow.daily{border-color:#22c9f0}.arow.vs{border-color:var(--accent);background:linear-gradient(90deg,rgba(255,210,63,.18),var(--panel))}
+.arow .em{font-size:28px;line-height:1}
+.arow h3{margin:0;font:800 16px/1.15 var(--display)}
+.arow p{margin:2px 0 4px;font-size:12px;color:var(--muted);line-height:1.35}
+.arow .skbtn{width:auto;padding:9px 12px;white-space:nowrap}
+.pbar{height:7px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#4ade80,#ffd23f)}
+.lbrow{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:14px;background:var(--panel)}
+.lbrow.me{outline:2px solid var(--accent)}
+.lbrow .pos{width:26px;text-align:center;font:800 16px var(--display)}
+.lbrow b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.lbrow .sc{font:800 16px var(--display);color:var(--accent)}
+.lbrow .skbtn{width:auto;padding:6px 10px}
+.lbl{font:800 13px var(--display);color:var(--muted);margin-bottom:-4px}
+.tin{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:12px;border:2px solid var(--glass-edge);background:var(--panel);color:var(--fg);font:700 15px var(--body)}
+.tin:focus{outline:3px solid var(--accent);outline-offset:1px}
+.tin.code{font:600 12px/1.35 ui-monospace,monospace;resize:none;word-break:break-all;color:var(--accent)}
+.codein{display:flex;gap:8px}.codein .skbtn{width:auto;padding:0 14px}
+.skbtn.share{margin-top:4px}
+.arc-score{font:800 56px/1 var(--display);color:var(--accent);text-shadow:0 4px 0 rgba(0,0,0,.3);margin:2px 0 10px}
 @keyframes warnPulse{50%{background:rgba(255,45,85,.45)}}
 .pw-ic{background:none!important}
 .pw-ic .tileic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 3px 0 var(--c3),inset 0 2px 0 rgba(255,255,255,.45)}
@@ -370,6 +402,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   <p class="logo" id="logo" aria-label="Bazinga!"></p>
   <p class="tag">Sparge blocuri. Umple cutii. Fă farse.</p>
   <button class="btn" id="play"><span class="shine"></span><span class="holdbar" aria-hidden="true"></span>▶ Joacă<small id="playLvl">Nivelul 1</small></button>
+  <button class="btn" id="arcade"><span class="shine"></span>🕹️ Arcade<small id="arcBest">Pe scor · fără sfârșit</small></button>
   <p class="gift" id="gift"></p>
   <button class="chestbtn" id="hChest"><span class="mini" id="hChestIcon"></span><span class="txt"><b>Cufăr gratuit</b><small id="hChestT">Gata de deschis!</small></span></button>
   <div class="tiles">
@@ -402,6 +435,13 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   </div>
   <div id="stage"><canvas id="cv" aria-label="Tabla de joc"></canvas><p id="hint"></p></div>
 </div>
+
+<!-- ARCADE MENU -->
+<div id="arcHub" class="modal" hidden><div class="card shopcard">
+  <div class="card-head"><h2>🕹️ Arcade</h2><span class="pill coins"><i></i><b class="coinN">0</b></span><button class="x" data-close aria-label="Închide">✕</button></div>
+  <div class="tabs" role="tablist" id="arcTabs"><button role="tab" data-tab="play">▶ Joacă</button><button role="tab" data-tab="mis">🎯 Misiuni</button><button role="tab" data-tab="rank">🏆 Clasament</button></div>
+  <div class="shopbody" id="arcBody"></div>
+</div></div>
 
 <!-- SHOP -->
 <div id="shop" class="modal" hidden><div class="card shopcard">
@@ -444,6 +484,8 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
     <li><b>BAZINGA!</b> anulează ultima mutare, gratuit, dar doar când bara lui e plină. O umpli cu cutii completate și combo-uri.</li>
     <li>Fiecare al 10-lea nivel e <b>GREU</b> 🔥: bandă mai scurtă, mai multe culori, mai multe surprize.</li>
     <li>Pierzi dacă banda e plină și nicio bilă nu mai încape în cutii.</li>
+    <li><b>🕹️ Arcade</b>: blocuri de 3 bile coboară încontinuu. Fă cât mai multe puncte până când un bloc atinge linia roșie de jos. Combo-urile înmulțesc punctele, iar BAZINGA! urcă tabla cu 2 rânduri.</li>
+    <li>În Arcade: 💣 bomba sparge tot ce e în jurul ei, ❄ gheața se crapă din prima atingere, ⭐ steaua dublează punctele 10 secunde, iar 10 cutii la rând pornesc <b>FEVER</b> (×2). Un rând golit complet dă bonus.</li>
   </ul>
 </div></div>
 
@@ -564,7 +606,7 @@ const saveInv=()=>store.set('inv',inv);
 /* ================= cosmetics: rarities, ball skins, break effects, belt themes, backgrounds ================= */
 const RAR_ORDER=['basic','common','epic','mythic','legendary'];
 const RARITY={basic:{name:'Basic',color:'#9aa3b5'},common:{name:'Comun',color:'#3fd13a'},epic:{name:'Epic',color:'#9a4dff'},
-  mythic:{name:'Mitic',color:'#ffb000'},legendary:{name:'Legendar',color:'#ff4d6d'},boss:{name:'Boss',color:'#ff2d2d'}};
+  mythic:{name:'Mitic',color:'#ffb000'},legendary:{name:'Legendar',color:'#ff4d6d'},boss:{name:'Boss',color:'#ff2d2d'},arcade:{name:'Arcade',color:'#22c9f0'}};
 const COSMETICS={
   ball:[ // every skin keeps each colour recognisable; only the material changes
     {id:'classic',name:'Clasic',rar:'basic',price:0},{id:'matte',name:'Mat',rar:'basic',price:100},
@@ -574,7 +616,9 @@ const COSMETICS={
     {id:'neon',name:'Neon',rar:'legendary',price:1500},{id:'galaxy',name:'Galaxie',rar:'legendary',price:2000},
     // boss-only: earned by beating that boss on Normal/Hard, never sold or found in chests
     {id:'maze',name:'Labirint',rar:'boss',price:0,boss:'minotaur'},{id:'snakeeye',name:'Ochi de șarpe',rar:'boss',price:0,boss:'medusa'},
-    {id:'storm',name:'Furtună',rar:'boss',price:0,boss:'zeus'},{id:'ink',name:'Cerneală',rar:'boss',price:0,boss:'kraken'}],
+    {id:'storm',name:'Furtună',rar:'boss',price:0,boss:'zeus'},{id:'ink',name:'Cerneală',rar:'boss',price:0,boss:'kraken'},
+    // Arcade-only: unlocked by reaching a score milestone
+    {id:'pixel',name:'Pixel',rar:'arcade',price:0,arcade:10000}],
   fx:[
     {id:'classic',name:'Confetti',rar:'basic',price:0},{id:'stars',name:'Stele',rar:'common',price:200},
     {id:'bubbles',name:'Bule',rar:'epic',price:450},{id:'hearts',name:'Inimioare',rar:'mythic',price:800},
@@ -587,7 +631,7 @@ const COSMETICS={
   bg:[
     {id:'zone',name:'Culorile zonei',rar:'basic',price:0},{id:'ocean',name:'Sub apă',rar:'common',price:300},
     {id:'candy',name:'Cofetărie',rar:'epic',price:500},{id:'sunset',name:'Apus',rar:'mythic',price:900},
-    {id:'space',name:'Spațiu',rar:'legendary',price:1600},{id:'labyrinth',name:'Labirintul',rar:'boss',price:0,boss:'minotaur'}]};
+    {id:'space',name:'Spațiu',rar:'legendary',price:1600},{id:'labyrinth',name:'Labirintul',rar:'boss',price:0,boss:'minotaur'},{id:'arcade',name:'Sală Arcade',rar:'arcade',price:0,arcade:5000}]};
 const COS_CATS={ball:'Bile',fx:'Efecte',belt:'Benzi',bg:'Fundaluri'};
 const COS=Object.assign({own:{ball:['classic'],fx:['classic'],belt:['white'],bg:['zone']},eq:{ball:'classic',fx:'classic',belt:'white',bg:'zone'}},store.get('cos',{}));
 const saveCos=()=>store.set('cos',COS);
@@ -609,6 +653,7 @@ const BGS={
   candy:{line:'#d0569a',css:()=>`radial-gradient(120% 45% at 50% -5%,rgba(255,255,255,.6),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.45) 0 22px,transparent 22px 44px),linear-gradient(#ffd6ec,#ff9fcb)`},
   sunset:{line:'#a8466a',css:()=>`radial-gradient(60% 30% at 50% 22%,rgba(255,240,180,.9),rgba(255,200,120,.35) 40%,transparent 70%),linear-gradient(#ffcf8a,#ff8a7a 45%,#9a4dbf 85%)`},
   labyrinth:{line:'#6b4a2a',css:()=>`repeating-linear-gradient(0deg,rgba(60,40,20,.28) 0 5px,transparent 5px 46px),repeating-linear-gradient(90deg,rgba(60,40,20,.28) 0 5px,transparent 5px 46px),radial-gradient(90% 60% at 50% 30%,rgba(255,240,200,.45),transparent 70%),linear-gradient(#e2cc9e,#a8875a)`},
+  arcade:{line:'#ff3df0',css:()=>`linear-gradient(transparent 55%,rgba(255,61,240,.28)),repeating-linear-gradient(90deg,rgba(61,245,255,.2) 0 2px,transparent 2px 44px),repeating-linear-gradient(0deg,rgba(255,61,240,.2) 0 2px,transparent 2px 44px),radial-gradient(70% 40% at 50% 16%,rgba(255,180,60,.55),transparent 70%),linear-gradient(#1a0b3d,#3b0f5c 55%,#12052a)`},
   space:{line:'#5a3fb0',css:()=>`url("data:image/svg+xml,${encodeURIComponent(starSvg())}"),radial-gradient(80% 50% at 70% 20%,rgba(154,77,255,.45),transparent 70%),radial-gradient(70% 40% at 20% 75%,rgba(53,214,242,.25),transparent 70%),linear-gradient(#1a0f45,#0b0726)`}};
 function bubbleSvg(c){return `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='200'><g fill='none' stroke='${c}' stroke-opacity='.45' stroke-width='2'><circle cx='30' cy='40' r='12'/><circle cx='120' cy='20' r='6'/><circle cx='100' cy='120' r='16'/><circle cx='40' cy='160' r='8'/><circle cx='140' cy='180' r='4'/></g></svg>`}
 function starSvg(){let s='';const r=rng(42);for(let i=0;i<40;i++)s+=`<circle cx='${(r()*240).toFixed(0)}' cy='${(r()*240).toFixed(0)}' r='${(r()*1.6+.4).toFixed(1)}' fill='white' fill-opacity='${(r()*.6+.3).toFixed(2)}'/>`;return `<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>${s}</svg>`}
@@ -649,7 +694,7 @@ function reach(grid,rows,cols){
   while(q.length){const[x,y]=q.shift();for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=cols||ny>=rows)continue;const id=ny*cols+nx,c=grid[ny][nx];if(c.t==='empty'&&!seen.has(id)){seen.add(id);q.push([nx,ny])}else if(c.t==='block')tap.add(id)}}
   return tap;
 }
-function ballsOf(c){return c.mix?[c.mix[0],c.mix[0],c.mix[0],c.mix[1],c.mix[1],c.mix[1],c.mix[2],c.mix[2],c.mix[2]]:Array(9).fill(c.color)}
+function ballsOf(c){if(c.special==='bomb')return[];if(c.three)return c.mix?c.mix.slice(0,3):[c.color,c.color,c.color];return c.mix?[c.mix[0],c.mix[0],c.mix[0],c.mix[1],c.mix[1],c.mix[1],c.mix[2],c.mix[2],c.mix[2]]:Array(9).fill(c.color)}
 
 /* boss fights: every 25th level. Minotaur → Medusa → Zeus → Kraken, then the cycle repeats faster */
 const isBoss=n=>n%25===0;
@@ -779,7 +824,7 @@ function layout(){
   // a waiting ball rests just above the belt balls, never on top of them
   const neckHalf=ballR*1.45,gateY=ey-ballR-2,neckTop=gateY-ballR*2.6;
   const funnelH=Math.max(58,Math.min(110,H*.11)),mouthY=neckTop-funnelH;
-  const bBottom=mouthY-4,hintSpace=HINTS[S.level]||S.hard||S.boss?38:4;
+  const bBottom=mouthY-4,hintSpace=S.arcade?54:HINTS[S.level]||S.hard||S.boss?38:4;
   const sideRoom=S.boss?54:0; // boss levels keep room beside the board for the monster
   const cs=Math.min((W-8-2*sideRoom)/S.cols,(bBottom-hintSpace)/S.rows,76);
   const bx=(W-cs*S.cols)/2,by=bBottom-cs*S.rows;
@@ -939,6 +984,11 @@ function sprite(color,R,skin=COS.eq.ball){
       g.fillStyle='#fff35a';g.shadowColor='#fff35a';g.shadowBlur=rr*.4;g.beginPath();g.moveTo(m+rr*.1,m-rr*.7);g.lineTo(m-rr*.3,m+rr*.05);g.lineTo(m+rr*.02,m+rr*.05);g.lineTo(m-rr*.15,m+rr*.72);g.lineTo(m+rr*.35,m-rr*.12);g.lineTo(m+rr*.04,m-rr*.12);g.closePath();g.fill();g.shadowBlur=0;break}
     case'ink':classic();g.save();circle(rr);g.clip();g.strokeStyle=hexA(shade(hex,-.55),.75);g.lineWidth=rr*.16;g.beginPath();for(let a=0;a<9;a+=.25){const r2=rr*.08*a;g.lineTo(m+Math.cos(a*1.6)*r2,m+Math.sin(a*1.6)*r2)}g.stroke();
       for(let i=0;i<5;i++){const a=Math.PI*(.15+.17*i);g.fillStyle='rgba(255,255,255,.7)';g.beginPath();g.arc(m+Math.cos(a)*rr*.75,m+Math.sin(a)*rr*.75,rr*.1,0,7);g.fill()}g.restore();gloss(.6);break;
+    case'pixel':{const n=9,cell=rr*2/n; // 8-bit ball: a circle of square pixels, lit from the top left
+      for(let i=0;i<n;i++)for(let j=0;j<n;j++){const cx=m-rr+(i+.5)*cell,cy=m-rr+(j+.5)*cell,d=Math.hypot(cx-m,cy-m);if(d>rr*.98)continue;
+        const lit=Math.hypot(m-rr*.35-cx,m-rr*.35-cy)/rr;g.fillStyle=d>rr*.78?shade(hex,-.45):lit<.35?shade(hex,.55):lit<.95?hex:shade(hex,-.22);
+        g.fillRect(Math.floor(cx-cell/2),Math.floor(cy-cell/2),Math.ceil(cell),Math.ceil(cell))}
+      g.fillStyle='#fff';g.fillRect(Math.floor(m-rr*.55),Math.floor(m-rr*.6),Math.ceil(cell),Math.ceil(cell));break}
     default:classic();gloss();
   }
   return spriteCache[key]=c;
@@ -964,6 +1014,7 @@ function drawPlayfield(){
   ctx.restore();
 }
 function drawBoard(){
+  if(S.arcade)return drawArcadeBoard();
   const{cs,bx,by}=L;
   S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t==='void')return;
     ctx.fillStyle=TILE_EDGE;rr(bx+x*cs+4,by+y*cs+6,cs-8,cs-8,10);ctx.fill();
@@ -981,6 +1032,15 @@ function drawBlock(c,x,y,cs,tap,skip=0){
   if(c.pop){c.pop=Math.max(0,c.pop-1/40);sc=1+c.pop*.25}
   ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);ctx.scale(sc,sc);
   const hx=-s/2,hy=-s/2,rad=s*.2,rowCol=r=>c.mix?c.mix[r]:c.color;
+  if(c.special==='bomb'){ // Arcade bomb: a round black bomb with a sparking fuse on an orange block
+    ctx.fillStyle='#7a2a1a';rr(hx,hy+4,s,s-2,rad);ctx.fill();
+    const bg=ctx.createLinearGradient(0,hy,0,hy+s);bg.addColorStop(0,tap?'#ff9a5a':'#e0a080');bg.addColorStop(1,tap?'#e5482a':'#c07a62');ctx.fillStyle=bg;rr(hx,hy,s,s-4,rad);ctx.fill();
+    const br=s*.25,by0=s*.06;ctx.fillStyle='#1d1830';ctx.beginPath();ctx.arc(0,by0,br,0,7);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.45)';ctx.beginPath();ctx.arc(-br*.35,by0-br*.35,br*.25,0,7);ctx.fill();
+    ctx.strokeStyle='#6b5530';ctx.lineWidth=Math.max(2,s*.05);ctx.lineCap='round';ctx.beginPath();ctx.moveTo(br*.45,by0-br*.85);ctx.quadraticCurveTo(br*.9,-s*.38,br*1.25,-s*.31);ctx.stroke();
+    const sp=.6+.4*Math.sin(S.time*22+c.seed*5);ctx.fillStyle='#ffd23f';ctx.beginPath();ctx.arc(br*1.25,-s*.31,s*.055*sp+2,0,7);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(br*1.25,-s*.31,s*.025*sp+1,0,7);ctx.fill();
+    ctx.restore();return}
   if(c.hidden){
     ctx.fillStyle=UI.hiddenDeep;rr(hx,hy+4,s,s-2,rad);ctx.fill();ctx.fillStyle=UI.hidden;rr(hx,hy,s,s-4,rad);ctx.fill();
     ctx.font=`800 ${s*.52}px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
@@ -990,16 +1050,23 @@ function drawBlock(c,x,y,cs,tap,skip=0){
     ctx.fillStyle=shade(hex,-.35);rr(hx,hy+4,s,s-2,rad);ctx.fill();
     if(c.mix){ // Cutie Bazinga: three visible stripes, one per color inside
       ctx.save();rr(hx,hy,s,s-4,rad);ctx.clip();
-      for(let r=0;r<3;r++){ctx.fillStyle=tap?COLORS[c.mix[r]]:shade(COLORS[c.mix[r]],-.12);ctx.fillRect(hx,hy+r*(s-4)/3-.5,s,(s-4)/3+1)}
+      for(let r=0;r<3;r++){ctx.fillStyle=tap?COLORS[c.mix[r]]:shade(COLORS[c.mix[r]],-.12);if(c.three)ctx.fillRect(hx+r*s/3-.5,hy,s/3+1,s-4);else ctx.fillRect(hx,hy+r*(s-4)/3-.5,s,(s-4)/3+1)}
       ctx.restore();
     }else{const g=ctx.createLinearGradient(0,hy,0,hy+s);g.addColorStop(0,shade(hex,tap?.12:.22));g.addColorStop(1,shade(hex,tap?-.08:.02));ctx.fillStyle=g;rr(hx,hy,s,s-4,rad);ctx.fill()}
     if(tap){
       ctx.strokeStyle=shade(hex,-.45);ctx.lineWidth=2;rr(hx,hy,s,s-4,rad);ctx.stroke();
-      const br=s*.135,st=s*.29;
-      for(let i=skip;i<9;i++){const r=Math.floor(i/3);ball(rowCol(r),(i%3-1)*st,(r-1)*st-2,br)}
+      if(c.three){const br=s*.16,st=s*.31;for(let i=skip;i<3;i++)ball(c.mix?c.mix[i]:c.color,(i-1)*st,-2,br)}
+      else{const br=s*.135,st=s*.29;
+      for(let i=skip;i<9;i++){const r=Math.floor(i/3);ball(rowCol(r),(i%3-1)*st,(r-1)*st-2,br)}}
     }else{ctx.fillStyle='rgba(255,255,255,.28)';rr(hx+s*.12,hy+s*.08,s*.76,s*.16,s*.08);ctx.fill()}
     if(c.mix&&!tap){ctx.fillStyle='#fff';ctx.strokeStyle='rgba(0,0,0,.45)';ctx.lineWidth=3;ctx.font=`800 ${s*.28}px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.strokeText('!',0,-2);ctx.fillText('!',0,-2)}
   }
+  if(c.ice){ // Arcade ice: a frosted cover that needs one tap to crack before the block opens
+    ctx.fillStyle='rgba(215,243,255,.66)';rr(hx-1,hy-1,s+2,s-2,rad);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.95)';ctx.lineWidth=2;rr(hx-1,hy-1,s+2,s-2,rad);ctx.stroke();
+    ctx.strokeStyle='rgba(110,180,225,.85)';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(hx+s*.18,hy+s*.12);ctx.lineTo(hx+s*.34,hy+s*.36);ctx.lineTo(hx+s*.26,hy+s*.58);ctx.moveTo(hx+s*.78,hy+s*.22);ctx.lineTo(hx+s*.62,hy+s*.44);ctx.lineTo(hx+s*.7,hy+s*.66);ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font=`800 ${s*.3}px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('❄',s*.28,-s*.26)}
+  if(c.special==='star'&&!c.hidden){const p=.85+.15*Math.sin(S.time*6+c.seed);ctx.save();ctx.translate(s*.32,-s*.3);ctx.scale(p,p);ctx.shadowColor='#ffd23f';ctx.shadowBlur=10;drawShape(ctx,'star',s*.38,'#ffd23f');ctx.restore()}
   ctx.restore();
 }
 function drawFx(){
@@ -1201,7 +1268,7 @@ const room=()=>S.cap+FUNNEL_EXTRA-beltCount()-S.balls.length-queued(); // space 
 function emit(dt){
   for(let k=S.emitters.length-1;k>=0;k--){const e=S.emitters[k];e.t+=dt;
     while(e.i<e.colors.length&&e.t>=e.i*.032){
-      const i=e.i++,gx=i%3-1,gy=Math.floor(i/3)-1,st=e.cs*.29,a=-Math.PI/2+gx*.45+(Math.random()-.5)*.5,sp=240+Math.random()*140;
+      const i=e.i++,gx=i%3-1,gy=e.three?0:Math.floor(i/3)-1,st=e.cs*.29,a=-Math.PI/2+gx*.45+(Math.random()-.5)*.5,sp=240+Math.random()*140;
       const bx=e.x+gx*st,by=e.y+(gy)*st;
       S.balls.push({color:e.colors[i],x:bx,y:by,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,rot:Math.random()*6,g:0});
       S.fx.push({k:'spark',x:bx+(Math.random()-.5)*8,y:by-4,t:0,life:.3,size:.8+Math.random()*.5});
@@ -1250,24 +1317,27 @@ function tapAt(px,py){
   if(S.over)return;
   if(S.boss&&S.boss.mini){bossTap(px,py);return}
   if(S.boss&&S.boss.frozen)return;
-  const x=Math.floor((px-L.bx)/L.cs),y=Math.floor((py-L.by)/L.cs);
+  const oy=S.arcade?arcOY():0,x=Math.floor((px-L.bx)/L.cs),y=Math.floor((py-L.by-oy)/L.cs);
   if(x<0||y<0||x>=S.cols||y>=S.rows)return;
+  if(S.arcade&&(py<L.by||py>L.by+L.cs*S.rows))return;
   const c=S.grid[y][x];if(c.t!=='block')return;
   const hammer=S.hammer;
   if(!hammer&&!S.tappable.has(y*S.cols+x)){c.pop=.5;sfx.bad();return}
-  if(room()<9){S.shake=.35;sfx.bad();buzz(40);
+  if(S.arcade&&c.special==='bomb'){arcBomb(x,y);return}
+  if(S.arcade&&c.ice&&!hammer){arcIce(c,x,y);return}
+  if(room()<(c.three?3:9)){S.shake=.35;sfx.bad();buzz(40);
     // say what is actually full: usually the belt (the funnel only fills once the belt has no room)
     const msg=S.balls.length+queued()>=9?'Pâlnia e plină!':'Banda e aproape plină!';
     text(msg,L.W/2,L.mouthY+10,20,false,'#f23d57');return}
   snapshot(hammer?{x,y,power:'hammer'}:{x,y});
-  const cx=L.bx+x*L.cs+L.cs/2,cy=L.by+y*L.cs+L.cs/2;
+  const cx=L.bx+x*L.cs+L.cs/2,cy=L.by+y*L.cs+L.cs/2+oy;
   if(hammer){S.hammer=false;inv.hammer--;saveInv();S.powersUsed++;sfx.power();c.hidden=false;S.shake=.25;text('Poc!',cx,cy-10,26);setHint()}
   // opening sequence: squash → balls pop out one by one (rising notes) → shell shrinks, ring + sparks
-  const e={x:cx,y:cy,colors:ballsOf(c),i:0,t:-.09,cs:L.cs};
+  const e={x:cx,y:cy,colors:ballsOf(c),i:0,t:-.09,cs:L.cs,three:!!c.three};
   S.emitters.push(e);
   S.fx.push({k:'shell',x:cx,y:cy,c:{...c,pop:0},cs:L.cs,e,t:0,life:.09+9*.032+.12});
   S.fx.push({k:'ring',x:cx,y:cy,r0:L.cs*.3,r1:L.cs*.95,color:COLORS[c.color],t:0,life:.45});
-  c.t='empty';sfx.tap();buzz(12);
+  c.t='empty';sfx.tap();buzz(12);if(S.arcade){arcScore(2*arcMult());if(c.special==='star')arcStar();arcCheckRows()}
   if(c.mix){text('BAZINGA!',cx,cy,28);sfx.prank();buzz([15,30,15])}
   refreshReach();
 }
@@ -1285,6 +1355,7 @@ function holderDone(h){
   const was=S.charge;S.charge=Math.min(MAXCHARGE,S.charge+gain);
   if(was<MAXCHARGE&&S.charge>=MAXCHARGE){text('BAZINGA! e gata!',L.W/2,L.mouthY-10,22,false,'#4ade80');sfx.ready();
     const r=$('#bz').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:26,colors:['#ffd23f','#fff3b0'],speed:260,grav:300})}
+  if(S.arcade)arcadeBox(h);
 }
 
 /* ---- power-ups ---- */
@@ -1343,6 +1414,7 @@ function update(dt){
   const frozen=!!(S.boss&&S.boss.frozen); // Medusa's gaze stops the belt completely
   S.time+=dt;S.offset=(S.offset-(frozen?0:L.speed*S.speedMul)*dt+L.P)%L.P;S.shake=Math.max(0,S.shake-dt);
   if(S.boss)bossUpdate(dt);
+  if(S.arcade)arcadeUpdate(dt);
   S.bb.forEach(b=>b.ps=b.s);   // remember where each belt ball was before it moves this frame
   emit(dt);physics(dt);if(!frozen){moveBelt(dt);feedBelt()}
   for(let i=S.fx.length-1;i>=0;i--){S.fx[i].t+=dt;if(S.fx[i].t>S.fx[i].life)S.fx.splice(i,1)}
@@ -1367,6 +1439,8 @@ function update(dt){
 
 function checkEnd(dt){
   if(S.over)return;
+  // arcade ends only when a block reaches the bottom edge (see arcadeUpdate)
+  if(S.arcade)return;
   // boss levels are on the clock
   if(S.boss&&S.time>=S.boss.limit){S.over=true;S.boss.mini=null;S.boss.frozen=false;sfx.lose();buzz(160);setMiniHint();
     result('Timpul a expirat!',`${S.boss.name} a câștigat de data asta. Mai încearcă, sau alege o dificultate mai mică.`,[
@@ -1413,10 +1487,352 @@ const HINTS={1:'Atinge blocurile cu drum liber în jos. Poți sparge mai multe d
   4:'Blocurile în dungi sunt Cutii Bazinga: scot câte 3 bile din fiecare culoare pe care o arată.',
   5:'Folosește power-up-urile din bara de sus. Le cumperi din Magazin cu monede.'};
 function setHint(){const h=$('#hint');if(S.boss&&S.boss.mini){setMiniHint();return}
+  if(S.arcade&&!S.hammer){arcHint(h);return}
   if(S.boss&&!S.hammer){const B=bossOf(S.level);h.textContent=`${B.emoji} ${B.name}: ${B.desc}`;h.classList.add('alert');return}
   if(S.hammer){h.textContent='🔨 Atinge orice bloc ca să-l spargi.';h.classList.add('alert')}
   else if(S.hard&&!HINTS[S.level]){h.textContent=`🔥 NIVEL GREU: bandă de doar ${S.cap} de locuri și mai multe culori.`;h.classList.add('alert')}
   else{h.textContent=HINTS[S.level]||'';h.classList.remove('alert')}}
+
+/* ================= ARCADE: endless, played for a high score =================
+   3-ball blocks drift down the board like Tetris and new rows enter at the top.
+   Boxes are dealt from what is really in play (belt, funnel, then the blocks you can break),
+   so the game always flows. It ends the moment a block touches the bottom edge of the board.
+   Extras: bombs / ice / stars, clean-row bonus, Fever mode, missions, daily challenge,
+   score milestones with exclusive rewards, friend challenges by code, one paid continue per run. */
+const ARC={cols:6,rows:9,cap:24,lvlEvery:30,startRows:5,contCost:150,dailyTarget:1500};
+const arcBest=()=>store.get('arcadeBest',0);
+const arcColors=lvl=>Math.min(4+Math.floor((lvl-1)/2),7);
+// seconds per row: 7 s at speed 1, about 10% faster every level, down to 2.2 s at speed 12 (so every run ends sometime)
+const arcRowSec=lvl=>Math.max(2.2,7*Math.pow(.9,lvl-1));
+const todayKey=()=>{const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()};
+const arcName=()=>store.get('arcName','')||'Eu';
+const fmtN=n=>Math.round(n).toLocaleString('ro-RO');
+const arcEsc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+sfx.fever=()=>[523,659,784,1047,1319,1568,2093].forEach((f,i)=>tone(f,f,.1,'square',.05,i*.045));
+
+function arcBlock(pal,nc,lvl,r){
+  const c={t:'block',three:true,seed:r()*3,color:pal[Math.floor(r()*nc)]},q=r();
+  // specials from speed 2: a bomb clears its neighbours, ice needs one tap to crack, a star doubles points for 10 s
+  if(lvl>=2&&q<.035)return{t:'block',special:'bomb',seed:c.seed,color:c.color};
+  if(lvl>=2&&q<.105){c.special='ice';c.ice=1}
+  else if(lvl>=2&&q<.135)c.special='star';
+  // striped Bazinga boxes (one ball of each of 3 colours) from speed 3, hidden "?" blocks from speed 4
+  if(!c.special&&lvl>=3&&r()<Math.min(.15,.04+.012*lvl)){c.mix=shuffle(pal.slice(0,nc),r).slice(0,3);c.color=c.mix[0]}
+  if(c.special!=='star'&&lvl>=4&&r()<.14)c.hidden=true;
+  return c;
+}
+// every row has its own seeded generator, so a seed (daily challenge, friend's code) gives everyone the same board
+function arcRow(){
+  const A=S.arcade,nc=arcColors(A.lvl),r=rng(A.seed*31+(A.rowN++)*7919+11),p=Math.min(.68,.42+.025*A.lvl),row=[];
+  for(let x=0;x<S.cols;x++)row.push(r()<p?arcBlock(S.pal,nc,A.lvl,r):{t:'empty',seed:r()*3});
+  if(!row.some(c=>c.t==='block'))row[Math.floor(r()*S.cols)]=arcBlock(S.pal,nc,A.lvl,r);
+  row.n=row.filter(c=>c.t==='block').length;
+  return row;
+}
+const arcEmptyRow=()=>Array.from({length:S.cols},()=>({t:'empty',seed:Math.random()*3}));
+function makeArcade(o={}){
+  const cols=ARC.cols,rows=ARC.rows,seed=o.seed!=null?o.seed:Math.floor(Math.random()*1e9);
+  return{level:0,arcade:{seed,mode:o.mode||'free',target:o.target||0,vs:o.vs||'',f:0,lvl:1,score:0,boxes:0,vo:0,danger:false,beep:0,record:false,rowN:0,
+      fever:0,feverIdle:0,feverT:0,feverCD:0,starT:0,cont:false,startBest:arcBest(),runId:Date.now(),beat:false,maxM:1,msSeen:[],staleT:0},
+    hard:false,theme:THEMES[seed%THEMES.length],par:1e9,par2:1e9,powersUsed:0,boss:null,
+    pal:shuffle(KEYS.slice(),rng(seed)),capBase:ARC.cap,nColors:4,nBlocks:0,rows,cols,
+    grid:Array.from({length:rows},()=>Array.from({length:cols},()=>({t:'empty',seed:Math.random()*3}))),
+    colsH:Array.from({length:NCOL},()=>[]),bb:[],offset:0,cap:ARC.cap,hist:[],hammer:false,
+    balls:[],shards:[],emitters:[],fx:[],falling:[],texts:[],charge:0,combo:0,lastDone:-9,over:false,stuckT:0,shake:0,time:0,tappable:new Set(),earned:0};
+}
+// which colour the next box asks for: first balls already in play that no box is waiting for,
+// then a colour you can break right now, then anything on the board
+function arcPick(){
+  const sup={},cap={},add=(o,c,n)=>o[c]=(o[c]||0)+n;
+  S.bb.forEach(b=>add(sup,b.c,1));S.balls.forEach(b=>add(sup,b.color,1));
+  S.emitters.forEach(e=>{for(let i=e.i;i<e.colors.length;i++)add(sup,e.colors[i],1)});
+  S.colsH.forEach(col=>col.forEach(h=>{if(!h.leaving)add(cap,h.color,3-h.taken)}));
+  let best=null,bv=0;for(const c in sup){const v=sup[c]-(cap[c]||0);if(v>bv){bv=v;best=c}}
+  if(best)return best;
+  const near=[],far=[];
+  S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t==='block')(S.tappable.has(y*S.cols+x)?near:far).push(...ballsOf(c))}));
+  for(const list of[near,far]){const cnt={};list.forEach(c=>add(cnt,c,1));
+    const opts=Object.keys(cnt).filter(c=>cnt[c]>(cap[c]||0));if(opts.length)return opts[Math.floor(Math.random()*opts.length)]}
+  return S.pal[Math.floor(Math.random()*arcColors(S.arcade.lvl))];
+}
+const arcHolder=k=>({color:arcPick(),k,taken:0,filled:0,balls:[],leaving:false,lt:0,y:null});
+const arcOY=()=>(S.arcade.f-1+S.arcade.vo)*L.cs;
+// a star doubles points for 10 s and Fever doubles them for 8 s (both together: ×4)
+const arcMult=()=>{const A=S.arcade;return(A.starT>0?2:1)*(A.feverT>0?2:1)};
+
+/* ---- score, records, milestones ---- */
+function arcScore(n){const A=S.arcade;A.score+=n;
+  if(!A.record&&A.startBest>0&&A.score>A.startBest){A.record=true;banner('RECORD NOU!<small>ține-o tot așa</small>');sfx.unlock();buzz([20,30,20])}
+  if(A.target&&!A.beat&&A.score>A.target){A.beat=true;banner(`L-AI BĂTUT!<small>${arcEsc(A.vs)} avea ${fmtN(A.target)}</small>`);sfx.unlock()}
+  const ms=ARC_MS.find(m=>A.score>=m.s&&A.startBest<m.s&&!A.msSeen.includes(m.s));
+  if(ms){A.msSeen.push(ms.s);banner(`🎁 ${fmtN(ms.s)}!<small>recompensă deblocată · ia-o din meniul Arcade</small>`);sfx.ready()}
+  misMax('score',A.score)}
+function arcadeBox(h){
+  // quick chains raise the multiplier (x2 from the 5th box in a row, x3 from the 9th); faster speeds pay more per box
+  const A=S.arcade,m=Math.min(3,1+Math.floor((Math.max(1,S.combo)-1)/4)),x=arcMult(),pts=(5+A.lvl)*m*x;A.boxes++;arcScore(pts);
+  text('+'+pts+(m*x>1?' ×'+m*x:''),L.colX[h.k],h.y-58,m*x>1?24:20,false,m*x>1?'#ff78c8':'#fff3b0');
+  misAdd('boxes',1);if(S.combo>A.maxM){A.maxM=S.combo;misMax('combo',S.combo)}
+  // Fever: the meter fills with every box and drains all the time, so only a quick streak of boxes (and not right after the last Fever) sets it off
+  A.feverIdle=0;if(!A.feverT&&A.feverCD<=0){A.fever=Math.min(10,A.fever+1);if(A.fever>=10)arcFever()}
+}
+function arcFever(){const A=S.arcade;A.feverT=8;A.fever=10;
+  banner('FEVER!<small>puncte ×2 · 8 secunde</small>','fever');sfx.fever();buzz([20,20,20,20,40]);misAdd('fever',1);
+  const r=cv.getBoundingClientRect();burst(r.left+L.W/2,r.top+L.by+L.cs*2,{n:70,speed:600,grav:500,colors:['#ff3df0','#3df5ff','#ffd23f','#4ade80','#fff']})}
+function arcStar(){const A=S.arcade;A.starT=10;text('⭐ PUNCTE ×2',L.W/2,L.by+L.cs*1.5,30,true);sfx.unlock();buzz([15,20,15]);misAdd('stars',1)}
+// a row that had at least 2 blocks and is now completely empty pays a bonus
+function arcCheckRows(){const A=S.arcade;
+  S.grid.forEach((row,y)=>{if(row.n>=2&&!row.clean&&!row.some(c=>c.t==='block')){row.clean=true;
+    const pts=8*row.n*(1+Math.floor((A.lvl-1)/2))*arcMult(),ty=L.by+y*L.cs+arcOY()+L.cs/2;arcScore(pts);misAdd('rows',1);
+    text('RÂND CURAT! +'+pts,L.W/2,ty,24,true,'#7df9ff');sfx.ready();buzz([15,20,15]);
+    S.fx.push({k:'ring',x:L.W/2,y:ty,r0:L.cs*.5,r1:L.cs*3,color:'#7df9ff',t:0,life:.5})}})}
+function arcShatter(c,px,py,color,n=8){for(let i=0;i<n;i++)S.shards.push({x:px,y:py,vx:(Math.random()-.5)*520,vy:-150-Math.random()*360,rot:Math.random()*6,vr:(Math.random()-.5)*12,s:5+Math.random()*7,life:1,color})}
+// bomb: every block around it shatters (no balls come out); bombs caught in the blast go off too
+function arcBomb(x,y){
+  const A=S.arcade,oy=arcOY(),q=[[x,y]],seen=new Set();let n=0,bombs=0;
+  while(q.length){const[bx0,by0]=q.shift(),key=by0*S.cols+bx0;if(seen.has(key))continue;seen.add(key);bombs++;
+    S.grid[by0][bx0].t='empty';
+    const cx=L.bx+bx0*L.cs+L.cs/2,cy=L.by+by0*L.cs+L.cs/2+oy;
+    S.fx.push({k:'ring',x:cx,y:cy,r0:L.cs*.3,r1:L.cs*1.9,color:'#ff8a00',t:0,life:.5});arcShatter(null,cx,cy,'#3a2f55',10);
+    for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=bx0+dx,ny=by0+dy;if(nx<0||ny<0||nx>=S.cols||ny>=S.rows)continue;
+      const c=S.grid[ny][nx];if(c.t!=='block')continue;
+      if(c.special==='bomb'){q.push([nx,ny]);continue}
+      c.t='empty';n++;arcShatter(c,L.bx+nx*L.cs+L.cs/2,L.by+ny*L.cs+L.cs/2+oy,COLORS[c.color]||'#888')}}
+  const pts=(5+8*n)*arcMult();arcScore(pts);
+  text((bombs>1?'BUM ×'+bombs+'! +':'BUM! +')+pts,L.bx+x*L.cs+L.cs/2,L.by+y*L.cs+oy,28,true,'#ff8a00');
+  sfx.boom();S.shake=.5;buzz([40,30,60]);misAdd('bombs',bombs);refreshReach();arcCheckRows();
+}
+function arcIce(c,x,y){c.ice=0;c.pop=.8;
+  const cx=L.bx+x*L.cs+L.cs/2,cy=L.by+y*L.cs+L.cs/2+arcOY();arcShatter(c,cx,cy,'#dff6ff',10);
+  text('Crac!',cx,cy-10,20,false,'#bff0ff');tone(1800,900,.12,'triangle',.1);sfxNoise(.15,4000,'highpass',.12);buzz(15);misAdd('ice',1);arcScore(2*arcMult())}
+
+/* ---- the running game ---- */
+function arcadeUpdate(dt){
+  const A=S.arcade;if(S.over)return;
+  // speed level: every 30 s the board drifts faster, more colours and surprises arrive, the music speeds up
+  const lvl=1+Math.floor(S.time/ARC.lvlEvery);
+  if(lvl>A.lvl){A.lvl=lvl;misMax('speed',lvl);
+    banner(`VITEZA ${lvl}!<small>${arcColors(lvl)>arcColors(lvl-1)?'+1 culoare nouă':lvl===2?'apar bombe, gheață și stele':lvl===3?'apar Cutiile Bazinga':lvl===4?'apar blocurile ❓':'tabla coboară mai repede'}</small>`);sfx.ready();buzz([20,30,20])}
+  if(A.feverT>0){A.feverT-=dt;if(A.feverT<=0){A.feverT=0;A.fever=0;A.feverCD=25;text('Fever s-a terminat',L.W/2,L.by+L.cs,20,false,'#ffb0f0')}}
+  else{A.feverCD=Math.max(0,(A.feverCD||0)-dt);A.fever=Math.max(0,A.fever-dt*(A.feverIdle>4?1.2:.2));A.feverIdle+=dt}
+  if(A.starT>0)A.starT=Math.max(0,A.starT-dt);
+  if(!MUSIC.boss)MUSIC.bpm=Math.min(150,104+(A.lvl-1)*5)+(A.feverT>0?24:0);
+  let blocks=0,low=false;
+  S.grid.forEach((row,y)=>row.forEach(c=>{if(c.t==='block'){blocks++;if(y===S.rows-1)low=true}}));
+  // an almost empty board pulls the next rows in quickly, so there is always something to break
+  const rush=!low&&blocks<S.cols*1.5;
+  A.f+=dt/arcRowSec(A.lvl)*(rush?4:1);
+  if(A.vo>0)A.vo=Math.max(0,A.vo-dt*4);
+  if(low!==A.danger){A.danger=low;setHint()}
+  if(low){A.beep-=dt;if(A.beep<=0){A.beep=.2+.6*(1-Math.min(1,A.f));tone(880,620,.08,'square',.06);buzz(12)}}
+  if(A.f>=1){
+    if(low){A.f=1;arcadeOver();return}
+    S.grid.pop();S.grid.unshift(arcRow());A.f-=1;refreshReach();
+  }
+  // every column keeps two boxes; a fresh one is dealt from what is in play right now
+  S.colsH.forEach((col,k)=>{while(col.filter(h=>!h.leaving).length<2){const h=arcHolder(k);h.y=L.hTop+2*(L.hh-3)+24;col.push(h)}});
+  // a crowded belt gets help: a top box nobody can feed swaps with the box behind it when that one can be fed
+  if(S.bb.length>=S.cap*.7){const sup={};S.bb.forEach(b=>sup[b.c]=1);S.balls.forEach(b=>sup[b.color]=1);
+    S.colsH.forEach(col=>{const live=col.filter(h=>!h.leaving),a=live[0],b=live[1];
+      if(a&&b&&a.taken===0&&!sup[a.color]&&sup[b.color]){const i=col.indexOf(a),j=col.indexOf(b);col[i]=b;col[j]=a}})}
+  // an empty box whose colour no longer exists anywhere (a bomb took it) asks for another colour
+  A.staleT+=dt;if(A.staleT>.5){A.staleT=0;const have=new Set();
+    S.bb.forEach(b=>have.add(b.c));S.balls.forEach(b=>have.add(b.color));S.emitters.forEach(e=>e.colors.forEach(c=>have.add(c)));
+    S.grid.forEach(r=>r.forEach(c=>{if(c.t==='block')ballsOf(c).forEach(k=>have.add(k))}));
+    S.colsH.forEach(col=>col.forEach(h=>{if(!h.leaving&&h.taken===0&&!have.has(h.color))h.color=arcPick()}))}
+}
+function arcHint(h){const A=S.arcade,d=A.danger&&!S.over;
+  h.textContent=d?'⚠️ Atenție! Un bloc e chiar deasupra marginii!':A.mode==='vs'?`⚔️ Bate-l pe ${A.vs}: ${fmtN(A.target)} puncte`:A.mode==='daily'?`📅 Provocarea zilei · țintă ${fmtN(ARC.dailyTarget)} puncte`:'🕹️ Nu lăsa blocurile să atingă linia roșie!';
+  h.classList.toggle('alert',d)}
+function arcRecordRun(){const A=S.arcade,top=store.get('arcTop',[]),e=top.find(t=>t.id===A.runId);
+  if(e)e.s=A.score;else top.push({id:A.runId,s:A.score,seed:A.seed,m:A.mode,d:Date.now()});
+  top.sort((a,b)=>b.s-a.s);store.set('arcTop',top.slice(0,10))}
+function arcadeOver(){
+  const A=S.arcade;S.over=true;S.shake=.7;sfx.lose();buzz([80,60,160]);setHint();
+  const rec=A.score>A.startBest&&A.score>0;if(A.score>arcBest())store.set('arcadeBest',A.score);
+  arcRecordRun();
+  if(A.mode==='daily'){const d=dailyState();d.best=Math.max(d.best,A.score);if(!A.dailyCounted){A.dailyCounted=true;d.plays++;misAdd('daily',1)}store.set('arcDaily',d)}
+  paintArcDot();
+  setTimeout(()=>{
+    const won=A.vs&&A.score>A.target;
+    result(A.vs?(won?`L-ai bătut pe ${A.vs}! 🏆`:`${A.vs} rămâne în față`):rec?'Record nou! 🏆':'Game over!',
+      A.vs?(won?'Trimite-i codul tău ca să-ți răspundă!':`Îți mai trebuiau ${fmtN(A.target-A.score+1)} puncte.`)
+        :rec?(A.startBest?`Ai bătut vechiul record de ${fmtN(A.startBest)}.`:'Primul tău record în Arcade!'):`Un bloc a atins marginea. Recordul tău: ${fmtN(arcBest())}`,[
+      ...(A.cont?[]:[{label:`❤️ Încă o șansă · ${ARC.contCost} monede`,disabled:coins<ARC.contCost,fn:arcContinue}]),
+      {label:'Joacă din nou',ghost:!A.cont,fn:arcAgain},
+      {label:'Meniu Arcade',ghost:true,fn:()=>{goHome();setTimeout(()=>openArcHub(),1050)}}]);
+    const d=A.mode==='daily'?dailyState():null,n=arcClaimables();
+    $('#rX').innerHTML=`<div class="arc-score">${fmtN(A.score)}</div><div class="res-facts"><span>⏱ ${fmtTime(S.time)}</span><span>📦 ${A.boxes} cutii</span><span>⚡ viteza ${A.lvl}</span><span>🏆 record ${fmtN(arcBest())}</span></div>`+
+      (d?`<p class="note">📅 Provocarea zilei: ${d.best>=ARC.dailyTarget?(d.claimed?'premiul de azi e luat ✓':'🎁 ai atins ținta! Ia cufărul din meniul Arcade.'):`mai ai ${fmtN(ARC.dailyTarget-d.best)} puncte până la cufăr.`}</p>`:'')+
+      (n?`<p class="note">🎁 Ai ${n} recompens${n>1?'e':'ă'} de luat în meniul Arcade.</p>`:'')+
+      `<button class="skbtn share" id="arcShare">📤 Provoacă un prieten cu ${fmtN(A.score)}</button>`;
+    $('#arcShare').addEventListener('click',()=>shareChallenge(A.score,A.seed));
+    if(rec||(A.vs&&A.score>A.target))celebrate();
+    setTimeout(()=>{countUp(S.earned);paintCoins(true)},400)},1000);
+}
+// once per run, for coins: the board jumps up 3 rows and the run goes on
+function arcContinue(){if(coins<ARC.contCost){sfx.bad();return}addCoins(-ARC.contCost);const A=S.arcade;A.cont=true;
+  S.grid.splice(0,3);S.grid.push(arcEmptyRow(),arcEmptyRow(),arcEmptyRow());A.vo=3;A.f=0;A.danger=false;A.beep=0;S.over=false;S.shake=0;refreshReach();setHint();paused=false;
+  banner('ÎNCĂ O ȘANSĂ!<small>tabla a urcat 3 rânduri</small>');sfx.rewind();buzz([20,30,20])}
+// BAZINGA! in Arcade: once the combo bar is full, it pushes the whole board up by two rows
+function arcadeBazinga(){
+  if(S.over)return;
+  if(S.charge<MAXCHARGE){sfx.bad();buzz(40);shakeEl($('#bz'));text('Umple bara BAZINGA! cu combo-uri',L.W/2,L.mouthY-10,18,false,'#ff9fb0');return}
+  S.charge=0;S.grid.splice(0,2);S.grid.push(arcEmptyRow(),arcEmptyRow());S.arcade.vo=2;refreshReach();
+  const r=$('#bz').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:40,colors:['#ffd23f','#fff3b0','#ff78c8'],speed:380,grav:500});
+  text('BAZINGA!',L.W/2,L.mouthY-20,56,true);text('Tabla urcă 2 rânduri',L.W/2,L.mouthY+26,20,false,'#ffc94a');
+  sfx.rewind();buzz([20,30,20]);S.shake=.25;
+}
+function drawArcadeBoard(){
+  const{cs,bx,by}=L,A=S.arcade,oy=arcOY(),BW=cs*S.cols,BH=cs*S.rows,pulse=.5+.5*Math.sin(S.time*10),hue=(S.time*220)%360;
+  ctx.save();ctx.beginPath();ctx.rect(bx-8,by-2,BW+16,BH+4);ctx.clip();
+  // the floor tiles scroll with the blocks, so the board visibly flows downwards
+  const to=((oy%cs)+cs)%cs-cs;
+  for(let y=0;y<=S.rows+1;y++)for(let x=0;x<S.cols;x++){const ty=by+to+y*cs;
+    ctx.fillStyle=TILE_EDGE;rr(bx+x*cs+4,ty+6,cs-8,cs-8,10);ctx.fill();ctx.fillStyle=TILE;rr(bx+x*cs+4,ty+4,cs-8,cs-9,10);ctx.fill()}
+  if(A.feverT>0){ctx.fillStyle=`hsla(${hue},100%,65%,.16)`;ctx.fillRect(bx-8,by-2,BW+16,BH+4)}
+  S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t!=='block')return;const ty=by+y*cs+oy;
+    if(y===S.rows-1&&(A.danger||S.over)){ctx.fillStyle=`rgba(242,61,87,${S.over?.55:.25+.35*pulse})`;rr(bx+x*cs+1,ty+1,cs-2,cs-2,12);ctx.fill()}
+    drawBlock(c,bx+x*cs,ty,cs,S.tappable.has(y*S.cols+x))}));
+  if(S.hammer){ctx.save();ctx.setLineDash([6,5]);ctx.lineDashOffset=-S.time*30;ctx.strokeStyle='#ffd23f';ctx.lineWidth=2.5;
+    S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t==='block'){rr(bx+x*cs+2,by+y*cs+oy+2,cs-4,cs-4,10);ctx.stroke()}}));ctx.restore()}
+  // new rows fade in under a soft light at the top
+  const g=ctx.createLinearGradient(0,by,0,by+cs*.6);g.addColorStop(0,'rgba(255,255,255,.75)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(bx-8,by-2,BW+16,cs*.6);
+  ctx.restore();
+  // Fever: a rainbow frame around the board
+  if(A.feverT>0){ctx.save();ctx.lineWidth=5;ctx.strokeStyle=`hsl(${hue},100%,60%)`;ctx.shadowColor=ctx.strokeStyle;ctx.shadowBlur=16;rr(bx-10,by-4,BW+20,BH+8,16);ctx.stroke();ctx.restore()}
+  // the bottom edge: touch it and the run is over
+  ctx.save();ctx.setLineDash([10,7]);ctx.lineDashOffset=-S.time*20;ctx.lineWidth=A.danger||S.over?4:2.5;
+  ctx.strokeStyle=A.danger||S.over?`rgba(242,61,87,${.6+.4*pulse})`:'rgba(242,61,87,.45)';
+  ctx.beginPath();ctx.moveTo(bx-6,by+BH+1);ctx.lineTo(bx+BW+6,by+BH+1);ctx.stroke();ctx.restore();
+  // strip above the board (clear of the tray rim): Fever meter with its label inside, star bonus timer on the right
+  const sh=14,sy=by-31,sw=BW*.64;
+  ctx.fillStyle='rgba(40,20,90,.45)';rr(bx,sy,sw,sh,sh/2);ctx.fill();
+  const fg=ctx.createLinearGradient(bx,0,bx+sw,0);
+  if(A.feverT>0){fg.addColorStop(0,`hsl(${hue},100%,60%)`);fg.addColorStop(1,`hsl(${(hue+120)%360},100%,60%)`)}else{fg.addColorStop(0,'#ff78c8');fg.addColorStop(1,'#ffd23f')}
+  ctx.fillStyle=fg;const fw=A.feverT>0?sw*A.feverT/8:sw*A.fever/10;if(fw>1){rr(bx,sy,Math.max(sh,fw),sh,sh/2);ctx.fill()}
+  ctx.font=`800 10px 'Baloo 2',sans-serif`;ctx.textBaseline='middle';ctx.textAlign='left';ctx.lineWidth=3;ctx.strokeStyle='rgba(40,20,90,.7)';ctx.fillStyle='#fff';
+  const ft=A.feverT>0?`🔥 FEVER ×2 · ${Math.ceil(A.feverT)}s`:A.feverCD>0?`🔥 Fever · pauză ${Math.ceil(A.feverCD)}s`:'🔥 Fever';
+  ctx.strokeText(ft,bx+7,sy+sh/2+1);ctx.fillText(ft,bx+7,sy+sh/2+1);
+  if(A.starT>0){const st=`⭐ ×2 · ${Math.ceil(A.starT)}s`;ctx.textAlign='right';ctx.fillStyle='#ffd23f';ctx.strokeText(st,bx+BW,sy+sh/2+1);ctx.fillText(st,bx+BW,sy+sh/2+1)}
+}
+function startArcade(o={}){
+  $$('.modal').forEach(m=>m.hidden=true);
+  S=makeArcade(o);showScreen('game');paused=false;layout();
+  for(let y=0;y<ARC.startRows;y++)S.grid[y]=arcRow();
+  refreshReach();
+  S.colsH.forEach((col,k)=>{for(let i=0;i<2;i++)col.push(arcHolder(k))});
+  setHint();lastHud='';hud.sec=-1;hud.st=null;hud.sc=null;setMusicMode(false);MUSIC.bpm=104;
+}
+function playArcade(o={}){initAudio();
+  transition(()=>{startArcade(o);paused=true}).then(()=>{if(screen!=='game'||!S||!S.arcade)return;paused=openModals();const A=S.arcade;
+    banner(A.mode==='daily'?`PROVOCAREA ZILEI<small>țintă: ${fmtN(ARC.dailyTarget)} puncte</small>`:A.mode==='vs'?`⚔️ VS ${arcEsc(A.vs)}<small>bate ${fmtN(A.target)} de puncte</small>`:'ARCADE!<small>Nu lăsa blocurile să atingă marginea</small>');
+    sfx.ready();buzz([20,30,20])})}
+const arcAgain=()=>{const A=S.arcade;playArcade({mode:A.mode,seed:A.mode==='free'?undefined:A.seed,target:A.target,vs:A.vs})};
+
+/* ---- missions: three at a time, progress carries across runs ---- */
+const MISSIONS={
+  boxes:{acc:1,g:[40,100,250],t:g=>`Umple ${fmtN(g)} cutii`},
+  speed:{g:[4,6,8],t:g=>`Ajungi la viteza ${g} într-o tură`},
+  combo:{g:[5,9,14],t:g=>`Umple ${g} cutii una după alta (combo)`},
+  rows:{acc:1,g:[3,10,25],t:g=>`Golește ${g} rânduri întregi`},
+  bombs:{acc:1,g:[2,6,15],t:g=>`Detonează ${g} bombe 💣`},
+  score:{g:[1000,2500,5000],t:g=>`Fă ${fmtN(g)} puncte într-o tură`},
+  fever:{acc:1,g:[1,3,6],t:g=>`Intră în Fever de ${g} ${g>1?'ori':'dată'}`},
+  ice:{acc:1,g:[3,10,25],t:g=>`Sparge ${g} blocuri de gheață ❄`},
+  stars:{acc:1,g:[2,5,12],t:g=>`Prinde ${g} stele ⭐`},
+  daily:{acc:1,g:[1,2,3],t:g=>`Joacă provocarea zilei de ${g} ${g>1?'ori':'dată'}`}};
+const MIS_RW=[50,100,180];
+function newMission(s){const used=s.list.map(m=>m.k),keys=Object.keys(MISSIONS).filter(k=>!used.includes(k)),k=keys[Math.floor(Math.random()*keys.length)],tier=Math.min(2,Math.floor(s.done/4));
+  return{k,g:MISSIONS[k].g[tier],rw:MIS_RW[tier],p:0}}
+function misState(){const s=store.get('arcMis',null)||{list:[],done:0};if(!Array.isArray(s.list))s.list=[];while(s.list.length<3)s.list.push(newMission(s));return s}
+function misBump(k,v,acc){const s=misState();let hit=false,changed=false;
+  s.list.forEach(m=>{if(m.k!==k||m.p>=m.g)return;const p=acc?m.p+v:Math.max(m.p,v);if(p===m.p)return;m.p=Math.min(m.g,p);changed=true;if(m.p>=m.g)hit=true});
+  if(!changed)return;store.set('arcMis',s);
+  if(hit){banner('✅ MISIUNE!<small>ia premiul din meniul Arcade</small>');sfx.ready();paintArcDot()}}
+const misAdd=(k,n)=>misBump(k,n,true),misMax=(k,v)=>misBump(k,v,false);
+
+/* ---- score milestones (based on your all-time record) and the daily challenge ---- */
+const ARC_MS=[{s:1000,chest:'basic'},{s:2500,coins:300},{s:5000,chest:'epic',item:['bg','arcade']},{s:10000,chest:'golden',item:['ball','pixel']},{s:20000,chest:'legendary'}];
+const msClaimed=()=>store.get('arcMs',[]);
+const msReady=()=>{const b=arcBest(),c=msClaimed();return ARC_MS.map((m,i)=>b>=m.s&&!c.includes(i))};
+function claimMs(i){const c=msClaimed(),m=ARC_MS[i];if(c.includes(i)||arcBest()<m.s)return;c.push(i);store.set('arcMs',c);
+  if(m.item&&!owns(m.item[0],m.item[1])){COS.own[m.item[0]].push(m.item[1]);saveCos();banner(`EXCLUSIV!<small>${cosItem(...m.item).name} e al tău</small>`)}
+  if(m.coins){addCoins(m.coins);banner(`+${m.coins}<small>monede</small>`);sfx.coin()}
+  renderArcHub();paintArcDot();if(m.chest)openChest(m.chest)}
+function dailyState(){const k=todayKey();let d=store.get('arcDaily',null);if(!d||d.k!==k)d={k,best:0,claimed:false,plays:0};return d}
+function arcClaimables(){const s=store.get('arcMis',null);let n=s&&Array.isArray(s.list)?s.list.filter(m=>m.p>=m.g).length:0;
+  n+=msReady().filter(Boolean).length;const d=dailyState();if(d.best>=ARC.dailyTarget&&!d.claimed)n++;return n}
+function paintArcDot(){const b=$('#arcade');if(!b)return;let d=b.querySelector('.dot');const n=arcClaimables();
+  if(!n){if(d)d.remove();return}if(!d){d=document.createElement('span');d.className='dot';b.appendChild(d)}d.textContent=n}
+
+/* ---- friends: no server needed. A code carries your name, score and the board seed;
+   your friend plays the very same board and tries to beat you, then sends their code back ---- */
+const b64u={enc:s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''),
+  dec:s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))))};
+const arcCode=(score,seed)=>'BZ'+b64u.enc(JSON.stringify({n:arcName(),s:score,d:seed}));
+function parseArcCode(t){const m=/BZ([A-Za-z0-9_-]{8,})/.exec(t||'');if(!m)return null;
+  try{const o=JSON.parse(b64u.dec(m[1]));if(o&&o.n&&isFinite(o.s)&&isFinite(o.d))return{n:String(o.n).slice(0,16),s:Math.max(0,Math.floor(o.s)),d:Math.floor(o.d)}}catch(e){}
+  return null}
+function addFriend(o){const f=store.get('arcFriends',{});if(!f[o.n]||o.s>f[o.n].s)f[o.n]={s:o.s,d:o.d};store.set('arcFriends',f)}
+async function shareChallenge(score,seed){
+  if(!store.get('arcName','')){openArcHub('rank');banner('<small>Scrie-ți întâi numele, ca prietenii să știe cine îi provoacă</small>');setTimeout(()=>{const i=$('#arcNameIn');if(i)i.focus()},400);return}
+  const code=arcCode(score,seed),url=/github\.io$/.test(location.hostname)?location.origin+location.pathname+'?c='+code.slice(2):'';
+  const text=`🕹️ Te provoc la Bazinga! Arcade: bate ${fmtN(score)} de puncte pe aceeași tablă!\nCodul meu: ${code}`+(url?'\n'+url:'');
+  if(navigator.share){try{await navigator.share({text});return}catch(e){if(e&&e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(text);banner('<small>Provocarea a fost copiată. Trimite-o cui vrei!</small>');sfx.ui();return}catch(e){}
+  openArcHub('rank');banner('<small>Copiază codul de aici și trimite-l</small>');
+}
+
+/* ---- Arcade menu: play · missions · leaderboard ---- */
+let arcTab='play',arcIncoming=null;
+function openArcHub(tab){if(tab)arcTab=tab;renderArcHub();paintCoins();showModal('arcHub')}
+const pbar=(v,g)=>`<div class="pbar"><i style="width:${Math.max(0,Math.min(100,v/g*100))}%"></i></div>`;
+function renderArcHub(){
+  $$('#arcTabs button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===arcTab)));
+  const body=$('#arcBody'),best=arcBest();
+  if(arcTab==='play'){const d=dailyState(),dReady=d.best>=ARC.dailyTarget&&!d.claimed,cl=msClaimed();
+    body.innerHTML=`
+    <div class="arow"><span class="em">🕹️</span><div><h3>Joc liber</h3><p>O tablă nouă de fiecare dată.<br>🏆 Record: <b>${fmtN(best)}</b></p></div><button class="skbtn" data-arc="free">▶ Joacă</button></div>
+    <div class="arow daily"><span class="em">📅</span><div><h3>Provocarea zilei</h3><p>Aceeași tablă pentru toți, azi. Fă ${fmtN(ARC.dailyTarget)} de puncte pentru un Cufăr Basic.<br>Azi: <b>${fmtN(d.best)}</b>${d.claimed?' · ✓ premiu luat':''}</p>${pbar(d.best,ARC.dailyTarget)}</div>
+      ${dReady?`<button class="skbtn on" data-arc="daily-claim">🎁 Ia</button>`:`<button class="skbtn" data-arc="daily">▶ Joacă</button>`}</div>
+    <h3 class="sec">Recompense pe scor</h3>
+    ${ARC_MS.map((m,i)=>{const got=cl.includes(i),ok=best>=m.s,what=[m.chest?CHESTS[m.chest].name:'',m.coins?m.coins+' monede':'',m.item?'✨ '+cosItem(...m.item).name+' (exclusiv Arcade)':''].filter(Boolean).join(' + ');
+      return `<div class="arow"><span class="em">${got?'✅':ok?'🎁':'🏆'}</span><div><h3>${fmtN(m.s)} puncte</h3><p>${what}</p>${got?'':pbar(best,m.s)}</div>${got?'<button class="skbtn on" disabled>✓</button>':ok?`<button class="skbtn on" data-ms="${i}">Ia</button>`:`<button class="skbtn" disabled>${Math.floor(Math.min(1,best/m.s)*100)}%</button>`}</div>`}).join('')}`;
+  }else if(arcTab==='mis'){const s=misState();store.set('arcMis',s);
+    body.innerHTML=`<p class="note">Misiunile se adună din toate turele. Când iei premiul, primești una nouă, tot mai grea și mai bine plătită.</p>`+
+      s.list.map((m,i)=>{const done=m.p>=m.g;return `<div class="arow"><span class="em">${done?'✅':'🎯'}</span><div><h3>${MISSIONS[m.k].t(m.g)}</h3><p>${fmtN(m.p)} / ${fmtN(m.g)}</p>${pbar(m.p,m.g)}</div>${done?`<button class="skbtn on" data-mis="${i}">+${m.rw} <span class="coin"></span></button>`:`<button class="skbtn" disabled>${m.rw} <span class="coin"></span></button>`}</div>`}).join('')+
+      `<p class="note">Misiuni terminate: ${s.done}</p>`;
+  }else{
+    const f=store.get('arcFriends',{}),top=store.get('arcTop',[]),inc=arcIncoming;
+    const list=[{n:arcName(),s:best,me:true},...Object.entries(f).map(([n,v])=>({n,s:v.s}))].sort((a,b)=>b.s-a.s);
+    body.innerHTML=(inc?`<div class="arow vs"><span class="em">⚔️</span><div><h3>${arcEsc(inc.n)} te provoacă!</h3><p>Bate ${fmtN(inc.s)} de puncte pe aceeași tablă.</p></div><button class="skbtn" data-vs="${arcEsc(inc.n)}">Joacă</button></div>`:'')+
+    `<label class="lbl" for="arcNameIn">Numele tău</label><input class="tin" id="arcNameIn" maxlength="16" autocomplete="nickname" value="${arcEsc(store.get('arcName',''))}" placeholder="Scrie-ți numele">
+    <h3 class="sec">Clasament</h3>
+    ${list.map((e,i)=>`<div class="lbrow${e.me?' me':''}"><span class="pos">${['🥇','🥈','🥉'][i]||i+1}</span><b>${arcEsc(e.n)}${e.me?' (tu)':''}</b><span class="sc">${fmtN(e.s)}</span>${e.me?'':`<button class="skbtn" data-vs="${arcEsc(e.n)}" aria-label="Joacă provocarea lui ${arcEsc(e.n)}">⚔️</button>`}</div>`).join('')}
+    ${list.length<2?'<p class="note">Încă nu ai prieteni aici. Trimite-le o provocare. Când îți trimit codul lor, apar în clasament.</p>':''}
+    <div class="arow"><span class="em">📤</span><div><h3>Trimite o provocare</h3><p>${top.length?`Cu cea mai bună tură a ta: ${fmtN(top[0].s)} puncte.`:'Joacă o tură ca să ai ce trimite.'}</p></div><button class="skbtn" data-arc="share" ${top.length?'':'disabled'}>Trimite</button></div>
+    ${top.length?`<textarea class="tin code" readonly rows="2" id="myCode" aria-label="Codul tău">${arcCode(top[0].s,top[0].seed)}</textarea>`:''}
+    <div class="arow"><span class="em">📥</span><div><h3>Ai primit un cod?</h3><p>Lipește-l aici. Începe cu BZ.</p></div></div>
+    <div class="codein"><input class="tin" id="codeIn" placeholder="BZ..." aria-label="Codul primit"><button class="skbtn" data-arc="code">Acceptă</button></div>
+    ${top.length?`<h3 class="sec">Cele mai bune ture</h3>`+top.map((t,i)=>`<div class="lbrow"><span class="pos">${i+1}</span><b>${t.m==='daily'?'📅':t.m==='vs'?'⚔️':'🕹️'} ${new Date(t.d).toLocaleDateString('ro-RO')}</b><span class="sc">${fmtN(t.s)}</span></div>`).join(''):''}`;
+  }
+  const on=(sel,fn)=>body.querySelectorAll(sel).forEach(b=>b.addEventListener('click',()=>fn(b)));
+  on('[data-arc="free"]',()=>playArcade({mode:'free'}));
+  on('[data-arc="daily"]',()=>playArcade({mode:'daily',seed:todayKey()}));
+  on('[data-arc="daily-claim"]',()=>{const d=dailyState();if(d.best<ARC.dailyTarget||d.claimed)return;d.claimed=true;store.set('arcDaily',d);renderArcHub();paintArcDot();openChest('basic')});
+  on('[data-ms]',b=>claimMs(+b.dataset.ms));
+  on('[data-mis]',b=>{const s=misState(),i=+b.dataset.mis,m=s.list[i];if(!m||m.p<m.g)return;
+    addCoins(m.rw);s.done++;s.list.splice(i,1);s.list.push(newMission(s));store.set('arcMis',s);sfx.buy();buzz(20);
+    const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:30,colors:['#ffc94a','#fff3b0','#ffd23f'],speed:320,grav:500,plain:true});renderArcHub();paintArcDot()});
+  on('[data-vs]',b=>{const n=b.dataset.vs,f=store.get('arcFriends',{})[n]||(inc&&inc.n===n?{s:inc.s,d:inc.d}:null);if(f){arcIncoming=null;playArcade({mode:'vs',seed:f.d,target:f.s,vs:n})}});
+  on('[data-arc="share"]',()=>{const t=store.get('arcTop',[])[0];if(t)shareChallenge(t.s,t.seed)});
+  on('[data-arc="code"]',()=>{const inp=$('#codeIn'),o=parseArcCode(inp.value);
+    if(!o){shakeEl(inp);sfx.bad();inp.value='';inp.placeholder='Cod greșit, mai încearcă';return}
+    addFriend(o);arcIncoming=o;sfx.unlock();renderArcHub()});
+  const nm=$('#arcNameIn');if(nm)nm.addEventListener('input',()=>{store.set('arcName',nm.value.trim().slice(0,16));const me=body.querySelector('.lbrow.me b');if(me)me.textContent=arcName()+' (tu)';
+    const code=$('#myCode'),t=store.get('arcTop',[])[0];if(code&&t)code.value=arcCode(t.s,t.seed)});
+  const mc=$('#myCode');if(mc)mc.addEventListener('click',()=>mc.select());
+}
 
 /* ================= BOSS FIGHTS ================= */
 const rnd=(a,b)=>a+Math.random()*(b-a);
@@ -1652,7 +2068,7 @@ function bossVictoryRewards(){
 
 /* ================= UI: screens, HUD, shop, modals ================= */
 let screen='home',paused=false;
-function showScreen(s){screen=s;if(s!=='game')setMusicMode(false);$('#home').hidden=s!=='home';$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
+function showScreen(s){screen=s;if(s!=='game'){setMusicMode(false);MUSIC.bpm=104}$('#home').hidden=s!=='home';$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
   // the game screen takes its zone's colours; menus keep the night look
   document.body.style.background=s==='game'&&S?gameBg(S.theme):''}
 // level backdrop: zone colours + a soft light from above + faint candy stripes + floating bokeh "marbles"
@@ -1701,16 +2117,19 @@ function hideTip(){const t=$('#tip');t&&t.remove()}
 let lastHud='';
 function hud(){
   // live rating: the clock ticks only while you play, and stars drop as you pass the target time or use power-ups
+  $('#starbar').classList.toggle('arc',!!S.arcade);
+  if(S.arcade){const A=S.arcade;if(A.score!==hud.sc){hud.sc=A.score;$('#clock').textContent='🏆 '+A.score}$('#starbar').classList.toggle('warn',A.danger)}
+  else{
   const sec=Math.floor(S.time),st=starsFor(S.time,S.par,S.par2,S.powersUsed);
   // boss levels count DOWN the time you have left; the clock turns red in the last 30 seconds
   if(S.boss){const rem=Math.max(0,Math.ceil(S.boss.limit-S.time));if(rem!==hud.sec){hud.sec=rem;$('#clock').textContent='⏱'+fmtTime(rem);$('#starbar').classList.toggle('warn',rem<=30)}}
   else if(sec!==hud.sec){hud.sec=sec;$('#clock').textContent=fmtTime(sec);$('#starbar').classList.remove('warn')}
-  if(st!==hud.st){if(hud.st>st&&hud.st!=null)shakeEl($('#starbar'));hud.st=st;$$('#starbar i').forEach((e,i)=>e.classList.toggle('off',i>=st))}
-  const pcap=bossPowerCap(),free=S.charge>=MAXCHARGE,key=[S.level,free,S.charge,S.hammer,S.hist.length,coins,S.powersUsed,!!S.boss,...POWERS.map(p=>inv[p.id])].join();
+  if(st!==hud.st){if(hud.st>st&&hud.st!=null)shakeEl($('#starbar'));hud.st=st;$$('#starbar i').forEach((e,i)=>e.classList.toggle('off',i>=st))}}
+  const pcap=bossPowerCap(),free=S.charge>=MAXCHARGE,key=[S.level,S.arcade&&S.arcade.lvl,free,S.charge,S.hammer,S.hist.length,coins,S.powersUsed,!!S.boss,...POWERS.map(p=>inv[p.id])].join();
   if(key===lastHud)return;lastHud=key;
-  $('#lvl').textContent='Niv. '+S.level;
-  const bz=$('#bz');bz.style.setProperty('--p',S.charge/MAXCHARGE);bz.classList.toggle('free',free&&S.hist.length>0);
-  $('#bzSub').textContent=free?'⟲ Anulează':`Combo ${S.charge}/${MAXCHARGE}`;
+  $('#lvl').textContent=S.arcade?'⚡ Viteza '+S.arcade.lvl:'Niv. '+S.level;
+  const bz=$('#bz');bz.style.setProperty('--p',S.charge/MAXCHARGE);bz.classList.toggle('free',free&&(S.arcade||S.hist.length>0));
+  $('#bzSub').textContent=free?(S.arcade?'⬆ Urcă tabla':'⟲ Anulează'):`Combo ${S.charge}/${MAXCHARGE}`;
   $$('.pw').forEach(b=>{const n=inv[b.dataset.p],badge=b.querySelector('b');badge.textContent=n>0?n:'+';badge.classList.toggle('zero',n<=0);b.classList.toggle('on',b.dataset.p==='hammer'&&S.hammer);b.classList.toggle('locked',pcap!=null&&!(b.dataset.p==='hammer'&&S.hammer)&&(S.powersUsed>=pcap||n<=0))});
   if(pcap!=null)$('#powers').dataset.left=pcap?`Power-up: ${Math.max(0,pcap-S.powersUsed)}/${pcap}`:'Fără power-up-uri';else delete $('#powers').dataset.left;
 }
@@ -1745,9 +2164,10 @@ function renderShop(highlight){
     const cats=shopTab==='theme'?['belt','bg']:[shopTab];
     body.innerHTML=cats.map(cat=>`${cats.length>1?`<h3 class="sec">${COS_CATS[cat]}</h3>`:''}<div class="grid2">${COSMETICS[cat].map(it=>{
       const own=owns(cat,it.id),eq=COS.eq[cat]===it.id;
-      const bossLock=it.boss&&!own?BOSSES.find(x=>x.id===it.boss):null;
+      const bossLock=it.boss&&!own?BOSSES.find(x=>x.id===it.boss):null,arcLock=it.arcade&&!own;
       const btn=eq?`<button class="skbtn on" disabled>✓ Echipat</button>`:own?`<button class="skbtn equip" data-eq="${cat}:${it.id}">Echipează</button>`
         :bossLock?`<button class="skbtn" disabled>🔒 ${bossLock.emoji} ${bossLock.name}</button>`
+        :arcLock?`<button class="skbtn" disabled>🔒 🕹️ ${fmtN(it.arcade)} pct</button>`
         :`<button class="skbtn" data-buy-cos="${cat}:${it.id}" ${coins<it.price?'disabled':''}>${coinTag(it.price)}</button>`;
       const prev=cat==='bg'?`<div class="bgprev" style="background:${bgPreview(it.id)}"></div>`:`<canvas data-prev="${cat}:${it.id}" width="300" height="124"></canvas>`;
       return `<div class="sk r-${it.rar}">${prev}<b>${it.name}</b><span class="rar">${RARITY[it.rar].name}</span>${btn}</div>`}).join('')}</div>`).join('');
@@ -1854,12 +2274,13 @@ function paintSettings(){paintSwitch('#swMusic',SET.music);paintSwitch('#swSfx',
 [['#swMusic','music'],['#swSfx','sfx'],['#swVib','vib']].forEach(([id,k])=>$(id).addEventListener('click',()=>{SET[k]=!SET[k];store.set('settings',SET);paintSettings();initAudio();applyAudioSettings();sfx.ui()}));
 
 function paintHome(){const l=store.get('level',1);$('#playLvl').textContent='Nivelul '+l+(isHard(l)?' 🔥':'');paintCoins();
+  $('#arcBest').textContent=arcBest()?'🏆 Record: '+fmtN(arcBest()):'Pe scor · fără sfârșit';paintArcDot();
   $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':''}
 function start(n,quiet){
   $$('.modal').forEach(m=>m.hidden=true);
-  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);
+  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);if(!S.boss)MUSIC.bpm=104;
   if(!quiet)levelIntro(n);
-  window.claude?.hot?.snapshot?.(()=>({level:S.level,screen}));
+  window.claude?.hot?.snapshot?.(()=>({level:S.arcade?0:S.level,screen:S.arcade?'home':screen}));
 }
 function levelIntro(n){
   if(isBoss(n)&&S.boss){const B=bossOf(n);banner(`⚔️ ${B.name.toUpperCase()}<small>${B.title} · ${BOSS_DIFF[S.boss.diff].name}</small>`,'hard');sfx.roar();buzz([60,40,90]);S.shake=.5;
@@ -2001,7 +2422,7 @@ function banner(html,cls){const b=document.createElement('div');b.className='ban
   b.animate([{transform:'translate(-50%,-50%) scale(.3) rotate(-14deg)',opacity:0},{transform:'translate(-50%,-50%) scale(1.12) rotate(-4deg)',opacity:1,offset:.18},
     {transform:'translate(-50%,-50%) scale(1) rotate(-4deg)',opacity:1,offset:.72},{transform:'translate(-50%,-90%) scale(.9) rotate(-4deg)',opacity:0}],{duration:reduce?600:1700,easing:'ease-out'}).finished.then(()=>b.remove())}
 function countUp(n){const box=$('#rP');box.innerHTML+=`<span class="earn">+<b id="earnN">0</b><span class="coin"></span></span>`;
-  let i=0;const tick=()=>{if(i>n)return;$('#earnN').textContent=i;if(i%2===0)sfx.count();i++;setTimeout(tick,Math.max(18,500/n))};tick()}
+  let i=0;const tick=()=>{const el=$('#earnN');if(i>n||!el)return;el.textContent=i;if(i%2===0)sfx.count();i++;setTimeout(tick,Math.max(18,500/n))};tick()}
 
 /* ---- level map: a winding candy road, level 1 at the bottom ---- */
 const ZONES=['Orașul Bilelor','Pădurea de Bomboane','Fabrica de Farse','Lacul Lucios','Vulcanul Vesel','Galaxia Bazinga'];
@@ -2114,17 +2535,19 @@ $('#unlockForm').addEventListener('submit',e=>{e.preventDefault();const n=parseI
   const r=$('#play').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:60,speed:600,grav:600});
   banner(`Deblocat!<small>până la nivelul ${n}</small>`)});
 $('#mapBack').addEventListener('click',goHome);
+$('#arcade').addEventListener('click',()=>{initAudio();firstGift=false;openArcHub('play')});
+$$('#arcTabs button').forEach(b=>b.addEventListener('click',()=>{arcTab=b.dataset.tab;renderArcHub();sfx.ui()}));
 $('#pMap').addEventListener('click',()=>goMap(0));
 $('#hShop').addEventListener('click',()=>openShop());
 $('#hHow').addEventListener('click',()=>showModal('how'));
 [$('#hSet'),$('#hSet2')].forEach(b=>b.addEventListener('click',()=>{paintSettings();showModal('settings')}));
 $('#pauseBtn').addEventListener('click',()=>showModal('pause'));
 $('#pResume').addEventListener('click',()=>hideModal('pause'));
-$('#pRestart').addEventListener('click',()=>playLevel(S.level,true));
+$('#pRestart').addEventListener('click',()=>S.arcade?arcAgain():playLevel(S.level,true));
 $('#pShop').addEventListener('click',()=>{hideModal('pause');openShop()});
 $('#pSet').addEventListener('click',()=>{hideModal('pause');paintSettings();showModal('settings')});
 $('#pHome').addEventListener('click',goHome);
-$('#bz').addEventListener('click',()=>{if(S&&!paused)undo()});
+$('#bz').addEventListener('click',()=>{if(S&&!paused){if(S.arcade)arcadeBazinga();else undo()}});
 
 /* ---- home background: slow drifting marbles ---- */
 const hb=$('#homeBg'),hctx=hb.getContext('2d');let floaters=[];
@@ -2152,12 +2575,15 @@ document.fonts&&document.fonts.ready.then(()=>{spriteCache={}});
 buildPowers();sizeHome();sizeFx();paintCoins();
 // restore anything localStorage lost from the IndexedDB mirror, and mirror what only localStorage has
 (async()=>{const saved=await idb.all();let restored=false;
-  for(const k of ['level','coins','inv','stars','settings','muted','cos','freeChestAt']){
+  for(const k of ['level','coins','inv','stars','settings','muted','cos','freeChestAt','bossWins','arcadeBest','arcMis','arcMs','arcDaily','arcTop','arcFriends','arcName']){
     let local=null;try{local=localStorage.getItem('bz2_'+k)}catch(e){}
     if(local==null&&k in saved){store.mem[k]=saved[k];try{localStorage.setItem('bz2_'+k,JSON.stringify(saved[k]))}catch(e){}restored=true}
     else if(local!=null&&!(k in saved))idb.put(k,JSON.parse(local))}
   if(restored){coins=store.get('coins',0);inv=store.get('inv',inv);Object.assign(SET,store.get('settings',{}));Object.assign(COS,store.get('cos',{}));spriteCache={};firstGift=false;
     paintCoins();if(screen==='home')paintHome();lastHud=''}})();
+(()=>{let q=null;try{q=new URLSearchParams(location.search).get('c')}catch(e){}if(!q)return;const o=parseArcCode('BZ'+q);
+  try{history.replaceState(null,'',location.pathname)}catch(e){}
+  if(o){addFriend(o);arcIncoming=o;setTimeout(()=>openArcHub('rank'),700)}})();
 const boot=d=>{if(d&&d.screen==='game'&&d.level)start(d.level);else showScreen('home');requestAnimationFrame(frame)};
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
 </script>
