@@ -122,6 +122,79 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 .numin:focus{outline:3px solid var(--accent);outline-offset:2px}
 .err{color:var(--bad)!important;min-height:18px;font-weight:700}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* ---- shop: tabs, rarity-framed item cards ---- */
+.shopcard{width:min(460px,100%);height:min(720px,calc(100% - 8px));padding:16px;gap:10px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:none;margin:0 -4px;padding:2px 4px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:7px 12px;border-radius:999px;background:var(--glass);border:1.5px solid var(--glass-edge);font:800 14px/1 var(--display);white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--ink);border-color:#fff3b0}
+.shopbody{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:4px}
+.shopbody h3.sec{margin:6px 2px 0;font:800 16px/1 var(--display);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sk{--rc:#9aa3b5;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 10px;border-radius:18px;
+  border:3px solid var(--rc);background:var(--panel);box-shadow:0 0 0 1px rgba(0,0,0,.2),0 6px 14px rgba(0,0,0,.25)}
+.sk.r-basic{--rc:#9aa3b5}.sk.r-common{--rc:#3fd13a}.sk.r-epic{--rc:#9a4dff}.sk.r-mythic{--rc:#ffb000}
+.sk.r-mythic{background:radial-gradient(120% 80% at 50% 0%,rgba(255,176,0,.28),transparent 70%),var(--panel)}
+.sk.r-mythic::before{content:"";position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 40%,rgba(255,215,90,.38) 50%,transparent 60%);animation:goldSweep 2.8s ease-in-out infinite;pointer-events:none}
+@keyframes goldSweep{0%{transform:translateX(-60%)}100%{transform:translateX(60%)}}
+.sk.r-legendary{border-color:transparent;background:linear-gradient(var(--panel),var(--panel)) padding-box,
+  linear-gradient(90deg,#ff3d3d,#ffb000,#f5ff3d,#3dff6e,#3df5ff,#3d6bff,#c03dff,#ff3d3d,#ffb000,#f5ff3d,#3dff6e,#3df5ff,#3d6bff,#c03dff,#ff3d3d) border-box;
+  background-size:100% 100%,200% 100%;animation:rgbEdge 3s linear infinite}
+@keyframes rgbEdge{to{background-position:0 0,-200% 0}}
+.sk>*{position:relative}
+.sk canvas,.sk .bgprev{width:100%;height:62px;border-radius:12px;display:block}
+.sk .bgprev{border:2px solid rgba(255,255,255,.25)}
+.sk b{font:800 15px/1.1 var(--display);text-align:center}
+.rar{font:800 11px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:8px;background:var(--rc);color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.35)}
+.sk.r-legendary .rar{background:linear-gradient(90deg,#ff3d3d,#ffb000,#3dff6e,#3df5ff,#c03dff);background-size:200% 100%;animation:rgbEdge 3s linear infinite}
+.skbtn{width:100%;font:800 14px/1 var(--display);padding:9px 6px;border-radius:12px;background:var(--accent);color:var(--ink);box-shadow:0 3px 0 var(--accent-deep);display:flex;align-items:center;justify-content:center;gap:5px}
+.skbtn.equip{background:#fff;color:#4b2a9a;box-shadow:0 3px 0 #9a8ad6}
+.skbtn.on{background:var(--good);color:#0b3a1d;box-shadow:0 3px 0 #1d7a43}
+.skbtn.sure{background:#ff8a00;color:#fff;box-shadow:0 3px 0 #b85a00}
+.skbtn:disabled{background:#5b4a9a;color:var(--muted);box-shadow:none;opacity:1}
+/* ---- chests (sized in em so one design scales from icon to hero) ---- */
+.chest{position:relative;width:9em;height:7.6em;perspective:28em;flex:none;--open:0deg;--glow:0}
+.chest .base{position:absolute;left:0;right:0;bottom:0;height:4.4em;border-radius:.6em .6em 1em 1em;background:linear-gradient(var(--c1),var(--c2));
+  box-shadow:inset 0 -.45em 0 rgba(0,0,0,.22),0 .5em 1em rgba(0,0,0,.35)}
+.chest .base::before,.chest .lid::before{content:"";position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(90deg,transparent 13%,var(--band) 13% 21%,transparent 21% 79%,var(--band) 79% 87%,transparent 87%);opacity:.9}
+.chest .lid{position:absolute;left:-.3em;right:-.3em;bottom:4.15em;height:3.3em;border-radius:50% 50% .5em .5em/70% 70% .5em .5em;
+  background:linear-gradient(var(--c1l),var(--c1));transform-origin:50% 100%;transform:rotateX(var(--open));transition:transform .28s cubic-bezier(.3,1.7,.5,1);
+  box-shadow:inset 0 -.35em 0 rgba(0,0,0,.18);z-index:2}
+.chest .lock{position:absolute;left:50%;bottom:3.35em;width:1.5em;height:1.8em;margin-left:-.75em;border-radius:.35em;background:linear-gradient(#fff3b0,#e0a800);box-shadow:0 .15em 0 rgba(0,0,0,.3);z-index:3;transition:opacity .2s}
+.chest .lock::after{content:"";position:absolute;left:50%;top:.55em;width:.35em;height:.6em;margin-left:-.175em;border-radius:.2em;background:#7a4a10}
+.chest .glow{position:absolute;left:6%;right:6%;bottom:3.6em;height:1.6em;border-radius:50%;background:radial-gradient(#fffbe0,#ffd23f 40%,transparent 70%);opacity:var(--glow);filter:blur(.12em);z-index:1}
+.chest.legendary{animation:rainbow 3s linear infinite}
+@keyframes rainbow{to{filter:hue-rotate(360deg)}}
+.chestrow{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:8px;align-items:center;padding:10px;border-radius:18px;background:var(--panel);border:2px solid var(--glass-edge)}
+.chestrow .ic{font-size:8px;display:grid;place-items:center;height:64px}
+.chestrow h3{margin:0;font:800 17px/1.1 var(--display)}
+.chestrow p{margin:2px 0 0;font-size:12px;line-height:1.3;color:var(--muted)}
+.chestrow .skbtn{width:auto;padding:9px 12px}
+.chestbtn{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 10px;border-radius:18px;background:linear-gradient(#4fd18b,#1f9a5a);box-shadow:0 4px 0 #13703f;color:#fff;text-align:left;font-size:6px}
+.chestbtn .txt{display:flex;flex-direction:column}
+.chestbtn b{font:800 16px/1.1 var(--display)}.chestbtn small{font:700 13px/1.2 var(--body);opacity:.9;font-variant-numeric:tabular-nums}
+.chestbtn.ready{animation:breathe 1.4s ease-in-out infinite}
+.chestbtn.wait{background:var(--glass);box-shadow:none;border:1.5px solid var(--glass-edge)}
+/* ---- chest opening overlay ---- */
+#chestOv{position:fixed;inset:0;z-index:92;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;overflow:hidden;
+  background:radial-gradient(circle at 50% 45%,#4a2a9a,#120a33 70%);animation:fadeIn .25s}
+.co-rays{position:absolute;left:50%;top:44%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;opacity:0;pointer-events:none;
+  background:repeating-conic-gradient(rgba(255,240,170,.55) 0 7deg,transparent 7deg 20deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 55%);mask:radial-gradient(circle,#000 0,transparent 55%);transition:opacity .5s}
+#chestOv.open .co-rays{opacity:1;animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.co-title{margin:0;font:800 30px/1 var(--display);color:var(--accent);text-shadow:0 3px 0 var(--accent-deep);position:relative}
+.co-stage{font-size:22px;cursor:pointer;position:relative;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.co-dots{display:flex;gap:8px;position:relative}
+.co-dots i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .2s,transform .2s}
+.co-dots i.on{background:var(--accent);transform:scale(1.25)}
+.co-hint{margin:0;color:var(--muted);font-weight:700;position:relative;min-height:20px}
+.co-rewards{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:420px;position:relative}
+.rw{--rc:#ffd23f;width:96px;padding:10px 6px;border-radius:16px;background:var(--panel);border:3px solid var(--rc);display:flex;flex-direction:column;align-items:center;gap:4px;
+  font:800 14px/1.1 var(--display);text-align:center;animation:rwIn .5s cubic-bezier(.2,1.7,.4,1) both}
+.rw canvas{width:84px;height:40px}
+.rw .big{font-size:26px;color:var(--coin)}
+@keyframes rwIn{from{opacity:0;transform:translateY(40px) scale(.3)}}
 .pw-ic{background:none!important}
 .pw-ic .tileic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 3px 0 var(--c3),inset 0 2px 0 rgba(255,255,255,.45)}
 .pw-ic svg{width:32px;height:32px}
@@ -273,6 +346,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   <p class="tag">Sparge blocuri. Umple cutii. Fă farse.</p>
   <button class="btn" id="play"><span class="shine"></span><span class="holdbar" aria-hidden="true"></span>▶ Joacă<small id="playLvl">Nivelul 1</small></button>
   <p class="gift" id="gift"></p>
+  <button class="chestbtn" id="hChest"><span class="mini" id="hChestIcon"></span><span class="txt"><b>Cufăr gratuit</b><small id="hChestT">Gata de deschis!</small></span></button>
   <div class="tiles">
     <button class="tile" id="hShop">🛒<span>Magazin</span></button>
     <button class="tile" id="hHow">❓<span>Cum se joacă</span></button>
@@ -305,11 +379,24 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 </div>
 
 <!-- SHOP -->
-<div id="shop" class="modal" hidden><div class="card">
+<div id="shop" class="modal" hidden><div class="card shopcard">
   <div class="card-head"><h2>Magazin</h2><span class="pill coins"><i></i><b class="coinN">0</b></span><button class="x" data-close aria-label="Închide">✕</button></div>
-  <div class="stack" id="shopList"></div>
-  <p class="note">BAZINGA! e gratuit: combo-urile îi umplu bara, iar când e plină anulează ultima mutare.</p>
+  <div class="tabs" role="tablist" id="shopTabs">
+    <button role="tab" data-tab="chests">🎁 Cufere</button><button role="tab" data-tab="ball">⚪ Bile</button><button role="tab" data-tab="fx">✨ Efecte</button><button role="tab" data-tab="theme">🎨 Teme</button><button role="tab" data-tab="power">⚡ Power-up</button>
+  </div>
+  <div class="shopbody" id="shopBody"></div>
 </div></div>
+
+<!-- CHEST OPENING -->
+<div id="chestOv" hidden>
+  <div class="co-rays" aria-hidden="true"></div>
+  <p class="co-title" id="coTitle">Cufăr</p>
+  <div class="co-stage" id="coStage" role="button" aria-label="Atinge cufărul ca să-l deschizi"></div>
+  <div class="co-dots" id="coDots" aria-hidden="true"></div>
+  <p class="co-hint" id="coHint">Atinge cufărul!</p>
+  <div class="co-rewards" id="coRewards"></div>
+  <button class="btn" id="coCollect" hidden>Colectează</button>
+</div>
 
 <!-- SETTINGS -->
 <div id="settings" class="modal" hidden><div class="card">
@@ -437,6 +524,78 @@ const SET=Object.assign({music:true,sfx:true,vib:true},store.get('settings',{}))
 let inv=store.get('inv',null),firstGift=false;
 if(!inv){inv={};POWERS.forEach(p=>inv[p.id]=1);firstGift=true;store.set('inv',inv)}
 const saveInv=()=>store.set('inv',inv);
+
+/* ================= cosmetics: rarities, ball skins, break effects, belt themes, backgrounds ================= */
+const RAR_ORDER=['basic','common','epic','mythic','legendary'];
+const RARITY={basic:{name:'Basic',color:'#9aa3b5'},common:{name:'Comun',color:'#3fd13a'},epic:{name:'Epic',color:'#9a4dff'},
+  mythic:{name:'Mitic',color:'#ffb000'},legendary:{name:'Legendar',color:'#ff4d6d'}};
+const COSMETICS={
+  ball:[ // every skin keeps each colour recognisable; only the material changes
+    {id:'classic',name:'Clasic',rar:'basic',price:0},{id:'matte',name:'Mat',rar:'basic',price:100},
+    {id:'pastel',name:'Pastel',rar:'common',price:200},{id:'candy',name:'Bomboană',rar:'common',price:250},
+    {id:'glass',name:'Sticlă',rar:'epic',price:500},{id:'planet',name:'Planetă',rar:'epic',price:600},
+    {id:'emoji',name:'Fețe vesele',rar:'mythic',price:900},{id:'metal',name:'Metal',rar:'mythic',price:1000},
+    {id:'neon',name:'Neon',rar:'legendary',price:1500},{id:'galaxy',name:'Galaxie',rar:'legendary',price:2000}],
+  fx:[
+    {id:'classic',name:'Confetti',rar:'basic',price:0},{id:'stars',name:'Stele',rar:'common',price:200},
+    {id:'bubbles',name:'Bule',rar:'epic',price:450},{id:'hearts',name:'Inimioare',rar:'mythic',price:800},
+    {id:'fireworks',name:'Artificii',rar:'legendary',price:1400}],
+  belt:[
+    {id:'white',name:'Tavă albă',rar:'basic',price:0},{id:'wood',name:'Lemn',rar:'common',price:250},
+    {id:'candy',name:'Acadea',rar:'epic',price:500},{id:'metal',name:'Fabrică',rar:'mythic',price:900},
+    {id:'neon',name:'Neon',rar:'legendary',price:1500}],
+  bg:[
+    {id:'zone',name:'Culorile zonei',rar:'basic',price:0},{id:'ocean',name:'Sub apă',rar:'common',price:300},
+    {id:'candy',name:'Cofetărie',rar:'epic',price:500},{id:'sunset',name:'Apus',rar:'mythic',price:900},
+    {id:'space',name:'Spațiu',rar:'legendary',price:1600}]};
+const COS_CATS={ball:'Bile',fx:'Efecte',belt:'Benzi',bg:'Fundaluri'};
+const COS=Object.assign({own:{ball:['classic'],fx:['classic'],belt:['white'],bg:['zone']},eq:{ball:'classic',fx:'classic',belt:'white',bg:'zone'}},store.get('cos',{}));
+const saveCos=()=>store.set('cos',COS);
+const cosItem=(cat,id)=>COSMETICS[cat].find(i=>i.id===id);
+const owns=(cat,id)=>COS.own[cat].includes(id);
+function hexA(c,a){let r,g,b;if(c[0]==='#'){const n=parseInt(c.slice(1),16);r=n>>16;g=n>>8&255;b=n&255}else[r,g,b]=c.match(/\d+/g).map(Number);return`rgba(${r},${g},${b},${a})`}
+// conveyor looks
+const BELTS={
+  white:{rim:'#ffffff',ch:'#c4c9e8',sock:'#b0b6db',edge:'#c9cee9',ink:'#7a7fab',gauge:'#e3e6f7'},
+  wood:{rim:['#e0a86a','#a8693a'],ch:'#6e4223',sock:'#8a5a33',edge:'#7a4a26',ink:'#fff0dc',gauge:'#5a3418',grain:true},
+  candy:{rim:'#ff8fc7',ch:'#ffe1f0',sock:'#ffc2e0',edge:'#e05a9e',ink:'#c2367a',gauge:'#ffd0e8',stripe:'#ffffff'},
+  metal:{rim:['#eef2f8','#8d97ab'],ch:'#4d5568',sock:'#636c82',edge:'#6c7489',ink:'#e8ecf5',gauge:'#3a4152',bolts:true},
+  neon:{rim:'#1a1033',ch:'#0d0820',sock:'#221545',edge:'#3a2a70',ink:'#7df9ff',gauge:'#241547',glow:['#ff3df0','#3df5ff']}};
+// level backdrops (the zone backdrop is built from the map zone's colours)
+const BGS={
+  ocean:{line:'#1b5f94',css:()=>`radial-gradient(120% 45% at 50% -5%,rgba(255,255,255,.55),transparent 60%),url("data:image/svg+xml,${encodeURIComponent(bubbleSvg('#ffffff'))}"),linear-gradient(#8fe0ff,#2a8fd0 60%,#145c99)`},
+  candy:{line:'#d0569a',css:()=>`radial-gradient(120% 45% at 50% -5%,rgba(255,255,255,.6),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.45) 0 22px,transparent 22px 44px),linear-gradient(#ffd6ec,#ff9fcb)`},
+  sunset:{line:'#a8466a',css:()=>`radial-gradient(60% 30% at 50% 22%,rgba(255,240,180,.9),rgba(255,200,120,.35) 40%,transparent 70%),linear-gradient(#ffcf8a,#ff8a7a 45%,#9a4dbf 85%)`},
+  space:{line:'#5a3fb0',css:()=>`url("data:image/svg+xml,${encodeURIComponent(starSvg())}"),radial-gradient(80% 50% at 70% 20%,rgba(154,77,255,.45),transparent 70%),radial-gradient(70% 40% at 20% 75%,rgba(53,214,242,.25),transparent 70%),linear-gradient(#1a0f45,#0b0726)`}};
+function bubbleSvg(c){return `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='200'><g fill='none' stroke='${c}' stroke-opacity='.45' stroke-width='2'><circle cx='30' cy='40' r='12'/><circle cx='120' cy='20' r='6'/><circle cx='100' cy='120' r='16'/><circle cx='40' cy='160' r='8'/><circle cx='140' cy='180' r='4'/></g></svg>`}
+function starSvg(){let s='';const r=rng(42);for(let i=0;i<40;i++)s+=`<circle cx='${(r()*240).toFixed(0)}' cy='${(r()*240).toFixed(0)}' r='${(r()*1.6+.4).toFixed(1)}' fill='white' fill-opacity='${(r()*.6+.3).toFixed(2)}'/>`;return `<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>${s}</svg>`}
+
+/* ================= chests ================= */
+const FREE_CHEST_MS=30*60*1000;
+const CHESTS={ // c1/c2 body colours, band = metal straps; skin weights by rarity
+  free:{name:'Cufăr gratuit',price:0,c:['#4fd18b','#1f9a5a'],band:'#e0f7ea',power:1,coins:[35,80],skin:null},
+  basic:{name:'Cufăr Basic',price:120,c:['#c98d54','#8a5a30'],band:'#c4cad8',power:1,coins:[40,120],skin:{chance:.25,w:{basic:60,common:40}}},
+  epic:{name:'Cufăr Epic',price:350,c:['#b07dff','#6a24c9'],band:'#e9e2ff',power:2,coins:[90,200],skin:{chance:.6,w:{common:55,epic:38,mythic:7}}},
+  golden:{name:'Cufăr Auriu',price:700,c:['#ffd23f','#d99a12'],band:'#fff3b0',power:3,coins:[150,350],skin:{chance:1,w:{common:30,epic:42,mythic:24,legendary:4}}},
+  legendary:{name:'Cufăr Legendar',price:1400,c:['#ff4fd8','#7a24c9'],band:'#ffffff',power:4,coins:[300,600],skin:{chance:1,w:{epic:45,mythic:38,legendary:17}}}};
+const freeChestReady=()=>Date.now()>=store.get('freeChestAt',0);
+const freeChestLeft=()=>Math.max(0,store.get('freeChestAt',0)-Date.now());
+const fmtLeft=ms=>{const s=Math.ceil(ms/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`};
+// roll a chest's rewards (applied immediately, so closing the animation early never loses anything)
+function rollChest(type){
+  const C=CHESTS[type],ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+  const out={coins:ri(...C.coins),powers:[],item:null};
+  for(let i=0;i<C.power;i++)out.powers.push(POWERS[Math.floor(Math.random()*POWERS.length)].id);
+  if(C.skin&&Math.random()<C.skin.chance){
+    const pool=[];Object.keys(COSMETICS).forEach(cat=>COSMETICS[cat].forEach(it=>{const w=C.skin.w[it.rar];if(w&&!owns(cat,it.id))pool.push({cat,it,w})}));
+    if(pool.length){let t=Math.random()*pool.reduce((a,p)=>a+p.w,0);for(const p of pool){t-=p.w;if(t<=0){out.item={cat:p.cat,id:p.it.id};break}}if(!out.item){const p=pool[pool.length-1];out.item={cat:p.cat,id:p.it.id}}}
+    else out.coins+=Math.round(C.price*.5); // everything already owned: pay out coins instead
+  }
+  addCoins(out.coins,false);out.powers.forEach(p=>inv[p]++);saveInv();
+  if(out.item){COS.own[out.item.cat].push(out.item.id);saveCos()}
+  if(type==='free')store.set('freeChestAt',Date.now()+FREE_CHEST_MS);
+  return out;
+}
 function addCoins(n,paint=true){coins=Math.max(0,coins+n);store.set('coins',coins);if(paint)paintCoins(n>0)}
 function paintCoins(bump){$$('.coinN').forEach(e=>e.textContent=coins);if(bump)$$('.coins').forEach(e=>{e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')})}
 
@@ -674,12 +833,41 @@ function feedBelt(){
 
 /* ================= drawing ================= */
 let spriteCache={};
-function sprite(color,R){
-  const key=color+'|'+Math.round(R*dpr*2);if(spriteCache[key])return spriteCache[key];
-  const s=Math.ceil(R*2*dpr)+4,c=document.createElement('canvas');c.width=c.height=s;const g=c.getContext('2d'),m=s/2,rr=R*dpr,hex=COLORS[color]||color;
-  const gr=g.createRadialGradient(m-rr*.35,m-rr*.4,rr*.08,m,m,rr);gr.addColorStop(0,shade(hex,.55));gr.addColorStop(.45,hex);gr.addColorStop(1,shade(hex,-.38));
-  g.fillStyle=gr;g.beginPath();g.arc(m,m,rr,0,7);g.fill();
-  g.fillStyle='rgba(255,255,255,.85)';g.beginPath();g.ellipse(m-rr*.33,m-rr*.38,rr*.2,rr*.13,-.6,0,7);g.fill();
+// one cached bitmap per skin + colour + size; the skin only changes the material, never the colour
+function sprite(color,R,skin=COS.eq.ball){
+  const key=skin+'|'+color+'|'+Math.round(R*dpr*2);if(spriteCache[key])return spriteCache[key];
+  const pad=skin==='neon'||skin==='planet'?1.45:1,s=Math.ceil(R*2*dpr*pad)+4,c=document.createElement('canvas');c.width=c.height=s;
+  const g=c.getContext('2d'),m=s/2,rr=R*dpr,hex=COLORS[color]||color;
+  const circle=r=>{g.beginPath();g.arc(m,m,r,0,7)};
+  const gloss=(a=.85)=>{g.fillStyle=`rgba(255,255,255,${a})`;g.beginPath();g.ellipse(m-rr*.33,m-rr*.38,rr*.2,rr*.13,-.6,0,7);g.fill()};
+  const classic=(base=hex,r=rr)=>{const gr=g.createRadialGradient(m-r*.35,m-r*.4,r*.08,m,m,r);gr.addColorStop(0,shade(base,.55));gr.addColorStop(.45,base);gr.addColorStop(1,shade(base,-.38));g.fillStyle=gr;circle(r);g.fill()};
+  switch(skin){
+    case'matte':{const gr=g.createRadialGradient(m-rr*.3,m-rr*.35,rr*.1,m,m,rr);gr.addColorStop(0,shade(hex,.18));gr.addColorStop(1,shade(hex,-.22));g.fillStyle=gr;circle(rr);g.fill();break}
+    case'pastel':{const b=shade(hex,.42),n=parseInt(hex.slice(1),16);classic('#'+b.match(/\d+/g).map(v=>(+v).toString(16).padStart(2,'0')).join(''));gloss(.7);break}
+    case'candy':classic();g.save();circle(rr);g.clip();g.translate(m,m);g.rotate(-.6);g.fillStyle='rgba(255,255,255,.85)';g.fillRect(-rr,-rr*.16,rr*2,rr*.32);
+      g.fillStyle='rgba(255,255,255,.35)';g.fillRect(-rr,rr*.42,rr*2,rr*.14);g.fillRect(-rr,-rr*.56,rr*2,rr*.14);g.restore();gloss();break;
+    case'glass':{g.fillStyle=hexA(hex,.4);circle(rr);g.fill();const gr=g.createRadialGradient(m+rr*.25,m+rr*.35,rr*.05,m,m,rr);
+      gr.addColorStop(0,hexA(shade(hex,.5),.95));gr.addColorStop(.6,hexA(hex,.3));gr.addColorStop(1,hexA(shade(hex,-.3),.95));g.fillStyle=gr;circle(rr);g.fill();
+      g.lineWidth=rr*.12;g.strokeStyle=hexA(shade(hex,.35),.9);circle(rr*.94);g.stroke();
+      g.fillStyle='rgba(255,255,255,.92)';g.beginPath();g.ellipse(m-rr*.32,m-rr*.36,rr*.32,rr*.15,-.7,0,7);g.fill();
+      g.fillStyle='rgba(255,255,255,.6)';g.beginPath();g.arc(m+rr*.38,m+rr*.4,rr*.1,0,7);g.fill();break}
+    case'planet':{const pr=rr*.78,ring=front=>{g.save();g.translate(m,m);g.rotate(-.35);g.beginPath();g.ellipse(0,0,rr*1.3,rr*.36,0,front?0:Math.PI,front?Math.PI:Math.PI*2);
+        g.lineWidth=rr*.17;g.strokeStyle=shade(hex,.6);g.stroke();g.restore()};
+      ring(false);classic(hex,pr);g.fillStyle='rgba(0,0,0,.12)';g.beginPath();g.ellipse(m+pr*.1,m+pr*.25,pr*.7,pr*.18,-.3,0,7);g.fill();ring(true);break}
+    case'emoji':classic();g.fillStyle='#fff';for(const sx of[-1,1]){g.beginPath();g.ellipse(m+sx*rr*.3,m-rr*.12,rr*.17,rr*.22,0,0,7);g.fill()}
+      g.fillStyle='#1a1140';for(const sx of[-1,1]){g.beginPath();g.arc(m+sx*rr*.3+rr*.04,m-rr*.07,rr*.09,0,7);g.fill()}
+      g.strokeStyle='#1a1140';g.lineWidth=rr*.09;g.lineCap='round';g.beginPath();g.arc(m,m+rr*.18,rr*.28,.2*Math.PI,.8*Math.PI);g.stroke();gloss(.55);break;
+    case'metal':{const gr=g.createLinearGradient(m,m-rr,m,m+rr);gr.addColorStop(0,shade(hex,.75));gr.addColorStop(.35,hex);gr.addColorStop(.5,shade(hex,-.45));gr.addColorStop(.65,shade(hex,.35));gr.addColorStop(1,shade(hex,-.55));
+      g.fillStyle=gr;circle(rr);g.fill();g.strokeStyle=shade(hex,.6);g.lineWidth=rr*.08;circle(rr*.95);g.stroke();gloss(.95);break}
+    case'neon':g.shadowColor=hex;g.shadowBlur=rr*.7;g.strokeStyle=hex;g.lineWidth=rr*.24;circle(rr*.86);g.stroke();g.stroke();g.shadowBlur=0;
+      g.fillStyle='#120a24';circle(rr*.74);g.fill();g.fillStyle=hexA(hex,.5);circle(rr*.42);g.fill();g.fillStyle='rgba(255,255,255,.85)';g.beginPath();g.arc(m-rr*.25,m-rr*.3,rr*.12,0,7);g.fill();break;
+    case'galaxy':{const gr=g.createRadialGradient(m-rr*.2,m-rr*.25,rr*.1,m,m,rr);gr.addColorStop(0,shade(hex,.25));gr.addColorStop(.55,shade(hex,-.45));gr.addColorStop(1,'#0b0620');
+      g.fillStyle=gr;circle(rr);g.fill();g.save();circle(rr);g.clip();const rnd=rng(hex.charCodeAt(1)*97+hex.charCodeAt(3)*13+hex.charCodeAt(5));
+      g.fillStyle=hexA(shade(hex,.5),.4);g.beginPath();g.ellipse(m+rr*.1,m+rr*.1,rr*.75,rr*.24,-.5,0,7);g.fill();
+      for(let i=0;i<10;i++){g.fillStyle=`rgba(255,255,255,${.5+rnd()*.5})`;g.beginPath();g.arc(m+(rnd()-.5)*rr*1.6,m+(rnd()-.5)*rr*1.6,rr*(.03+rnd()*.05),0,7);g.fill()}
+      g.restore();gloss(.65);break}
+    default:classic();gloss();
+  }
   return spriteCache[key]=c;
 }
 function ball(color,x,y,R,a=1,c2=ctx){const sp=sprite(color,R),s=sp.width/dpr;if(a<1)c2.globalAlpha=a;c2.drawImage(sp,x-s/2,y-s/2,s,s);if(a<1)c2.globalAlpha=1}
@@ -688,7 +876,8 @@ function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h
 /* the play tray: one light floor (board cells + funnel + conveyor area) outlined in the zone colour;
    empty board spots (voids) show the coloured wall behind it */
 function drawPlayfield(){
-  const T=S.theme,{cs,bx,by,mx0,mx1,mouthY,ex,neckHalf,neckTop,cy,r,W,H}=L,m=8,f=3,beltTop=cy-r-L.beltR-4-7-16,shapes=[];
+  // the tray outline follows the backdrop: zone colour by default, or the bought background's own edge colour
+  const T={line:COS.eq.bg!=='zone'&&BGS[COS.eq.bg]?BGS[COS.eq.bg].line:S.theme.line},{cs,bx,by,mx0,mx1,mouthY,ex,neckHalf,neckTop,cy,r,W,H}=L,m=8,f=3,beltTop=cy-r-L.beltR-4-7-16,shapes=[];
   S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t!=='void')shapes.push(()=>rr(bx+x*cs-m,by+y*cs-m,cs+2*m,cs+2*m,18))}));
   const fTop=L.bBottom-m-4;
   shapes.push(()=>{ctx.beginPath();ctx.moveTo(mx0-f,fTop);ctx.lineTo(mx1+f,fTop);ctx.lineTo(mx1+f,mouthY);ctx.lineTo(ex+neckHalf+f,neckTop+2);
@@ -751,10 +940,10 @@ function drawFx(){
     }else if(f.k==='ring'){
       ctx.save();ctx.globalAlpha=(1-p)*.9;ctx.strokeStyle=f.color;ctx.lineWidth=7*(1-p)+1;
       ctx.beginPath();ctx.arc(f.x,f.y,f.r0+(f.r1-f.r0)*(1-(1-p)**3),0,7);ctx.stroke();ctx.restore();
-    }else if(f.k==='spark'){
-      const s=(4+10*Math.sin(p*Math.PI))*(f.size||1);
-      ctx.save();ctx.globalAlpha=1-p;ctx.translate(f.x,f.y);ctx.rotate(p*2);ctx.fillStyle='#fff';
-      ctx.beginPath();for(let k=0;k<8;k++){const rr2=k%2?s*.28:s;ctx.lineTo(Math.cos(k*Math.PI/4)*rr2,Math.sin(k*Math.PI/4)*rr2)}ctx.fill();ctx.restore();
+    }else if(f.k==='spark'){ // the little flash as each ball pops out, styled by the equipped break effect
+      const s=(4+10*Math.sin(p*Math.PI))*(f.size||1),F=FXS[COS.eq.fx]||FXS.classic;
+      ctx.save();ctx.globalAlpha=1-p;ctx.translate(f.x,f.y-(F.rise?p*14:0));ctx.rotate(p*2);
+      drawShape(ctx,F.spark,s,F.sparkColor||CONF[(f.x|0)%CONF.length]);ctx.restore();
     }else if(f.k==='rewind'){ // undo swirl: a spinning dashed ring that shrinks onto the restored block
       ctx.save();ctx.globalAlpha=1-p;ctx.translate(f.x,f.y);ctx.rotate(-p*8);ctx.setLineDash([10,8]);ctx.strokeStyle='#ffd23f';ctx.lineWidth=5;
       ctx.beginPath();ctx.arc(0,0,f.r*(1.6-p*1.1),0,7);ctx.stroke();ctx.restore();
@@ -766,11 +955,18 @@ function drawBelt(){
   const{x1,x2,cy,r,ex}=L,R=L.beltR,sh=S.shake>0?Math.sin(S.time*60)*S.shake*10:0,w=R+4,rail=7;
   const used=S.bb.length,fill=used/S.cap,danger=used>=S.cap-3;
   ctx.save();ctx.translate(sh,0);
-  const RIM='#ffffff',CH='#c4c9e8',SOCK='#b0b6db',EDGE='#c9cee9';
-  // white tray rim with a soft shadow
-  ctx.save();ctx.shadowColor='rgba(70,50,140,.28)';ctx.shadowBlur=12;ctx.shadowOffsetY=5;
+  const B=BELTS[COS.eq.belt]||BELTS.white,CH=B.ch,SOCK=B.sock,EDGE=B.edge,
+    RIM=Array.isArray(B.rim)?(()=>{const g=ctx.createLinearGradient(0,cy-r-w-rail,0,cy+r+w+rail);g.addColorStop(0,B.rim[0]);g.addColorStop(1,B.rim[1]);return g})():B.rim;
+  // tray rim with a soft shadow, dressed by the equipped belt theme
+  ctx.save();ctx.shadowColor=B.glow?B.glow[0]:'rgba(70,50,140,.28)';ctx.shadowBlur=B.glow?18:12;ctx.shadowOffsetY=B.glow?0:5;
   stadium(x1,x2,cy,r+w+rail);ctx.fillStyle=RIM;ctx.fill();ctx.restore();
   stadium(x1,x2,cy,r+w+rail);ctx.strokeStyle=EDGE;ctx.lineWidth=2;ctx.stroke();
+  if(B.stripe){ctx.save();ctx.setLineDash([7,7]);ctx.lineDashOffset=-S.offset;stadium(x1,x2,cy,r+w+rail/2);ctx.strokeStyle=B.stripe;ctx.lineWidth=rail-2;ctx.stroke();ctx.restore()}
+  if(B.grain){ctx.save();ctx.strokeStyle='rgba(90,50,20,.35)';ctx.lineWidth=1;for(const k of[.3,.7]){stadium(x1,x2,cy,r+w+rail*k);ctx.stroke()}ctx.restore()}
+  if(B.bolts){ctx.fillStyle='#596277';for(let i=0;i<10;i++){const[bx2,by2]=beltPos(i*L.P/10);const dx=bx2-(x1+x2)/2,dy=by2-cy,l=Math.hypot(dx,dy)||1;
+    ctx.beginPath();ctx.arc(bx2+dx/l*(w+rail/2),by2+dy/l*(w+rail/2),1.8,0,7);ctx.fill()}}
+  if(B.glow){ctx.save();ctx.shadowBlur=12;ctx.lineWidth=2;ctx.shadowColor=ctx.strokeStyle=B.glow[0];stadium(x1,x2,cy,r+w+rail-1);ctx.stroke();
+    ctx.shadowColor=ctx.strokeStyle=B.glow[1];stadium(x1,x2,cy,Math.max(1,r-w)+1);ctx.stroke();ctx.restore()}
   if(danger){stadium(x1,x2,cy,r+w+rail);ctx.strokeStyle=`rgba(242,61,87,${.55+.4*Math.sin(S.time*8)})`;ctx.lineWidth=3.5;ctx.stroke()}
   if(S.cap>NSLOTS){stadium(x1,x2,cy,r+w+rail);ctx.strokeStyle='#3fd13a';ctx.lineWidth=3.5;ctx.stroke()}
   // grey channel with moving sockets, like the slots of a real marble conveyor
@@ -786,9 +982,9 @@ function drawBelt(){
   // inner divider (white) with the capacity gauge
   const ir=Math.max(3,r-w);stadium(x1,x2,cy,ir);ctx.fillStyle=RIM;ctx.fill();ctx.strokeStyle=EDGE;ctx.lineWidth=1.5;ctx.stroke();
   const gw=(x2-x1)*.5,gx=(x1+x2)/2-gw/2-12,gh=Math.max(3,Math.min(6,ir-3)),gy=cy-gh/2;
-  ctx.fillStyle='#e3e6f7';rr(gx,gy,gw,gh,gh/2);ctx.fill();
+  ctx.fillStyle=B.gauge;rr(gx,gy,gw,gh,gh/2);ctx.fill();
   ctx.fillStyle=fill>.85?'#f23d57':fill>.6?'#ffb000':'#3fd13a';rr(gx,gy,Math.max(gh,gw*fill),gh,gh/2);ctx.fill();
-  ctx.font=`800 12px 'Baloo 2',sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle=danger?'#f23d57':'#7a7fab';
+  ctx.font=`800 12px 'Baloo 2',sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle=danger?'#f23d57':B.ink;
   ctx.fillText(`${used}/${S.cap}`,gx+gw+6,cy+1);
   // entry: an opening in the rim under the funnel neck
   ctx.fillStyle=CH;ctx.fillRect(ex-L.neckHalf,cy-r-w-rail-1,L.neckHalf*2,rail+3);
@@ -1120,6 +1316,7 @@ function showScreen(s){screen=s;$('#home').hidden=s!=='home';$('#game').hidden=s
   document.body.style.background=s==='game'&&S?gameBg(S.theme):''}
 // level backdrop: zone colours + a soft light from above + faint candy stripes + floating bokeh "marbles"
 function gameBg(T){
+  if(COS.eq.bg!=='zone'&&BGS[COS.eq.bg])return BGS[COS.eq.bg].css();
   const bokeh=`<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><defs><radialGradient id='g' cx='.35' cy='.3'><stop offset='0' stop-color='#fff' stop-opacity='.55'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></radialGradient></defs>
     <circle cx='28' cy='36' r='22' fill='url(#g)'/><circle cx='150' cy='22' r='10' fill='url(#g)'/><circle cx='186' cy='130' r='28' fill='url(#g)'/><circle cx='70' cy='140' r='14' fill='url(#g)'/>
     <circle cx='112' cy='88' r='6' fill='url(#g)'/><circle cx='30' cy='196' r='9' fill='url(#g)'/><circle cx='200' cy='205' r='5' fill='url(#g)'/><circle cx='120' cy='190' r='17' fill='url(#g)'/></svg>`;
@@ -1174,21 +1371,137 @@ function hud(){
   $$('.pw').forEach(b=>{const n=inv[b.dataset.p],badge=b.querySelector('b');badge.textContent=n>0?n:'+';badge.classList.toggle('zero',n<=0);b.classList.toggle('on',b.dataset.p==='hammer'&&S.hammer)});
 }
 
-function openShop(highlight){
-  const list=$('#shopList');
-  list.innerHTML=POWERS.map(p=>`<div class="item" data-id="${p.id}"><div class="ic pw-ic">${powerTile(p)}</div>
-    <div><h3>${p.name}</h3><p>${p.desc}</p><span class="own">Ai: <b>${inv[p.id]}</b></span></div>
-    <button class="buy" data-buy="${p.id}" ${coins<p.price?'disabled':''}>${p.price} <span class="coin"></span></button></div>`).join('');
-  list.querySelectorAll('[data-buy]').forEach(b=>b.addEventListener('click',()=>buy(b.dataset.buy)));
-  if(highlight){const el=list.querySelector(`[data-id="${highlight}"]`);el&&(el.style.borderColor='var(--accent)')}
-  paintCoins();showModal('shop');
+/* ================= shop: chests · ball skins · effects · themes · power-ups ================= */
+let shopTab='chests';
+function openShop(highlight){shopTab=highlight&&POWERS.some(p=>p.id===highlight)?'power':shopTab;renderShop(highlight);paintCoins();showModal('shop')}
+$$('#shopTabs button').forEach(b=>b.addEventListener('click',()=>{shopTab=b.dataset.tab;renderShop();sfx.ui()}));
+const coinTag=n=>`${n} <span class="coin"></span>`;
+function chestHTML(type,em){const C=CHESTS[type];
+  return `<div class="chest ${type}" style="font-size:${em}px;--c1:${C.c[0]};--c2:${C.c[1]};--c1l:${shade(C.c[0],.3)};--band:${C.band}"><div class="base"></div><div class="glow"></div><div class="lid"></div><div class="lock"></div></div>`}
+function renderShop(highlight){
+  $$('#shopTabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===shopTab?'true':'false'));
+  const body=$('#shopBody');body.scrollTop=0;
+  if(shopTab==='power'){
+    body.innerHTML=POWERS.map(p=>`<div class="item" data-id="${p.id}"><div class="ic pw-ic">${powerTile(p)}</div>
+      <div><h3>${p.name}</h3><p>${p.desc}</p><span class="own">Ai: <b>${inv[p.id]}</b></span></div>
+      <button class="buy" data-buy="${p.id}" ${coins<p.price?'disabled':''}>${coinTag(p.price)}</button></div>`).join('')+
+      `<p class="note">BAZINGA! e gratuit: combo-urile îi umplu bara, iar când e plină anulează ultima mutare.</p>`;
+    body.querySelectorAll('[data-buy]').forEach(b=>b.addEventListener('click',()=>buy(b.dataset.buy)));
+    if(highlight){const el=body.querySelector(`[data-id="${highlight}"]`);el&&(el.style.borderColor='var(--accent)')}
+  }else if(shopTab==='chests'){
+    body.innerHTML=Object.entries(CHESTS).map(([t,C])=>{
+      const top=C.skin?RAR_ORDER.filter(r=>C.skin.w[r]).pop():null;
+      const what=t==='free'?'⚡ 1 power-up<br>🪙 35–80 · la fiecare 30 min':
+        `⚡ ${C.power} power-up${C.power>1?'-uri':''}<br>🪙 ${C.coins[0]}–${C.coins[1]}<br>🎨 ${C.skin.chance>=1?'obiect garantat':Math.round(C.skin.chance*100)+'% obiect'} · până la <b style="color:${RARITY[top].color}">${RARITY[top].name}</b>`;
+      const btn=t==='free'?(freeChestReady()?`<button class="skbtn" data-chest="free">Deschide!</button>`:`<button class="skbtn" disabled data-free-timer>⏱ ${fmtLeft(freeChestLeft())}</button>`)
+        :`<button class="skbtn" data-chest="${t}" ${coins<C.price?'disabled':''}>${coinTag(C.price)}</button>`;
+      return `<div class="chestrow"><div class="ic">${chestHTML(t,7.5)}</div><div><h3>${C.name}</h3><p>${what}</p></div>${btn}</div>`}).join('');
+    body.querySelectorAll('[data-chest]').forEach(b=>b.addEventListener('click',()=>buyChest(b.dataset.chest,b)));
+  }else{
+    const cats=shopTab==='theme'?['belt','bg']:[shopTab];
+    body.innerHTML=cats.map(cat=>`${cats.length>1?`<h3 class="sec">${COS_CATS[cat]}</h3>`:''}<div class="grid2">${COSMETICS[cat].map(it=>{
+      const own=owns(cat,it.id),eq=COS.eq[cat]===it.id;
+      const btn=eq?`<button class="skbtn on" disabled>✓ Echipat</button>`:own?`<button class="skbtn equip" data-eq="${cat}:${it.id}">Echipează</button>`
+        :`<button class="skbtn" data-buy-cos="${cat}:${it.id}" ${coins<it.price?'disabled':''}>${coinTag(it.price)}</button>`;
+      const prev=cat==='bg'?`<div class="bgprev" style="background:${bgPreview(it.id)}"></div>`:`<canvas data-prev="${cat}:${it.id}" width="300" height="124"></canvas>`;
+      return `<div class="sk r-${it.rar}">${prev}<b>${it.name}</b><span class="rar">${RARITY[it.rar].name}</span>${btn}</div>`}).join('')}</div>`).join('');
+    body.querySelectorAll('canvas[data-prev]').forEach(cv2=>{const[cat,id]=cv2.dataset.prev.split(':');drawPreview(cv2,cat,id)});
+    body.querySelectorAll('[data-eq]').forEach(b=>b.addEventListener('click',()=>{const[cat,id]=b.dataset.eq.split(':');equip(cat,id)}));
+    body.querySelectorAll('[data-buy-cos]').forEach(b=>b.addEventListener('click',()=>buyCos(b)));
+    // tapping an effect's preview plays it
+    body.querySelectorAll('canvas[data-prev^="fx:"]').forEach(cv2=>cv2.addEventListener('click',()=>{const id=cv2.dataset.prev.split(':')[1],old=COS.eq.fx;
+      COS.eq.fx=id;const r=cv2.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:26,speed:300,grav:500});COS.eq.fx=old}));
+  }
 }
+function bgPreview(id){if(id==='zone'){const T=THEMES[0];return `linear-gradient(${T.bg2},${T.bg})`}return BGS[id].css()}
+// small previews drawn with the same code the game uses
+function drawPreview(c,cat,id){
+  const g=c.getContext('2d'),W=c.width,H=c.height;g.clearRect(0,0,W,H);
+  if(cat==='ball'){const cols=['red','yellow','blue','green'],R=30,keepDpr=dpr;dpr=1;
+    cols.forEach((col,i)=>{const sp=sprite(col,R,id),s=sp.width;g.drawImage(sp,38+i*(W-76)/3-s/2,H/2-s/2,s,s)});dpr=keepDpr;spriteCache={}}
+  else if(cat==='fx'){const F=FXS[id],cols=F.colors||CONF;g.translate(W/2,H/2);
+    for(let i=0;i<14;i++){const a=i/14*Math.PI*2,d=24+(i%3)*14;g.save();g.translate(Math.cos(a)*d*1.9,Math.sin(a)*d*.9);g.rotate(a);drawShape(g,F.shapes[i%F.shapes.length],18,cols[i%cols.length]);g.restore()}
+    g.setTransform(1,0,0,1,0,0)}
+  else if(cat==='belt'){const B=BELTS[id],x1=50,x2=W-50,cy=H/2,rad=38,ctx0=ctx;
+    const st=(r)=>{g.beginPath();g.moveTo(x1,cy-r);g.lineTo(x2,cy-r);g.arc(x2,cy,r,-Math.PI/2,Math.PI/2);g.lineTo(x1,cy+r);g.arc(x1,cy,r,Math.PI/2,Math.PI*1.5);g.closePath()};
+    if(B.glow){g.shadowColor=B.glow[0];g.shadowBlur=14}
+    st(rad+18);if(Array.isArray(B.rim)){const gr=g.createLinearGradient(0,cy-rad-18,0,cy+rad+18);gr.addColorStop(0,B.rim[0]);gr.addColorStop(1,B.rim[1]);g.fillStyle=gr}else g.fillStyle=B.rim;g.fill();g.shadowBlur=0;
+    g.strokeStyle=B.edge;g.lineWidth=3;g.stroke();if(B.stripe){g.setLineDash([10,10]);st(rad+15);g.strokeStyle=B.stripe;g.lineWidth=6;g.stroke();g.setLineDash([])}
+    st(rad+11);g.fillStyle=B.ch;g.fill();st(rad-11);g.fillStyle=Array.isArray(B.rim)?B.rim[0]:B.rim;g.fill();
+    const cols=['red','yellow','blue','green','orange','cyan'];cols.forEach((col,i)=>{const sp=sprite(col,10);const s=sp.width/dpr;g.drawImage(sp,x1+i*(x2-x1)/5-s/2,cy-rad-s/2,s,s)})}
+}
+function equip(cat,id){COS.eq[cat]=id;saveCos();spriteCache={};sfx.buy();buzz(10);renderShop();if(screen==='game'&&S)showScreen('game')}
+// buying asks for a second tap ("Sigur?") so nothing is bought by accident
+function buyCos(btn){const[cat,id]=btn.dataset.buyCos.split(':'),it=cosItem(cat,id);
+  if(coins<it.price){sfx.bad();return}
+  if(!btn.classList.contains('sure')){btn.classList.add('sure');btn.innerHTML='Sigur? ✓';sfx.ui();setTimeout(()=>{if(btn.isConnected&&btn.classList.contains('sure')){btn.classList.remove('sure');btn.innerHTML=coinTag(it.price)}},3000);return}
+  addCoins(-it.price);COS.own[cat].push(id);saveCos();sfx.unlock();buzz([15,30,15]);
+  const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top,{n:40,speed:400,grav:600,plain:true});equip(cat,id)}
 function buy(id){
   const p=POWERS.find(q=>q.id===id);if(coins<p.price){sfx.bad();return}
-  addCoins(-p.price);inv[id]++;saveInv();sfx.buy();buzz(15);
-  const item=$(`.item[data-id="${id}"]`);item.querySelector('.own b').textContent=inv[id];item.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}],{duration:250});
-  $$('[data-buy]').forEach(b=>{b.disabled=coins<POWERS.find(q=>q.id===b.dataset.buy).price});lastHud='';
+  addCoins(-p.price);inv[id]++;saveInv();sfx.buy();buzz(15);lastHud='';renderShop(id);
 }
+
+/* ================= chest opening: tap 5 times, it hops and the lid lifts a little more each time; the 5th tap bursts it open ================= */
+let chestState=null;
+function buyChest(type,btn){
+  if(type==='free'){if(!freeChestReady()){sfx.bad();return}}
+  else{const C=CHESTS[type];if(coins<C.price){sfx.bad();return}
+    if(!btn.classList.contains('sure')){btn.classList.add('sure');btn.innerHTML='Sigur? ✓';sfx.ui();setTimeout(()=>{if(btn.isConnected&&btn.classList.contains('sure')){btn.classList.remove('sure');btn.innerHTML=coinTag(C.price)}},3000);return}
+    addCoins(-C.price)}
+  openChest(type);
+}
+function openChest(type){
+  const ov=$('#chestOv'),C=CHESTS[type];
+  chestState={type,taps:0,done:false,reward:null};
+  ov.classList.remove('open');$('#coTitle').textContent=C.name;$('#coStage').innerHTML=chestHTML(type,22);
+  $('#coDots').innerHTML='<i></i>'.repeat(5);$('#coHint').textContent='Atinge cufărul de 5 ori!';$('#coRewards').innerHTML='';$('#coCollect').hidden=true;
+  ov.hidden=false;sfx.whoosh();
+}
+$('#coStage').addEventListener('pointerdown',e=>{e.preventDefault();const st=chestState;if(!st||st.done)return;
+  st.taps++;const ch=$('#coStage .chest'),n=st.taps;initAudio();
+  $$('#coDots i').forEach((d,i)=>d.classList.toggle('on',i<n));
+  if(n<5){ // hop, wobble, lid lifts, light leaks out
+    ch.style.setProperty('--open',`${-n*17}deg`);ch.style.setProperty('--glow',(n/5*.85).toFixed(2));
+    ch.animate([{transform:'none'},{transform:`translateY(-${10+n*4}px) scale(1.06,.94) rotate(${n%2?-4:4}deg)`,offset:.35},{transform:'translateY(0) scale(.96,1.04)',offset:.7},{transform:'none'}],{duration:380,easing:'cubic-bezier(.3,1.5,.5,1)'});
+    tone(300+n*90,500+n*120,.12,'triangle',.14);buzz(12+n*4);
+    const r=ch.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height*.45,{n:6+n*3,speed:220+n*40,grav:600,size:6,colors:['#ffd23f','#fff3b0','#ffffff'],plain:true});
+    $('#coHint').textContent=['','Încă!','Mai tare!','Aproape!','Ultima dată!'][n];
+  }else{ // burst open
+    st.done=true;st.reward=rollChest(st.type);
+    ch.style.setProperty('--open','-128deg');ch.style.setProperty('--glow','1');ch.querySelector('.lock').style.opacity=0;
+    ch.animate([{transform:'scale(1)'},{transform:'scale(1.18) translateY(-14px)',offset:.3},{transform:'scale(1)'}],{duration:600,easing:'cubic-bezier(.3,1.6,.5,1)'});
+    $('#chestOv').classList.add('open');sfx.unlock();setTimeout(sfx.win,250);buzz([30,40,60]);
+    const r=ch.getBoundingClientRect(),cx2=r.left+r.width/2,cy2=r.top+r.height*.4;
+    burst(cx2,cy2,{n:90,speed:700,grav:500,life:2,plain:true});
+    const flash=document.createElement('div');flash.style.cssText='position:fixed;inset:0;z-index:93;background:#fffbe0;pointer-events:none';document.body.appendChild(flash);
+    flash.animate([{opacity:.9},{opacity:0}],{duration:600,fill:'forwards'});setTimeout(()=>flash.remove(),700);
+    $('#coHint').textContent='';showRewards(st.reward);
+  }});
+function showRewards(rw){
+  const box=$('#coRewards'),cards=[];
+  cards.push(`<div class="rw" style="--rc:#ffc94a"><span class="big">+${rw.coins}</span><span class="coin" style="width:22px;height:22px"></span>monede</div>`);
+  const counts={};rw.powers.forEach(p=>counts[p]=(counts[p]||0)+1);
+  Object.entries(counts).forEach(([id,c])=>{const p=POWERS.find(q=>q.id===id);cards.push(`<div class="rw pw-ic" style="--rc:${p.c[2]}">${powerTile(p)}${p.name}${c>1?' ×'+c:''}</div>`)});
+  if(rw.item){const it=cosItem(rw.item.cat,rw.item.id),rc=it.rar==='legendary'?'#ff4d6d':RARITY[it.rar].color;
+    cards.push(`<div class="rw sk r-${it.rar}" style="--rc:${rc};width:120px">${rw.item.cat==='bg'?`<div class="bgprev" style="background:${bgPreview(it.id)};height:40px"></div>`:`<canvas data-rwprev width="300" height="124"></canvas>`}<span>${it.name}</span><span class="rar">${RARITY[it.rar].name}</span></div>`)}
+  box.innerHTML='';
+  cards.forEach((html,i)=>setTimeout(()=>{box.insertAdjacentHTML('beforeend',html);tone(700+i*150,900+i*150,.12,'triangle',.12);
+    const c2=box.querySelector('canvas[data-rwprev]');if(c2&&rw.item){drawPreview(c2,rw.item.cat,rw.item.id);c2.removeAttribute('data-rwprev')}
+    if(i===cards.length-1)setTimeout(()=>{$('#coCollect').hidden=false},250)},500+i*380));
+}
+$('#coCollect').addEventListener('click',()=>{$('#chestOv').hidden=true;chestState=null;paintCoins(true);lastHud='';if(!$('#shop').hidden)renderShop();updateChestUI();sfx.coin()});
+
+// free chest: the timer runs on wall-clock time, so it keeps counting while the game is closed
+function updateChestUI(){
+  const ready=freeChestReady(),btn=$('#hChest');
+  btn.classList.toggle('ready',ready);btn.classList.toggle('wait',!ready);
+  $('#hChestT').textContent=ready?'Gata de deschis!':`Următorul în ${fmtLeft(freeChestLeft())}`;
+  const t=$('#shopBody [data-free-timer]');if(t){if(ready)renderShop();else t.innerHTML=`⏱ ${fmtLeft(freeChestLeft())}`}
+}
+$('#hChestIcon').innerHTML=chestHTML('free',5);
+$('#hChest').addEventListener('click',()=>{initAudio();if(freeChestReady())openChest('free');else{shopTab='chests';openShop()}});
+setInterval(updateChestUI,1000);updateChestUI();
 
 function paintSwitch(id,on){$(id).setAttribute('aria-checked',on?'true':'false')}
 function paintSettings(){paintSwitch('#swMusic',SET.music);paintSwitch('#swSfx',SET.sfx);paintSwitch('#swVib',SET.vib)}
@@ -1277,18 +1590,37 @@ Object.assign(sfx,{
 const fxc=$('#fx'),fctx=fxc.getContext('2d');let parts=[];
 function sizeFx(){fxc.width=innerWidth*dpr;fxc.height=innerHeight*dpr;fctx.setTransform(dpr,0,0,dpr,0,0)}
 const CONF=['#ff4d6d','#ffd23f','#4ade4a','#3a86ff','#b06cff','#ff8c2a','#3ee0f0','#ff78c8'];
-function burst(x,y,{n=30,colors=CONF,speed=420,dir=-Math.PI/2,spread=Math.PI*2,grav=900,size=8,life=1.3}={}){
+/* break effects: particle shapes and colours per equipped effect. plain:true keeps the default confetti (menus, chests) */
+const FXS={
+  classic:{shapes:['rect','dot'],spark:'star',sparkColor:'#ffffff'},
+  stars:{shapes:['star'],colors:['#ffd23f','#fff3b0','#ffb000','#ffffff'],spark:'star',sparkColor:'#ffd23f'},
+  bubbles:{shapes:['bubble'],colors:['#bfe9ff','#e6f8ff','#9fd8ff','#ffffff'],grav:-240,spark:'bubble',sparkColor:'#d9f3ff',rise:true},
+  hearts:{shapes:['heart'],colors:['#ff4d6d','#ff8fb3','#ff2d55','#ffc2d4'],spark:'heart',sparkColor:'#ff5a7a'},
+  fireworks:{shapes:['dot','star'],colors:['#ff3df0','#3df5ff','#ffe93d','#7dff5a','#ff8a3d','#ffffff'],spark:'dot',fire:true}};
+function drawShape(c,shape,s,col){
+  c.fillStyle=col;c.strokeStyle=col;
+  if(shape==='rect')c.fillRect(-s/2,-s/4,s,s/2);
+  else if(shape==='dot'){c.beginPath();c.arc(0,0,s/2.4,0,7);c.fill()}
+  else if(shape==='star'){c.beginPath();for(let k=0;k<10;k++){const r=k%2?s*.24:s*.6;c.lineTo(Math.cos(k*Math.PI/5-Math.PI/2)*r,Math.sin(k*Math.PI/5-Math.PI/2)*r)}c.closePath();c.fill()}
+  else if(shape==='heart'){const h=s*.55;c.beginPath();c.moveTo(0,h*.6);c.bezierCurveTo(-h*1.4,-h*.2,-h*.6,-h*1.2,0,-h*.45);c.bezierCurveTo(h*.6,-h*1.2,h*1.4,-h*.2,0,h*.6);c.fill()}
+  else if(shape==='bubble'){c.lineWidth=Math.max(1.2,s*.12);c.beginPath();c.arc(0,0,s/2,0,7);c.stroke();c.fillStyle='rgba(255,255,255,.75)';c.beginPath();c.arc(-s*.16,-s*.16,s*.1,0,7);c.fill()}
+}
+function burst(x,y,{n=30,colors=CONF,speed=420,dir=-Math.PI/2,spread=Math.PI*2,grav=900,size=8,life=1.3,plain=false}={}){
   if(reduce)n=Math.min(n,8);
+  const F=plain?FXS.classic:(FXS[COS.eq.fx]||FXS.classic),cols=!plain&&F.colors?F.colors:colors,g=!plain&&F.grav!=null?F.grav:grav;
   for(let i=0;i<n;i++){const a=dir+(Math.random()-.5)*spread,v=speed*(.35+Math.random()*.75);
-    parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,rot:Math.random()*6,vr:(Math.random()-.5)*14,s:size*(.6+Math.random()*.8),c:colors[i%colors.length],life:life*(.7+Math.random()*.5),max:life,grav,shape:Math.random()<.55?0:1})}
+    parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,rot:Math.random()*6,vr:(Math.random()-.5)*14,s:size*(.6+Math.random()*.8)*(F.shapes[0]==='rect'?1:1.3),
+      c:cols[i%cols.length],life:life*(.7+Math.random()*.5),max:life,grav:g,shape:F.shapes[Math.floor(Math.random()*F.shapes.length)]})}
+  // fireworks: a couple of secondary bursts pop around the first one
+  if(!plain&&F.fire&&!reduce)for(let k=0;k<2;k++)setTimeout(()=>{const a=Math.random()*6.28,d=30+Math.random()*50;
+    burst(x+Math.cos(a)*d,y+Math.sin(a)*d-30,{n:Math.max(10,n>>1),speed:speed*.7,grav:350,size,life:life*.8,colors:F.colors,plain:true})},200+k*180);
 }
 function drawParts(dt){
   fctx.clearRect(0,0,innerWidth,innerHeight);if(!parts.length)return;
   for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.life-=dt;if(p.life<=0){parts.splice(i,1);continue}
     p.vy+=p.grav*dt;p.vx*=1-1.2*dt;p.vy*=1-.6*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.rot+=p.vr*dt;
-    fctx.save();fctx.globalAlpha=Math.min(1,p.life/.35);fctx.translate(p.x,p.y);fctx.rotate(p.rot);fctx.fillStyle=p.c;
-    if(p.shape===0)fctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);else{fctx.beginPath();fctx.arc(0,0,p.s/2.4,0,7);fctx.fill()}
-    fctx.restore()}
+    fctx.save();fctx.globalAlpha=Math.min(1,p.life/.35);fctx.translate(p.x,p.y);fctx.rotate(p.shape==='bubble'?0:p.rot);
+    drawShape(fctx,p.shape,p.s,p.c);fctx.restore()}
 }
 function celebrate(){const W=innerWidth,H=innerHeight;
   burst(0,H*.85,{n:70,dir:-Math.PI/3,spread:.9,speed:900,grav:700,life:2.2});
@@ -1426,11 +1758,11 @@ document.fonts&&document.fonts.ready.then(()=>{spriteCache={}});
 buildPowers();sizeHome();sizeFx();paintCoins();
 // restore anything localStorage lost from the IndexedDB mirror, and mirror what only localStorage has
 (async()=>{const saved=await idb.all();let restored=false;
-  for(const k of ['level','coins','inv','stars','settings','muted']){
+  for(const k of ['level','coins','inv','stars','settings','muted','cos','freeChestAt']){
     let local=null;try{local=localStorage.getItem('bz2_'+k)}catch(e){}
     if(local==null&&k in saved){store.mem[k]=saved[k];try{localStorage.setItem('bz2_'+k,JSON.stringify(saved[k]))}catch(e){}restored=true}
     else if(local!=null&&!(k in saved))idb.put(k,JSON.parse(local))}
-  if(restored){coins=store.get('coins',0);inv=store.get('inv',inv);Object.assign(SET,store.get('settings',{}));firstGift=false;
+  if(restored){coins=store.get('coins',0);inv=store.get('inv',inv);Object.assign(SET,store.get('settings',{}));Object.assign(COS,store.get('cos',{}));spriteCache={};firstGift=false;
     paintCoins();if(screen==='home')paintHome();lastHud=''}})();
 const boot=d=>{if(d&&d.screen==='game'&&d.level)start(d.level);else showScreen('home');requestAnimationFrame(frame)};
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
