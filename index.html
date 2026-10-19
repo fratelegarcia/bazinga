@@ -445,6 +445,16 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   <button class="btn" type="submit">Deblochează</button>
 </form></div>
 
+<!-- TEST MODE: add coins (tap the logo 15 times fast) -->
+<div id="coinsAdd" class="modal" hidden><form class="card" id="coinsForm" novalidate>
+  <div class="card-head"><h2>Mod test</h2><button type="button" class="x" data-close aria-label="Închide">✕</button></div>
+  <p>Câte monede vrei să primești?</p>
+  <label for="coinsN" class="sr">Monede</label>
+  <input id="coinsN" class="numin" type="number" inputmode="numeric" min="1" max="1000000" required>
+  <p class="err" id="coinsErr" role="alert"></p>
+  <button class="btn" type="submit">Adaugă monedele</button>
+</form></div>
+
 <!-- LEVEL START POPUP -->
 <div id="lvlPop" class="modal" hidden><div class="card">
   <div class="card-head"><span></span><button class="x" data-close aria-label="Închide">✕</button></div>
@@ -1704,7 +1714,16 @@ function openLevelPop(n){
 const logo=$('#logo');
 logo.innerHTML=[...'Bazinga'].map((ch,i)=>`<span style="--i:${i}">${ch}</span>`).join('')+'<span class="bang">!</span>';
 logo.addEventListener('click',()=>{initAudio();logo.classList.remove('boing');void logo.offsetWidth;logo.classList.add('boing');sfx.boing();buzz([10,20,10]);
-  const r=logo.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:45,speed:520,grav:700})});
+  const r=logo.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:45,speed:520,grav:700});
+  // TEST MODE: 15 quick taps (each within 1.5 s of the previous) open the "add coins" box
+  const now=performance.now();logoTaps=now-logoLast<1500?logoTaps+1:1;logoLast=now;
+  if(logoTaps>=15){logoTaps=0;sfx.unlock();buzz([30,40,30]);$('#coinsN').value=1000;$('#coinsErr').textContent='';showModal('coinsAdd');setTimeout(()=>$('#coinsN').select(),300)}});
+let logoTaps=0,logoLast=0;
+$('#coinsForm').addEventListener('submit',e=>{e.preventDefault();const n=parseInt($('#coinsN').value,10);
+  if(!(n>=1&&n<=1000000)){$('#coinsErr').textContent='Scrie un număr între 1 și 1.000.000.';shakeEl($('#coinsAdd .card'));return}
+  addCoins(n);hideModal('coinsAdd');const r=$('.home-top .coins').getBoundingClientRect();
+  burst(r.left+r.width/2,r.top+r.height/2,{n:60,speed:500,grav:600,colors:['#ffc94a','#fff3b0','#ffd23f'],plain:true});sfx.coin();
+  banner(`+${n.toLocaleString('ro-RO')}<small>monede adăugate</small>`)});
 
 /* Joacă: a normal tap opens the map. TEST MODE: hold it for 5 seconds → choose the level you had reached,
    and everything up to it unlocks (progress lost while the game is being tested). */
