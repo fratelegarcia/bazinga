@@ -86,7 +86,9 @@ button:disabled{cursor:default;opacity:.45}
 #game header .coins{justify-self:end}
 h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(--accent);text-shadow:0 3px 0 var(--accent-deep),0 6px 14px rgba(0,0,0,.4);transform:rotate(-3deg)}
 .row2{display:flex;align-items:center;gap:6px}
-.powers{display:flex;gap:5px}
+.powers{display:flex;gap:5px;position:relative}
+.powers[data-left]::before{content:attr(data-left);position:absolute;left:50%;top:calc(100% + 3px);transform:translateX(-50%);white-space:nowrap;z-index:2;font:800 10px/1 var(--display);color:#fff;background:#d6304f;padding:2px 7px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.pw.locked{opacity:.38;filter:grayscale(.8)}
 /* power-up buttons: a coloured tile with a drawn icon, a short name under it, a count badge; long-press explains it */
 .pw{position:relative;width:46px;display:flex;flex-direction:column;align-items:center;gap:2px;touch-action:none;-webkit-touch-callout:none}
 .pw .tileic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));
@@ -109,7 +111,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 .starbar{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(40,20,90,.28);border:1.5px solid rgba(255,255,255,.35)}
 .starbar i{font-style:normal;font-size:16px;line-height:1;filter:drop-shadow(0 1px 0 rgba(0,0,0,.3));transition:opacity .3s,transform .3s}
 .starbar i.off{opacity:.28;transform:scale(.8);filter:grayscale(1)}
-.starbar b{font:800 15px/1 var(--display);color:#fff;font-variant-numeric:tabular-nums;min-width:36px;text-align:right}
+.starbar b{font:800 15px/1 var(--display);color:#fff;font-variant-numeric:tabular-nums;min-width:36px;text-align:right;white-space:nowrap}
 .res-stars{display:flex;justify-content:center;gap:6px;margin:4px 0}
 .res-stars i{font-style:normal;font-size:52px;line-height:1;opacity:.18;filter:grayscale(1);transform:scale(.6)}
 .res-stars i.on{animation:starIn .55s cubic-bezier(.2,1.8,.4,1) forwards}
@@ -195,6 +197,29 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 .rw canvas{width:84px;height:40px}
 .rw .big{font-size:26px;color:var(--coin)}
 @keyframes rwIn{from{opacity:0;transform:translateY(40px) scale(.3)}}
+/* ---- boss fights ---- */
+.sk.r-boss{--rc:#ff2d2d;background:radial-gradient(120% 80% at 50% 0%,rgba(255,45,45,.3),transparent 70%),#2a0f2a;animation:bossGlow 1.6s ease-in-out infinite}
+.sk.r-boss .rar{background:linear-gradient(90deg,#ff2d2d,#ff8a00);}
+@keyframes bossGlow{50%{box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 22px rgba(255,45,45,.65)}}
+.node.boss{width:82px;height:82px;margin:-41px 0 0 -41px;font-size:24px;color:#fff;text-shadow:0 2px 0 #3a0010;
+  background:radial-gradient(circle at 35% 30%,#ff8a8a,#c21a3a 50%,#4a0018);box-shadow:0 6px 0 #2a000c,0 0 26px rgba(255,45,45,.75);animation:bossPulse 1.3s ease-in-out infinite}
+.node.boss.lock{filter:saturate(.5) brightness(.75)}
+.node.boss .bossface{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:30px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
+.node.boss em{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-style:normal;font-size:11px;letter-spacing:.08em;padding:1px 8px;border-radius:8px;background:#2a000c;color:#ffd23f;white-space:nowrap}
+.node.boss .stars{bottom:-38px}
+@keyframes bossPulse{50%{transform:scale(1.07)}}
+.lvl-badge.boss{background:linear-gradient(90deg,#c21a3a,#ff8a00);color:#fff;box-shadow:0 0 18px rgba(255,45,45,.6)}
+.diffs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.diffbtn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;border-radius:14px;background:var(--panel);border:2px solid var(--glass-edge)}
+.diffbtn b{font:800 16px/1 var(--display)}
+.diffbtn small{font-size:11px;line-height:1.2;color:var(--muted);font-weight:700;text-align:center}
+.diffbtn i{position:absolute;top:-8px;right:-4px;font-style:normal;font-size:10px;font-weight:800;padding:1px 6px;border-radius:8px;background:var(--good);color:#0b3a1d}
+.diffbtn.easy.on{border-color:#3fd13a;box-shadow:0 0 14px rgba(63,209,58,.5)}
+.diffbtn.normal.on{border-color:#ffd23f;box-shadow:0 0 14px rgba(255,210,63,.5)}
+.diffbtn.hard.on{border-color:#ff2d2d;box-shadow:0 0 14px rgba(255,45,45,.6)}
+.starbar.warn{border-color:#ff4d6d;animation:warnPulse .8s ease-in-out infinite}
+.starbar.warn b{color:#ffd0d8}
+@keyframes warnPulse{50%{background:rgba(255,45,85,.45)}}
 .pw-ic{background:none!important}
 .pw-ic .tileic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 3px 0 var(--c3),inset 0 2px 0 rgba(255,255,255,.45)}
 .pw-ic svg{width:32px;height:32px}
@@ -461,6 +486,7 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   <h2 id="lpT">Nivelul 1</h2>
   <span class="lvl-badge" id="lpBadge">Normal</span>
   <div class="facts" id="lpFacts"></div>
+  <div class="diffs" id="lpDiffs" hidden></div>
   <p id="lpP"></p>
   <button class="btn" id="lpGo">▶ Joacă</button>
 </div></div>
@@ -538,26 +564,30 @@ const saveInv=()=>store.set('inv',inv);
 /* ================= cosmetics: rarities, ball skins, break effects, belt themes, backgrounds ================= */
 const RAR_ORDER=['basic','common','epic','mythic','legendary'];
 const RARITY={basic:{name:'Basic',color:'#9aa3b5'},common:{name:'Comun',color:'#3fd13a'},epic:{name:'Epic',color:'#9a4dff'},
-  mythic:{name:'Mitic',color:'#ffb000'},legendary:{name:'Legendar',color:'#ff4d6d'}};
+  mythic:{name:'Mitic',color:'#ffb000'},legendary:{name:'Legendar',color:'#ff4d6d'},boss:{name:'Boss',color:'#ff2d2d'}};
 const COSMETICS={
   ball:[ // every skin keeps each colour recognisable; only the material changes
     {id:'classic',name:'Clasic',rar:'basic',price:0},{id:'matte',name:'Mat',rar:'basic',price:100},
     {id:'pastel',name:'Pastel',rar:'common',price:200},{id:'candy',name:'Bomboană',rar:'common',price:250},
     {id:'glass',name:'Sticlă',rar:'epic',price:500},{id:'planet',name:'Planetă',rar:'epic',price:600},
     {id:'emoji',name:'Fețe vesele',rar:'mythic',price:900},{id:'metal',name:'Metal',rar:'mythic',price:1000},
-    {id:'neon',name:'Neon',rar:'legendary',price:1500},{id:'galaxy',name:'Galaxie',rar:'legendary',price:2000}],
+    {id:'neon',name:'Neon',rar:'legendary',price:1500},{id:'galaxy',name:'Galaxie',rar:'legendary',price:2000},
+    // boss-only: earned by beating that boss on Normal/Hard, never sold or found in chests
+    {id:'maze',name:'Labirint',rar:'boss',price:0,boss:'minotaur'},{id:'snakeeye',name:'Ochi de șarpe',rar:'boss',price:0,boss:'medusa'},
+    {id:'storm',name:'Furtună',rar:'boss',price:0,boss:'zeus'},{id:'ink',name:'Cerneală',rar:'boss',price:0,boss:'kraken'}],
   fx:[
     {id:'classic',name:'Confetti',rar:'basic',price:0},{id:'stars',name:'Stele',rar:'common',price:200},
     {id:'bubbles',name:'Bule',rar:'epic',price:450},{id:'hearts',name:'Inimioare',rar:'mythic',price:800},
-    {id:'fireworks',name:'Artificii',rar:'legendary',price:1400}],
+    {id:'fireworks',name:'Artificii',rar:'legendary',price:1400},{id:'lightning',name:'Trăsnete',rar:'boss',price:0,boss:'zeus'}],
   belt:[
     {id:'white',name:'Tavă albă',rar:'basic',price:0},{id:'wood',name:'Lemn',rar:'common',price:250},
     {id:'candy',name:'Acadea',rar:'epic',price:500},{id:'metal',name:'Fabrică',rar:'mythic',price:900},
-    {id:'neon',name:'Neon',rar:'legendary',price:1500}],
+    {id:'neon',name:'Neon',rar:'legendary',price:1500},
+    {id:'stone',name:'Piatră',rar:'boss',price:0,boss:'medusa'},{id:'ship',name:'Corabie',rar:'boss',price:0,boss:'kraken'}],
   bg:[
     {id:'zone',name:'Culorile zonei',rar:'basic',price:0},{id:'ocean',name:'Sub apă',rar:'common',price:300},
     {id:'candy',name:'Cofetărie',rar:'epic',price:500},{id:'sunset',name:'Apus',rar:'mythic',price:900},
-    {id:'space',name:'Spațiu',rar:'legendary',price:1600}]};
+    {id:'space',name:'Spațiu',rar:'legendary',price:1600},{id:'labyrinth',name:'Labirintul',rar:'boss',price:0,boss:'minotaur'}]};
 const COS_CATS={ball:'Bile',fx:'Efecte',belt:'Benzi',bg:'Fundaluri'};
 const COS=Object.assign({own:{ball:['classic'],fx:['classic'],belt:['white'],bg:['zone']},eq:{ball:'classic',fx:'classic',belt:'white',bg:'zone'}},store.get('cos',{}));
 const saveCos=()=>store.set('cos',COS);
@@ -570,12 +600,15 @@ const BELTS={
   wood:{rim:['#e0a86a','#a8693a'],ch:'#6e4223',sock:'#8a5a33',edge:'#7a4a26',ink:'#fff0dc',gauge:'#5a3418',grain:true},
   candy:{rim:'#ff8fc7',ch:'#ffe1f0',sock:'#ffc2e0',edge:'#e05a9e',ink:'#c2367a',gauge:'#ffd0e8',stripe:'#ffffff'},
   metal:{rim:['#eef2f8','#8d97ab'],ch:'#4d5568',sock:'#636c82',edge:'#6c7489',ink:'#e8ecf5',gauge:'#3a4152',bolts:true},
+  stone:{rim:['#c4c4cc','#7b7b86'],ch:'#5c5c66',sock:'#70707a',edge:'#4a4a54',ink:'#f2f2f5',gauge:'#4a4a54',grain:true},
+  ship:{rim:['#9a6430','#5a3418'],ch:'#3d2614',sock:'#5a3a20',edge:'#2e1c0e',ink:'#ffe8b0',gauge:'#2e1c0e',stripe:'#d9b77a'},
   neon:{rim:'#1a1033',ch:'#0d0820',sock:'#221545',edge:'#3a2a70',ink:'#7df9ff',gauge:'#241547',glow:['#ff3df0','#3df5ff']}};
 // level backdrops (the zone backdrop is built from the map zone's colours)
 const BGS={
   ocean:{line:'#1b5f94',css:()=>`radial-gradient(120% 45% at 50% -5%,rgba(255,255,255,.55),transparent 60%),url("data:image/svg+xml,${encodeURIComponent(bubbleSvg('#ffffff'))}"),linear-gradient(#8fe0ff,#2a8fd0 60%,#145c99)`},
   candy:{line:'#d0569a',css:()=>`radial-gradient(120% 45% at 50% -5%,rgba(255,255,255,.6),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.45) 0 22px,transparent 22px 44px),linear-gradient(#ffd6ec,#ff9fcb)`},
   sunset:{line:'#a8466a',css:()=>`radial-gradient(60% 30% at 50% 22%,rgba(255,240,180,.9),rgba(255,200,120,.35) 40%,transparent 70%),linear-gradient(#ffcf8a,#ff8a7a 45%,#9a4dbf 85%)`},
+  labyrinth:{line:'#6b4a2a',css:()=>`repeating-linear-gradient(0deg,rgba(60,40,20,.28) 0 5px,transparent 5px 46px),repeating-linear-gradient(90deg,rgba(60,40,20,.28) 0 5px,transparent 5px 46px),radial-gradient(90% 60% at 50% 30%,rgba(255,240,200,.45),transparent 70%),linear-gradient(#e2cc9e,#a8875a)`},
   space:{line:'#5a3fb0',css:()=>`url("data:image/svg+xml,${encodeURIComponent(starSvg())}"),radial-gradient(80% 50% at 70% 20%,rgba(154,77,255,.45),transparent 70%),radial-gradient(70% 40% at 20% 75%,rgba(53,214,242,.25),transparent 70%),linear-gradient(#1a0f45,#0b0726)`}};
 function bubbleSvg(c){return `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='200'><g fill='none' stroke='${c}' stroke-opacity='.45' stroke-width='2'><circle cx='30' cy='40' r='12'/><circle cx='120' cy='20' r='6'/><circle cx='100' cy='120' r='16'/><circle cx='40' cy='160' r='8'/><circle cx='140' cy='180' r='4'/></g></svg>`}
 function starSvg(){let s='';const r=rng(42);for(let i=0;i<40;i++)s+=`<circle cx='${(r()*240).toFixed(0)}' cy='${(r()*240).toFixed(0)}' r='${(r()*1.6+.4).toFixed(1)}' fill='white' fill-opacity='${(r()*.6+.3).toFixed(2)}'/>`;return `<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>${s}</svg>`}
@@ -618,13 +651,30 @@ function reach(grid,rows,cols){
 }
 function ballsOf(c){return c.mix?[c.mix[0],c.mix[0],c.mix[0],c.mix[1],c.mix[1],c.mix[1],c.mix[2],c.mix[2],c.mix[2]]:Array(9).fill(c.color)}
 
-const isHard=n=>n%10===0;
+/* boss fights: every 25th level. Minotaur → Medusa → Zeus → Kraken, then the cycle repeats faster */
+const isBoss=n=>n%25===0;
+const isHard=n=>n%10===0&&!isBoss(n);
+const BOSSES=[
+  {id:'minotaur',name:'Minotaurul',emoji:'🐂',title:'Stăpânul Labirintului',desc:'Lovește tabla cu copita și amestecă toate blocurile, chiar și pe cele încă blocate.',items:[['ball','maze'],['bg','labyrinth']]},
+  {id:'medusa',name:'Medusa',emoji:'🐍',title:'Privirea de piatră',desc:'Când deschide ochii, banda și blocurile se fac de piatră. Lovește capetele celor 6 șerpi ca să le eliberezi.',items:[['ball','snakeeye'],['belt','stone']]},
+  {id:'zeus',name:'Zeus',emoji:'⚡',title:'Regele Olimpului',desc:'Trăsnește tabla și adaugă 1–3 blocuri noi, cu cutiile lor.',items:[['ball','storm'],['fx','lightning']]},
+  {id:'kraken',name:'Krakenul',emoji:'🐙',title:'Groaza Adâncurilor',desc:'Apucă blocuri și le aruncă în alte locuri. Uneori te atacă: trage cu tunul în tentaculele lui!',items:[['ball','ink'],['belt','ship']]}];
+const bossOf=n=>BOSSES[(Math.floor(n/25)-1)%BOSSES.length];
+const BOSS_DIFF={
+  easy:{name:'Ușor',time:270,every:[18,26],coins:150,powers:2,reward:'monede'},
+  normal:{name:'Normal',time:200,every:[12,18],coins:300,powers:1,reward:'+ skin de bile exclusiv'},
+  hard:{name:'Greu',time:150,every:[8,13],coins:600,powers:0,reward:'+ 2 obiecte exclusive'}};
+let bossDiff='normal';
 /* star rating: start from 3, lose one for going over the target time, another for going far over (×1.6),
    and one per power-up used (max 2). Bazinga! undo is earned with combos, so it costs nothing. */
 const STAR_COINS=[0,10,25,50];
-const parTime=(nBlocks,hard)=>Math.round((10+nBlocks*2.4)*(hard?1.3:1));
+// star targets tuned for humans (~2x a fast bot): 3 stars under par, 2 under par2, 1 for any win
+const parTime=(nBlocks,hard)=>Math.round((25+nBlocks*4.5)*(hard?1.25:1)/5)*5;
+// boss: share of the time limit you may use for 3 / 2 stars (harder fights leave less spare time, so they are kinder)
+const BOSS_STAR={easy:[.62,.82],normal:[.72,.88],hard:[.82,.94]};
+const starTargets=(boss,nBlocks,hard)=>{if(boss){const f=BOSS_STAR[boss.diff]||BOSS_STAR.normal;return[Math.round(boss.limit*f[0]),Math.round(boss.limit*f[1])]}const p=parTime(nBlocks,hard);return[p,Math.round(p*1.7/5)*5]};
 const fmtTime=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-function starsFor(t,par,powers){let s=3;if(t>par)s--;if(t>par*1.6)s--;return Math.max(0,s-Math.min(2,powers))}
+function starsFor(t,par,par2,powers){let s=3;if(t>par)s--;if(t>par2)s--;return Math.max(1,s-Math.min(2,powers))}
 const bestStars=n=>(store.get('stars',{})[n]||0);
 function saveStars(n,s){const all=store.get('stars',{});if(s>(all[n]||0)){all[n]=s;store.set('stars',all)}}
 const starRow=(n,cls='')=>`<span class="stars ${cls}">${[0,1,2].map(i=>`<i class="${i<n?'':'off'}">⭐</i>`).join('')}</span>`;
@@ -676,6 +726,9 @@ function shapeHeights(shape,cols,top,rr){
 }
 function makeLevel(n){
   const r=rng(n*7919+13),D=difficulty(n);
+  if(isBoss(n)){ // the chosen boss difficulty bends the generator
+    if(bossDiff==='easy'){D.window=Math.max(2,D.window-2);D.hidP=Math.max(0,D.hidP-.08);D.mixP=Math.max(0,D.mixP-.04)}
+    if(bossDiff==='hard'){D.window+=4;D.hidP+=.12;D.mixP+=.04;D.extraColors=1;D.maxColors=8;D.cap-=4}}
   const cols=D.cols, rows=D.rows;
   const grid=[];
   const colH=D.shape?shapeHeights(D.shape,cols,rows-3,D.shapeRng).map(h=>3+h)
@@ -704,7 +757,8 @@ function makeLevel(n){
   for(let i=0;i<holders.length;i++){const j=Math.min(holders.length-1,i+Math.floor(r()*(w+1)));[holders[i],holders[j]]=[holders[j],holders[i]]}
   const colsH=Array.from({length:NCOL},()=>[]);
   holders.forEach(color=>{let best=0,bv=1e9;for(let k=0;k<NCOL;k++){const v=colsH[k].length+r()*1.3;if(v<bv){bv=v;best=k}}colsH[best].push({color,k:best,taken:0,filled:0,balls:[],leaving:false,lt:0,y:null})});
-  return{level:n,hard:D.hard,theme:themeOf(n),par:parTime(blocks.length,D.hard),powersUsed:0,nColors,nBlocks:blocks.length,rows,cols,grid,colsH,bb:[],offset:0,cap:D.cap,hist:[],hammer:false,
+  const boss=isBoss(n)?newBoss(n,blocks.length):null;
+  return{level:n,hard:D.hard,theme:themeOf(n),...(([a,b])=>({par:a,par2:b}))(starTargets(boss,blocks.length,D.hard)),powersUsed:0,boss,pal,capBase:D.cap,nColors,nBlocks:blocks.length,rows,cols,grid,colsH,bb:[],offset:0,cap:D.cap,hist:[],hammer:false,
     balls:[],shards:[],emitters:[],fx:[],falling:[],texts:[],charge:0,combo:0,lastDone:-9,over:false,stuckT:0,shake:0,time:0,tappable:tap0,earned:0};
 }
 
@@ -725,8 +779,9 @@ function layout(){
   // a waiting ball rests just above the belt balls, never on top of them
   const neckHalf=ballR*1.45,gateY=ey-ballR-2,neckTop=gateY-ballR*2.6;
   const funnelH=Math.max(58,Math.min(110,H*.11)),mouthY=neckTop-funnelH;
-  const bBottom=mouthY-4,hintSpace=HINTS[S.level]||S.hard?38:4;
-  const cs=Math.min((W-8)/S.cols,(bBottom-hintSpace)/S.rows,76);
+  const bBottom=mouthY-4,hintSpace=HINTS[S.level]||S.hard||S.boss?38:4;
+  const sideRoom=S.boss?54:0; // boss levels keep room beside the board for the monster
+  const cs=Math.min((W-8-2*sideRoom)/S.cols,(bBottom-hintSpace)/S.rows,76);
   const bx=(W-cs*S.cols)/2,by=bBottom-cs*S.rows;
   const mx0=Math.min(bx,ex-cs*1.6)-4,mx1=Math.max(bx+cs*S.cols,ex+cs*1.6)+4;
   const walls=[
@@ -876,6 +931,14 @@ function sprite(color,R,skin=COS.eq.ball){
       g.fillStyle=hexA(shade(hex,.5),.4);g.beginPath();g.ellipse(m+rr*.1,m+rr*.1,rr*.75,rr*.24,-.5,0,7);g.fill();
       for(let i=0;i<10;i++){g.fillStyle=`rgba(255,255,255,${.5+rnd()*.5})`;g.beginPath();g.arc(m+(rnd()-.5)*rr*1.6,m+(rnd()-.5)*rr*1.6,rr*(.03+rnd()*.05),0,7);g.fill()}
       g.restore();gloss(.65);break}
+    case'maze':{classic();g.save();circle(rr);g.clip();const rn=rng(7);g.strokeStyle='rgba(40,20,0,.55)';g.lineWidth=rr*.09;g.lineCap='square';const st=rr*.42;
+      for(let i=-3;i<=3;i++)for(let j=-3;j<=3;j++){const x=m+i*st,y=m+j*st;g.beginPath();if(rn()<.5){g.moveTo(x,y);g.lineTo(x+st,y)}else{g.moveTo(x,y);g.lineTo(x,y+st)}g.stroke()}g.restore();gloss(.7);break}
+    case'snakeeye':classic();{const gr=g.createRadialGradient(m,m,rr*.1,m,m,rr*.62);gr.addColorStop(0,'#fff6a0');gr.addColorStop(1,shade(hex,-.1));g.fillStyle=gr;g.beginPath();g.ellipse(m,m,rr*.62,rr*.5,0,0,7);g.fill();
+      g.fillStyle='#120a24';g.beginPath();g.ellipse(m,m,rr*.1,rr*.42,0,0,7);g.fill();gloss(.8)}break;
+    case'storm':{const gr=g.createRadialGradient(m-rr*.3,m-rr*.35,rr*.1,m,m,rr);gr.addColorStop(0,shade(hex,.2));gr.addColorStop(1,shade(hex,-.55));g.fillStyle=gr;circle(rr);g.fill();
+      g.fillStyle='#fff35a';g.shadowColor='#fff35a';g.shadowBlur=rr*.4;g.beginPath();g.moveTo(m+rr*.1,m-rr*.7);g.lineTo(m-rr*.3,m+rr*.05);g.lineTo(m+rr*.02,m+rr*.05);g.lineTo(m-rr*.15,m+rr*.72);g.lineTo(m+rr*.35,m-rr*.12);g.lineTo(m+rr*.04,m-rr*.12);g.closePath();g.fill();g.shadowBlur=0;break}
+    case'ink':classic();g.save();circle(rr);g.clip();g.strokeStyle=hexA(shade(hex,-.55),.75);g.lineWidth=rr*.16;g.beginPath();for(let a=0;a<9;a+=.25){const r2=rr*.08*a;g.lineTo(m+Math.cos(a*1.6)*r2,m+Math.sin(a*1.6)*r2)}g.stroke();
+      for(let i=0;i<5;i++){const a=Math.PI*(.15+.17*i);g.fillStyle='rgba(255,255,255,.7)';g.beginPath();g.arc(m+Math.cos(a)*rr*.75,m+Math.sin(a)*rr*.75,rr*.1,0,7);g.fill()}g.restore();gloss(.6);break;
     default:classic();gloss();
   }
   return spriteCache[key]=c;
@@ -978,7 +1041,7 @@ function drawBelt(){
   if(B.glow){ctx.save();ctx.shadowBlur=12;ctx.lineWidth=2;ctx.shadowColor=ctx.strokeStyle=B.glow[0];stadium(x1,x2,cy,r+w+rail-1);ctx.stroke();
     ctx.shadowColor=ctx.strokeStyle=B.glow[1];stadium(x1,x2,cy,Math.max(1,r-w)+1);ctx.stroke();ctx.restore()}
   if(danger){stadium(x1,x2,cy,r+w+rail);ctx.strokeStyle=`rgba(242,61,87,${.55+.4*Math.sin(S.time*8)})`;ctx.lineWidth=3.5;ctx.stroke()}
-  if(S.cap>NSLOTS){stadium(x1,x2,cy,r+w+rail);ctx.strokeStyle='#3fd13a';ctx.lineWidth=3.5;ctx.stroke()}
+  if(S.cap>(S.capBase||NSLOTS)){stadium(x1,x2,cy,r+w+rail);ctx.strokeStyle='#3fd13a';ctx.lineWidth=3.5;ctx.stroke()}
   // grey channel with moving sockets, like the slots of a real marble conveyor
   stadium(x1,x2,cy,r+w);ctx.fillStyle=CH;ctx.fill();
   ctx.save();stadium(x1,x2,cy,r+w);stadium(x1,x2,cy,Math.max(1,r-w),true);ctx.clip('evenodd');
@@ -1046,7 +1109,7 @@ function drawTexts(){
     ctx.font=`800 ${t.size}px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillStyle='#c2410c';ctx.fillText(t.text,0,t.size*.08);ctx.fillStyle=t.color||'#ffd23f';ctx.fillText(t.text,0,0);ctx.restore()});
 }
-function draw(){ctx.clearRect(0,0,L.W,L.H);drawPlayfield();drawBoard();drawBelt();drawHolders();drawFx();drawBalls();drawTexts()}
+function draw(){ctx.clearRect(0,0,L.W,L.H);drawPlayfield();drawBoard();drawBoss();drawBelt();drawHolders();drawFx();drawBalls();drawBossOverlay();drawTexts()}
 
 /* ================= audio: buses, sfx, background music ================= */
 let AC=null,master,musicBus,sfxBus,noiseBuf;
@@ -1060,6 +1123,7 @@ function initAudio(){
   noiseBuf=AC.createBuffer(1,AC.sampleRate*.5,AC.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
   if(SET.music)musicStart();
 }
+function sfxNoise(dur,freq,type='lowpass',vol=.2,at=0){if(!AC||!SET.sfx||!noiseBuf)return;const t=AC.currentTime+at,s=AC.createBufferSource();s.buffer=noiseBuf;s.loop=true;const f=AC.createBiquadFilter();f.type=type;f.frequency.value=freq;const g=AC.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(f).connect(g).connect(sfxBus);s.start(t);s.stop(t+dur+.05)}
 function tone(f1,f2,dur,type='sine',vol=.16,at=0){if(!AC||!SET.sfx)return;const t=AC.currentTime+at,o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+dur);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(g).connect(sfxBus);o.start(t);o.stop(t+dur)}
 // rising "pop" scale while balls leave a block: each ball a step higher (major pentatonic)
 function popNote(i){const steps=[0,2,4,7,9,12,14,16,19],f=520*Math.pow(2,steps[i%9]/12);tone(f*.8,f,.07,'sine',.12);tone(f*2,f*2,.03,'triangle',.03)}
@@ -1090,7 +1154,24 @@ function voice(t,m,{type='triangle',vol=.2,a=.006,d=.35,harm=0}){
 }
 function kick(t){const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(42,t+.13);g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(g).connect(musicBus);o.start(t);o.stop(t+.2)}
 function noiseHit(t,vol,freq,dur,type='highpass'){const s=AC.createBufferSource();s.buffer=noiseBuf;const f=AC.createBiquadFilter();f.type=type;f.frequency.value=freq;const g=AC.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(f).connect(g).connect(musicBus);s.start(t);s.stop(t+dur+.02)}
+/* boss theme: A minor (Am–F–G–E), 138 BPM, driving eighth-note bass, kick on every beat, a dramatic lead */
+const CHORDS_B=[{root:45,tones:[57,60,64]},{root:41,tones:[57,60,65]},{root:43,tones:[55,59,62]},{root:40,tones:[56,59,64]}];
+const MEL_B=[
+  [69,_,72,_,76,_,74,72],[72,_,69,_,65,_,69,72],[74,_,71,_,67,_,71,74],[76,_,75,_,71,_,68,_],
+  [81,_,79,76,77,_,76,72],[77,_,76,72,74,_,72,69],[79,_,77,74,76,_,74,71],[76,75,76,_,80,_,_,_]];
+function playBossStep(step,t){
+  const bar=Math.floor(step/8)%8,pos=step%8,ch=CHORDS_B[bar%4];
+  voice(t,ch.root+(pos%2?12:0),{type:'sawtooth',vol:.07,d:.15});
+  voice(t,ch.root-12+(pos%2?12:0),{type:'triangle',vol:.22,d:.14});
+  if(pos%2===0)voice(t,ch.tones[(pos/2)%3]+12,{type:'square',vol:.025,d:.1});
+  const m=MEL_B[bar][pos];if(m!=null)voice(t,m,{type:'sawtooth',vol:.07,d:.3,harm:.18});
+  if(pos%2===0)kick(t);
+  if(pos===2||pos===6)noiseHit(t,.13,1500,.12,'bandpass');
+  noiseHit(t,pos%2?.03:.05,8000,.03);
+}
+function setMusicMode(boss){if(!!MUSIC.boss===!!boss)return;MUSIC.boss=!!boss;MUSIC.bpm=boss?138:104;MUSIC.step=0}
 function playStep(step,t){
+  if(MUSIC.boss)return playBossStep(step,t);
   const bar=Math.floor(step/8)%8,pos=step%8,pass=Math.floor(step/64),ch=CHORDS[bar%4];
   if(pos===0)voice(t,ch.root,{type:'triangle',vol:.34,d:.4});
   if(pos===3||pos===6)voice(t,ch.root+12,{type:'triangle',vol:.16,d:.18});
@@ -1167,6 +1248,8 @@ function shakeEl(el){el.animate([{transform:'translateX(0)'},{transform:'transla
 
 function tapAt(px,py){
   if(S.over)return;
+  if(S.boss&&S.boss.mini){bossTap(px,py);return}
+  if(S.boss&&S.boss.frozen)return;
   const x=Math.floor((px-L.bx)/L.cs),y=Math.floor((py-L.by)/L.cs);
   if(x<0||y<0||x>=S.cols||y>=S.rows)return;
   const c=S.grid[y][x];if(c.t!=='block')return;
@@ -1233,9 +1316,13 @@ const POWER_FN={
     slots.forEach((sl,j)=>{const h=order[j].h;h.k=sl.k;S.colsH[sl.k][sl.i]=h});
     text('Rearanjat!',L.W/2,L.hTop-14,30,true);return true}
 };
+const bossPowerCap=()=>S&&S.boss?BOSS_DIFF[S.boss.diff].powers:null;
 function usePower(id){
   if(!S||S.over)return;
   if(id==='hammer'&&S.hammer){S.hammer=false;setHint();return}
+  // boss fights allow only a few power-ups (Easy 2, Normal 1, Hard 0), picked from what you already own: no shop mid-fight
+  const cap=bossPowerCap();
+  if(cap!=null&&(S.powersUsed>=cap||inv[id]<=0)){sfx.bad();buzz(30);shakeEl($('#powers'));banner('<small>'+(inv[id]<=0?'Nu ai acest power-up':cap?'Ai folosit toate power-up-urile ('+cap+')':'Fără power-up-uri pe Greu')+'</small>');return}
   if(inv[id]<=0){openShop(id);return}
   if(id!=='hammer')snapshot({power:id});
   const r=POWER_FN[id]();
@@ -1253,15 +1340,17 @@ function update(dt){
   const rush=!S.over&&S.bb.length>0&&!S.balls.length&&!S.emitters.length&&(boardEmpty||S.bb.every(b=>tops.includes(b.c)));
   if(rush&&!S.rush){text('⏩ Turbo',L.W/2,L.cy+L.r+L.beltR+22,18,false,S.theme.line);tone(300,900,.25,'sine',.06)}
   S.rush=rush;S.speedMul=(S.speedMul||1)+((rush?3.5:1)-(S.speedMul||1))*Math.min(1,dt*(rush?6:6));
-  S.time+=dt;S.offset=(S.offset-L.speed*S.speedMul*dt+L.P)%L.P;S.shake=Math.max(0,S.shake-dt);
+  const frozen=!!(S.boss&&S.boss.frozen); // Medusa's gaze stops the belt completely
+  S.time+=dt;S.offset=(S.offset-(frozen?0:L.speed*S.speedMul)*dt+L.P)%L.P;S.shake=Math.max(0,S.shake-dt);
+  if(S.boss)bossUpdate(dt);
   S.bb.forEach(b=>b.ps=b.s);   // remember where each belt ball was before it moves this frame
-  emit(dt);physics(dt);moveBelt(dt);feedBelt();
+  emit(dt);physics(dt);if(!frozen){moveBelt(dt);feedBelt()}
   for(let i=S.fx.length-1;i>=0;i--){S.fx[i].t+=dt;if(S.fx[i].t>S.fx[i].life)S.fx.splice(i,1)}
   S.bb.forEach(b=>{if(b.anim){b.anim.t+=dt/.12;if(b.anim.t>=1)b.anim=null}});
   // drops: a ball goes into a matching box when it CROSSES the box's column on the bottom run during this frame,
   // so even a ball moving very fast (catching up, or on turbo) can never skip over its box
   const bs0=L.Ls+Math.PI*L.r,bs1=bs0+L.Ls,xOn=s=>L.x2-(Math.max(bs0,Math.min(bs1,s))-bs0);
-  S.bb=S.bb.filter(b=>{if(b.anim)return true;
+  if(!frozen)S.bb=S.bb.filter(b=>{if(b.anim)return true;
     const s0=b.ps??b.s,s1=b.s;
     if(s0<bs0-L.sp&&s1<bs0-L.sp||s0>bs1+L.sp&&s1>bs1+L.sp||Math.abs(s0-s1)>L.P/2)return true; // not near the bottom run (or wrapped)
     const xa=xOn(s0),xb=xOn(s1),lo=Math.min(xa,xb)-L.sp*.5,hi=Math.max(xa,xb)+L.sp*.5;
@@ -1278,6 +1367,10 @@ function update(dt){
 
 function checkEnd(dt){
   if(S.over)return;
+  // boss levels are on the clock
+  if(S.boss&&S.time>=S.boss.limit){S.over=true;S.boss.mini=null;S.boss.frozen=false;sfx.lose();buzz(160);setMiniHint();
+    result('Timpul a expirat!',`${S.boss.name} a câștigat de data asta. Mai încearcă, sau alege o dificultate mai mică.`,[
+      {label:'Reîncearcă',fn:()=>playLevel(S.level,true)},{label:'Harta nivelurilor',ghost:true,fn:()=>goMap(0)}]);shakeEl($('#result .card'));return}
   const bc=beltCount();
   const busy=S.falling.length||S.emitters.length||S.colsH.some(c=>c.some(h=>h.leaving))||(S.balls.length&&bc<S.cap);
   if(busy){S.stuckT=0;return}
@@ -1285,21 +1378,25 @@ function checkEnd(dt){
   if(!blocksLeft&&!bc&&!S.balls.length){S.over=true;sfx.win();
     const prog=store.get('level',1),unlocked=S.level>=prog;if(unlocked)store.set('level',S.level+1);
     // stars: bonus coins only for stars above your previous best on this level (replays can't farm it)
-    const stars=starsFor(S.time,S.par,S.powersUsed),best=bestStars(S.level),bonus=stars>best?STAR_COINS[stars]-STAR_COINS[best]:0;
+    const stars=starsFor(S.time,S.par,S.par2,S.powersUsed),best=bestStars(S.level),bonus=stars>best?STAR_COINS[stars]-STAR_COINS[best]:0;
     saveStars(S.level,stars);if(bonus)addCoins(bonus,false);
-    celebrate();
-    setTimeout(()=>{result(S.hard?'Nivel greu învins!':['Ai reușit!','Bine!','Super!','Perfect!'][stars],
+    const br=S.boss?bossVictoryRewards():null;
+    celebrate();if(br)setTimeout(celebrate,900);
+    setTimeout(()=>{result(br?`Ai învins ${S.boss.name}!`:S.hard?'Nivel greu învins!':['Ai reușit!','Bine!','Super!','Perfect!'][stars],
       stars===3?'Rapid și fără power-up-uri. Bravo!':stars<best?`Recordul tău rămâne ${best} ⭐`:'Termină mai repede și fără power-up-uri pentru 3 stele.',[
       {label:'Continuă',fn:()=>goMap(unlocked?S.level+1:0)},{label:'Rejoacă',ghost:true,fn:()=>playLevel(S.level,true)}]);
       $('#rX').innerHTML=`<div class="res-stars">${[0,1,2].map(()=>'<i>⭐</i>').join('')}</div>
-        <div class="res-facts"><span>⏱ ${fmtTime(S.time)} / țintă ${fmtTime(S.par)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>${bonus?`<span>⭐ bonus +${bonus}</span>`:''}</div>`;
+        <div class="res-facts"><span>⏱ ${fmtTime(S.time)} · ⭐⭐⭐ ${fmtTime(S.par)} · ⭐⭐ ${fmtTime(S.par2)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>${bonus?`<span>⭐ bonus +${bonus}</span>`:''}${br?`<span>⚔️ ${BOSS_DIFF[S.boss.diff].name}: +${br.coins}${br.first?'':' (rejucat)'}</span>`:''}</div>`+
+        (br&&br.items.length?`<p class="note">Recompense exclusive:</p><div class="co-rewards">${br.items.map(([c,id])=>{const it=cosItem(c,id);return `<div class="rw sk r-boss" style="width:120px">${c==='bg'?`<div class="bgprev" style="background:${bgPreview(id)};height:40px"></div>`:`<canvas data-brprev="${c}:${id}" width="300" height="124"></canvas>`}<span>${it.name}</span><span class="rar">Boss</span></div>`}).join('')}</div>`:'');
+      $$('#rX canvas[data-brprev]').forEach(c2=>{const[c,id]=c2.dataset.brprev.split(':');drawPreview(c2,c,id)});
       $$('#rX .res-stars i').forEach((el,i)=>{if(i<stars)setTimeout(()=>{el.classList.add('on');[880,1175,1568].forEach((f,j)=>j===i&&tone(f,f*1.5,.25,'triangle',.16));buzz(20);
         const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:18,colors:['#ffd23f','#fff3b0','#ff8c2a'],speed:300,grav:400})},350+i*380)});
-      setTimeout(()=>{countUp(S.earned+bonus);paintCoins(true)},350+stars*380)},700);return}
+      setTimeout(()=>{countUp(S.earned+bonus+(br?br.coins:0));paintCoins(true)},350+stars*380)},700);return}
   const tops=[0,1,2,3].map(openHolder).filter(Boolean);
   const moving=S.bb.some(b=>tops.some(h=>h.color===b.c));
   const canTap=room()>=9&&S.tappable.size>0;
   if(moving||canTap){S.stuckT=0;return}
+  if(S.boss&&(S.boss.mini||S.boss.frozen)){S.stuckT=0;return} // a boss mini-game is not a dead end
   S.stuckT+=dt;
   if(S.stuckT<LOOP_SEC*.6)return;
   S.over=true;sfx.lose();buzz(120);
@@ -1315,13 +1412,247 @@ const HINTS={1:'Atinge blocurile cu drum liber în jos. Poți sparge mai multe d
   3:'Combo-urile umplu bara BAZINGA!. Când e plină, anulează gratuit ultima mutare.',
   4:'Blocurile în dungi sunt Cutii Bazinga: scot câte 3 bile din fiecare culoare pe care o arată.',
   5:'Folosește power-up-urile din bara de sus. Le cumperi din Magazin cu monede.'};
-function setHint(){const h=$('#hint');if(S.hammer){h.textContent='🔨 Atinge orice bloc ca să-l spargi.';h.classList.add('alert')}
+function setHint(){const h=$('#hint');if(S.boss&&S.boss.mini){setMiniHint();return}
+  if(S.boss&&!S.hammer){const B=bossOf(S.level);h.textContent=`${B.emoji} ${B.name}: ${B.desc}`;h.classList.add('alert');return}
+  if(S.hammer){h.textContent='🔨 Atinge orice bloc ca să-l spargi.';h.classList.add('alert')}
   else if(S.hard&&!HINTS[S.level]){h.textContent=`🔥 NIVEL GREU: bandă de doar ${S.cap} de locuri și mai multe culori.`;h.classList.add('alert')}
   else{h.textContent=HINTS[S.level]||'';h.classList.remove('alert')}}
 
+/* ================= BOSS FIGHTS ================= */
+const rnd=(a,b)=>a+Math.random()*(b-a);
+function newBoss(n,nBlocks){
+  const B=bossOf(n),d=BOSS_DIFF[bossDiff],cyc=Math.floor((n-1)/100); // each 100 levels the bosses act ~20% more often
+  return{id:B.id,name:B.name,diff:bossDiff,side:Math.random()<.5?'left':'right',mode:'enter',p:0,t:0,
+    next:9+Math.random()*4,every:d.every.map(v=>v/(1+cyc*.2)),frozen:false,stone:0,mini:null,fx:[],
+    kick:0,eyes:0,arm:0,reach:0,face:1,cannons:0,added:0,maxAdd:{easy:4,normal:6,hard:9}[bossDiff], // Zeus may add only so many blocks per fight
+    limit:Math.round(d.time*Math.min(1.5,Math.max(.9,nBlocks/26)))};
+}
+// monster anchor: standing beside the board, feet a bit below its middle
+function bossAnchor(side){const bw=L.cs*S.cols,bh=L.cs*S.rows;return{x:side==='left'?L.bx-27:L.bx+bw+27,y:L.by+bh*.62}}
+function bossPos(b){
+  if(b.mode==='walk'){const a=bossAnchor(b.side),z=bossAnchor(b.side==='left'?'right':'left'),p=b.p,e=p*p*(3-2*p);
+    return{x:a.x+(z.x-a.x)*e,y:a.y-(a.y-(L.by-14))*Math.sin(p*Math.PI)-Math.abs(Math.sin(p*Math.PI*6))*5}}
+  const a=bossAnchor(b.side);
+  if(b.mode==='enter'){const off=b.side==='left'?-90:90;return{x:a.x+off*(1-b.p),y:a.y}}
+  return a;
+}
+const bossNextIn=b=>rnd(b.every[0],b.every[1]);
+function bossUpdate(dt){
+  const b=S.boss;if(!b||S.over)return;b.t+=dt;
+  b.stone+=((b.frozen?1:0)-b.stone)*Math.min(1,dt*(b.frozen?2.2:4));
+  for(let i=b.fx.length-1;i>=0;i--){const f=b.fx[i];f.t+=dt;if(f.t>=f.life){b.fx.splice(i,1);f.done&&f.done()}}
+  if(b.mode==='enter'){b.p=Math.min(1,b.p+dt/1.2);if(b.p>=1){b.mode='idle';b.p=0}}
+  else if(b.mode==='walk'){b.p+=dt/2.4;b.face=b.side==='left'?1:-1;if(b.p>=1){b.side=b.side==='left'?'right':'left';b.mode='idle';b.p=0}}
+  else if(b.mode==='power'){b.p+=dt;bossPowerTick(b,dt)}
+  else if(b.mode==='idle'&&!b.mini&&S.time>=b.next&&!S.emitters.length){
+    if(Math.random()<.3){b.mode='walk';b.p=0;b.next=S.time+rnd(3,6)}else{b.mode='power';b.p=0;b.stage=0}}
+  if(b.mode!=='walk')b.face=b.side==='left'?1:-1;
+  if(b.mini)bossMiniUpdate(dt);
+}
+function bossPowerDone(b){b.mode='idle';b.p=0;b.next=S.time+bossNextIn(b);b.kick=0;b.arm=0;b.reach=0}
+function bossPowerTick(b,dt){
+  const p=b.p;
+  if(b.id==='minotaur'){ // wind up, stomp, everything on the board gets shuffled
+    b.kick=p<.6?p/.6:Math.max(0,1-(p-.6)/.4);
+    if(b.stage===0&&p>=.6){b.stage=1;minotaurStomp()}
+    if(p>=1.1)bossPowerDone(b);
+  }else if(b.id==='medusa'){ // eyes open, stone spreads, snake mini-game begins
+    b.eyes=Math.min(1,p/.6);
+    if(b.stage===0&&p>=.6){b.stage=1;b.frozen=true;sfx.stone();buzz([40,40,80]);text('Pietrificat!',L.W/2,L.by+20,30,true,'#b9b9c4');startSnakes()}
+  }else if(b.id==='zeus'){ // arm up, lightning, new blocks + their boxes
+    b.arm=p<.7?p/.7:Math.min(1,Math.max(0,1-(p-.9)/.5));
+    if(b.stage===0&&p>=.7){b.stage=1;zeusStrike()}
+    if(p>=1.4)bossPowerDone(b);
+  }else if(b.id==='kraken'){
+    if(b.stage===0){b.stage=1;b.act=(b.cannons<1&&S.time>18)||Math.random()<.35?'cannon':'throw';if(b.act==='cannon'){b.cannons++;startCannon();return}}
+    if(b.act==='throw'){b.reach=p<.7?p/.7:Math.min(1,Math.max(0,1-(p-.9)/.6));if(b.stage===1&&p>=.7){b.stage=2;krakenThrow()}if(p>=1.6)bossPowerDone(b)}
+  }
+}
+const cellXY=(x,y)=>[L.bx+x*L.cs+L.cs/2,L.by+y*L.cs+L.cs/2];
+const blockCells=()=>{const out=[];S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t==='block')out.push({c,x,y})}));return out};
+const PAYLOAD=['color','mix','hidden','seed'];
+// Minotaur: shuffle what is inside every block (colours, mixes, hidden), positions stay → ball counts unchanged, always winnable
+function minotaurStomp(){
+  const cells=blockCells();if(cells.length<2)return;
+  const loads=shuffle(cells.map(({c})=>Object.fromEntries(PAYLOAD.map(k=>[k,c[k]]))),Math.random);
+  cells.forEach(({c},i)=>{PAYLOAD.forEach(k=>{if(loads[i][k]===undefined)delete c[k];else c[k]=loads[i][k]});c.pop=.9});
+  refreshReach();S.shake=.7;sfx.thud();buzz([60,30,60]);text('BUM!',L.W/2,L.by+L.cs,40,true,'#ffd23f');
+  const a=bossPos(S.boss),cr=cv.getBoundingClientRect();burst(cr.left+a.x,cr.top+a.y,{n:24,colors:['#a8875a','#d8c39a','#7a5a3a'],speed:260,grav:500,plain:true});
+}
+// Zeus: 1–3 bolts, each makes a new block on an empty spot and adds the 3 boxes its balls need
+function zeusStrike(){
+  const b=S.boss,empties=[];S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t==='empty')empties.push({c,x,y})}));
+  // 1–3 per strike, but never more than the fight's total budget, so the level always stays finishable
+  const n=Math.min(empties.length,1+Math.floor(Math.random()*3),Math.max(0,b.maxAdd-b.added)),pick=shuffle(empties,Math.random).slice(0,n);b.added+=n;
+  const a=bossPos(b),hand={x:a.x+b.face*16,y:a.y-92};sfx.zap();S.shake=.35;
+  if(!n){b.fx.push({k:'bolt',from:hand,to:{x:L.W/2,y:L.by-20},t:0,life:.4});b.flash=.7;S.shake=.5;text('Ai scăpat!',L.W/2,L.by+10,22,false,'#fff');return}
+  pick.forEach(({c,x,y},i)=>{const[tx,ty]=cellXY(x,y);
+    b.fx.push({k:'bolt',from:hand,to:{x:tx,y:ty},t:-i*.12,life:.45,done:()=>{
+      c.t='block';c.color=S.pal[Math.floor(Math.random()*S.pal.length)];delete c.mix;c.hidden=false;c.seed=Math.random()*3;c.pop=1;
+      addHolders(c.color,3);refreshReach();sfx.zap();buzz(30)}})});
+  b.flash=1;text(n===1?'+1 bloc!':`+${n} blocuri!`,L.W/2,L.by+10,26,true,'#fff3b0');
+}
+function addHolders(color,count){
+  for(let i=0;i<count;i++){const k=Math.floor(Math.random()*NCOL),col=S.colsH[k],pos=col.length?1+Math.floor(Math.random()*col.length):0;
+    col.splice(pos,0,{color,k,taken:0,filled:0,balls:[],leaving:false,lt:0,y:null})}
+}
+// Kraken: grabs 2–3 blocks and throws them to other spots on the board (blocks or empty cells) – same balls, harder layout
+function krakenThrow(){
+  const b=S.boss,cells=blockCells(),spots=[];S.grid.forEach((row,y)=>row.forEach((c,x)=>{if(c.t!=='void')spots.push({c,x,y})}));
+  const n=Math.min(cells.length,2+Math.floor(Math.random()*2));sfx.splash();
+  shuffle(cells,Math.random).slice(0,n).forEach(src=>{
+    const dst=spots[Math.floor(Math.random()*spots.length)];if(dst.c===src.c)return;
+    const A={t:src.c.t,...Object.fromEntries(PAYLOAD.map(k=>[k,src.c[k]]))},Bv={t:dst.c.t,...Object.fromEntries(PAYLOAD.map(k=>[k,dst.c[k]]))};
+    const put=(c,v)=>{c.t=v.t;PAYLOAD.forEach(k=>{if(v[k]===undefined)delete c[k];else c[k]=v[k]})};
+    put(src.c,Bv);put(dst.c,A);
+    const from=cellXY(src.x,src.y),to=cellXY(dst.x,dst.y);
+    [[dst.c,from,to,A],[src.c,to,from,Bv]].forEach(([c,f,t2,v])=>{if(v.t!=='block')return;c.hideUntil=S.time+.6;
+      b.fx.push({k:'fly',v,from:{x:f[0],y:f[1]},to:{x:t2[0],y:t2[1]},t:0,life:.6,done:()=>{c.pop=.7}})});
+  });
+  refreshReach();text('Aruncă!',L.W/2,L.by+10,24,true,'#c9a6ff');
+}
+/* ---- mini-games ---- */
+function startSnakes(){ // 6 snakes pop up over the board; tap each head to send it back
+  const b=S.boss,bw=L.cs*S.cols,bh=L.cs*S.rows,pts=[];let guard=0;
+  while(pts.length<6&&guard++<400){const x=L.bx+rnd(.12,.88)*bw,y=L.by+rnd(.18,.95)*bh;if(pts.every(p=>Math.hypot(p.x-x,p.y-y)>58))pts.push({x,y})}
+  while(pts.length<6)pts.push({x:L.bx+rnd(.1,.9)*bw,y:L.by+rnd(.2,.9)*bh});
+  b.mini={kind:'snakes',targets:pts.map((p,i)=>({...p,out:0,hit:false,ph:Math.random()*6,delay:i*.18})),hits:0};
+  setMiniHint();sfx.hiss();
+}
+function startCannon(){ // tentacles rise from the board; tap to fire the cannon at them
+  const b=S.boss,bw=L.cs*S.cols;
+  b.mini={kind:'cannon',tents:[0,1,2,3,4].map(i=>({x:L.bx+bw*(.1+.2*i),ph:Math.random()*6,amp:rnd(14,26),h:rnd(.55,.9),out:0,hit:false,delay:i*.15})),shots:[],hits:0,
+    gun:{x:L.W/2,y:Math.min(L.H-40,L.hTop+L.hh*1.3),ang:-Math.PI/2}};
+  text('Atac de tentacule!',L.W/2,L.by+20,28,true,'#c9a6ff');sfx.roar();setMiniHint();
+}
+function setMiniHint(){const b=S.boss,m=b.mini,h=$('#hint');if(!m){setHint();return}
+  h.classList.add('alert');h.textContent=m.kind==='snakes'?`🐍 Lovește capetele șerpilor! ${m.hits}/6`:`💣 Trage cu tunul în tentacule! ${m.hits}/5`}
+function bossMiniUpdate(dt){
+  const b=S.boss,m=b.mini;
+  if(m.kind==='snakes'){m.targets.forEach(s=>{s.delay-=dt;if(s.delay>0)return;s.ph+=dt*4;s.out+=((s.hit?0:1)-s.out)*Math.min(1,dt*(s.hit?9:6))});
+    if(m.hits>=6&&m.targets.every(s=>s.out<.05)){b.mini=null;b.frozen=false;b.eyes=0;setMiniHint();text('Eliberat!',L.W/2,L.by+20,34,true,'#4ade80');sfx.unlock();bossPowerDone(b)}}
+  else{m.tents.forEach(t=>{t.delay-=dt;if(t.delay>0)return;t.ph+=dt*1.6;t.out+=((t.hit?0:1)-t.out)*Math.min(1,dt*(t.hit?6:2.5))});
+    m.shots.forEach(s=>{s.t+=dt/.32;if(s.t>=1&&!s.done){s.done=true;const tip=hitTentacle(s.tx,s.ty);
+      if(tip){tip.hit=true;m.hits++;sfx.boom();buzz([30,20,30]);setMiniHint();const cr=cv.getBoundingClientRect();burst(cr.left+s.tx,cr.top+s.ty,{n:26,colors:['#c9a6ff','#7a24c9','#ffffff'],speed:320,grav:500,plain:true})}
+      else{sfx.splash();const cr=cv.getBoundingClientRect();burst(cr.left+s.tx,cr.top+s.ty,{n:10,colors:['#9fd8ff','#ffffff'],speed:180,grav:400,plain:true})}}});
+    m.shots=m.shots.filter(s=>s.t<1.4);
+    if(m.hits>=5&&m.tents.every(t=>t.out<.05)){b.mini=null;setMiniHint();text('Krakenul s-a retras!',L.W/2,L.by+20,28,true,'#4ade80');sfx.unlock();bossPowerDone(b)}}
+}
+function tentPoints(t){ // a swaying tentacle from the board's bottom edge upwards
+  const base=L.bBottom+6,len=L.cs*S.rows*t.h*t.out,pts=[];
+  for(let i=0;i<=10;i++){const q=i/10;pts.push({x:t.x+Math.sin(t.ph+q*3)*t.amp*q,y:base-len*q})}return pts}
+function hitTentacle(x,y){const m=S.boss.mini;for(const t of m.tents){if(t.hit||t.out<.5)continue;if(tentPoints(t).slice(3).some(p=>Math.hypot(p.x-x,p.y-y)<30))return t}return null}
+function bossTap(px,py){
+  const b=S.boss,m=b.mini;
+  if(m.kind==='snakes'){for(const s of m.targets){if(s.hit||s.out<.4)continue;if(Math.hypot(px-s.x,py-(s.y-30*s.out))<32){s.hit=true;m.hits++;sfx.bonk();buzz(20);setMiniHint();
+        const cr=cv.getBoundingClientRect();burst(cr.left+s.x,cr.top+s.y-30,{n:12,colors:['#4ade80','#fff3b0'],speed:220,grav:500,plain:true});return}}sfx.bad()}
+  else{const g=m.gun;g.ang=Math.atan2(py-g.y,px-g.x);m.shots.push({x0:g.x,y0:g.y,tx:px,ty:py,t:0});sfx.cannon();S.shake=.15}
+}
+/* ---- drawing the monsters (cartoon, built from simple shapes) ---- */
+const E=(x,y,rx,ry,col)=>{ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,7);ctx.fill()};
+const RR=(x,y,w,h,r,col)=>{ctx.fillStyle=col;rr(x,y,w,h,r);ctx.fill()};
+function drawBoss(){
+  const b=S.boss;if(!b)return;const a=bossPos(b),t=S.time,s=Math.max(.85,Math.min(1.15,L.W/360));
+  ctx.save();ctx.translate(a.x,a.y);ctx.scale(s*b.face,s);
+  E(0,2,24,6,'rgba(0,0,0,.25)'); // shadow
+  const breathe=1+Math.sin(t*2.2)*.025;ctx.scale(1,breathe);
+  ({minotaur:drawMinotaur,medusa:drawMedusa,zeus:drawZeus,kraken:drawKraken})[b.id](b,t);
+  ctx.restore();
+  // stone spreading over the board while Medusa's gaze holds
+  if(b.stone>.02){ctx.save();ctx.globalAlpha=b.stone*.8;blockCells().forEach(({x,y})=>{const px=L.bx+x*L.cs,py=L.by+y*L.cs;
+    RR(px+L.cs*.06,py+L.cs*.06,L.cs*.88,L.cs*.84,L.cs*.18,'#9a9aa6');ctx.strokeStyle='#6b6b78';ctx.lineWidth=1.5;ctx.beginPath();
+    ctx.moveTo(px+L.cs*.3,py+L.cs*.2);ctx.lineTo(px+L.cs*.45,py+L.cs*.45);ctx.lineTo(px+L.cs*.38,py+L.cs*.7);ctx.moveTo(px+L.cs*.45,py+L.cs*.45);ctx.lineTo(px+L.cs*.7,py+L.cs*.55);ctx.stroke()});ctx.restore()}
+}
+function drawMinotaur(b,t){
+  const br='#8a5228',dk='#4e2c12',lt='#d6a06a',k=b.kick;
+  RR(-15,-27,10,27,4,dk);                                            // back leg
+  ctx.save();ctx.translate(5,-24);ctx.rotate(-k*1.1);RR(-5,0,10,24,4,dk);RR(-7,20,14,7,3,'#2b1a0a');ctx.restore(); // kicking leg + hoof
+  E(0,-42,21,21,br);E(3,-38,12,14,lt);                                // body, belly
+  RR(-29,-56,10,24,5,br);RR(18,-56-k*6,10,24,5,br);                   // arms
+  E(5,-68,16,14,br);E(12,-62,10,8,lt);                                // head, muzzle
+  E(9,-62,1.8,1.8,dk);E(15,-62,1.8,1.8,dk);
+  ctx.strokeStyle='#ffd23f';ctx.lineWidth=2.4;ctx.beginPath();ctx.arc(12,-58,3.4,0,Math.PI);ctx.stroke(); // nose ring
+  const horn=(x,dir)=>{ctx.fillStyle='#f3e3c0';ctx.beginPath();ctx.moveTo(x,-74);ctx.quadraticCurveTo(x+dir*14,-78,x+dir*15,-92);ctx.quadraticCurveTo(x+dir*7,-82,x-dir*3,-70);ctx.fill()};
+  horn(-6,-1);horn(16,1);
+  const glow=.6+.4*Math.sin(t*6);E(1,-71,2.8,2.8,`rgba(255,${60+k*80|0},60,${glow})`);E(11,-72,2.8,2.8,`rgba(255,${60+k*80|0},60,${glow})`);
+  ctx.strokeStyle=dk;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-3,-76);ctx.lineTo(5,-73);ctx.moveTo(15,-74);ctx.lineTo(8,-73);ctx.stroke();
+}
+function drawMedusa(b,t){
+  const skin='#8fd19e',dark='#3c8a55';
+  ctx.fillStyle='#6a2fa0';ctx.beginPath();ctx.moveTo(-20,0);ctx.lineTo(20,0);ctx.lineTo(10,-40);ctx.lineTo(-10,-40);ctx.closePath();ctx.fill(); // gown
+  RR(-11,-34,22,4,2,'#ffd23f');
+  for(let i=0;i<6;i++){const a=-Math.PI*(.15+.7*i/5),bx=Math.cos(a)*10,by=-62+Math.sin(a)*9,w=Math.sin(t*3+i)*6,len=17+(b.eyes*6); // snakes on her head
+    const tx=bx+Math.cos(a)*len+w,ty=by+Math.sin(a)*len;
+    ctx.strokeStyle=i%2?'#3fae6a':'#2f8f55';ctx.lineWidth=4.5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(bx,by);ctx.quadraticCurveTo(bx+Math.cos(a)*len*.5-w,by+Math.sin(a)*len*.5,tx,ty);ctx.stroke();
+    E(tx,ty,4.4,3.4,'#2f8f55');E(tx+1,ty-1,1,1,'#ff3b3b');if(Math.sin(t*5+i)>.6){ctx.strokeStyle='#ff4d6d';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(tx+3,ty);ctx.lineTo(tx+7,ty+1);ctx.stroke()}}
+  E(0,-48,6,6,skin);E(0,-62,13,15,skin);                              // neck, face
+  if(b.eyes>.1){const g=b.eyes;ctx.save();ctx.shadowColor='#fff35a';ctx.shadowBlur=14*g;E(-5,-64,3.6,3.2*g,'#fff35a');E(5,-64,3.6,3.2*g,'#fff35a');ctx.restore();
+    RR(-5.6,-66,1.2,4*g,.6,'#1a1140');RR(4.4,-66,1.2,4*g,.6,'#1a1140')}
+  else{ctx.strokeStyle=dark;ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(-5,-65,3,.2,Math.PI-.2);ctx.moveTo(8,-64.5);ctx.arc(5,-65,3,.2,Math.PI-.2);ctx.stroke()}
+  ctx.strokeStyle='#7a1f4a';ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(0,-56,3.2,.25,Math.PI-.25);ctx.stroke();
+}
+function drawZeus(b,t){
+  const arm=b.arm;
+  ctx.fillStyle='#f4f6ff';ctx.beginPath();ctx.moveTo(-18,0);ctx.lineTo(18,0);ctx.lineTo(12,-46);ctx.lineTo(-12,-46);ctx.closePath();ctx.fill(); // robe
+  ctx.fillStyle='#4a7bff';ctx.beginPath();ctx.moveTo(-12,-46);ctx.lineTo(-4,-46);ctx.lineTo(14,0);ctx.lineTo(6,0);ctx.closePath();ctx.fill();   // sash
+  RR(-22,-44,8,22,4,'#ffd7b0');                                       // resting arm
+  ctx.save();ctx.translate(14,-42);ctx.rotate(-arm*2.3);RR(-4,0,8,22,4,'#ffd7b0');                    // raising arm
+  if(arm>.2){ctx.fillStyle='#ffe93d';ctx.beginPath();ctx.moveTo(-2,22);ctx.lineTo(6,30);ctx.lineTo(1,31);ctx.lineTo(8,42);ctx.lineTo(-4,31);ctx.lineTo(1,30);ctx.closePath();ctx.fill()}
+  ctx.restore();
+  E(0,-60,13,14,'#ffd7b0');                                            // face
+  for(const[x,y,r]of[[-9,-50,6],[-3,-46,7],[4,-46,7],[10,-50,6],[0,-52,6]])E(x,y,r,r,'#ffffff'); // beard
+  for(const[x,y,r]of[[-12,-66,6],[-6,-73,6],[2,-75,6],[10,-72,6],[13,-65,5]])E(x,y,r,r,'#eef2ff'); // hair
+  ctx.fillStyle='#ffd23f';ctx.beginPath();ctx.moveTo(-10,-74);for(let i=0;i<5;i++){ctx.lineTo(-10+i*5+2.5,-82);ctx.lineTo(-10+i*5+5,-74)}ctx.closePath();ctx.fill(); // crown
+  const glare=arm>.5?'#7df9ff':'#3a5ccf';E(-5,-62,2.2,2.2,glare);E(5,-62,2.2,2.2,glare);
+  ctx.strokeStyle='#8a8fa8';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(-8,-67);ctx.lineTo(-2,-66);ctx.moveTo(8,-67);ctx.lineTo(2,-66);ctx.stroke();
+}
+function drawKraken(b,t){
+  const body='#8a2be2',dk='#5a1a99';
+  for(let i=0;i<6;i++){const bx=-18+i*7.2,w=Math.sin(t*2.4+i)*8,reach=i===3?b.reach:0;   // tentacles
+    ctx.strokeStyle=i%2?body:dk;ctx.lineWidth=7-i%2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(bx,-30);
+    ctx.quadraticCurveTo(bx+w,-14,bx+w*1.4+reach*40,0-reach*30);ctx.stroke();
+    E(bx+w*.8,-12,1.6,1.6,'#e9d6ff')}
+  const g=ctx.createRadialGradient(-6,-62,4,0,-52,30);g.addColorStop(0,'#c58cff');g.addColorStop(1,dk);
+  ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(0,-52,22,26,0,0,7);ctx.fill();                          // head
+  E(-8,-50,6,7,'#fff35a');E(8,-50,6,7,'#fff35a');RR(-9,-55,2,10,1,'#1a1140');RR(7,-55,2,10,1,'#1a1140'); // eyes
+  ctx.strokeStyle=dk;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-14,-60);ctx.lineTo(-3,-57);ctx.moveTo(14,-60);ctx.lineTo(3,-57);ctx.stroke();
+  E(-12,-70,2.5,2.5,'#c58cff');E(6,-74,2,2,'#c58cff');E(13,-64,1.8,1.8,'#c58cff');
+}
+// effects and mini-games drawn above everything else on the board
+function drawBossOverlay(){
+  const b=S.boss;if(!b)return;
+  if(b.stone>.02){ctx.save();ctx.globalAlpha=b.stone*.75;S.bb.forEach(o=>{const[x,y]=beltPos(o.s);E(x,y,L.beltR,L.beltR,'#9a9aa6')});ctx.restore()}
+  b.fx.forEach(f=>{const p=Math.max(0,f.t/f.life);if(f.t<0)return;
+    if(f.k==='bolt'){ctx.save();ctx.globalAlpha=1-p*.7;ctx.strokeStyle='#fff9c4';ctx.lineWidth=4;ctx.shadowColor='#7df9ff';ctx.shadowBlur=18;ctx.beginPath();ctx.moveTo(f.from.x,f.from.y);
+      const segs=7;for(let i=1;i<=segs;i++){const q=i/segs,x=f.from.x+(f.to.x-f.from.x)*q+(i<segs?(Math.random()-.5)*26:0),y=f.from.y+(f.to.y-f.from.y)*q;ctx.lineTo(x,y)}ctx.stroke();ctx.restore()}
+    else if(f.k==='fly'){const e=p*p*(3-2*p),x=f.from.x+(f.to.x-f.from.x)*e,y=f.from.y+(f.to.y-f.from.y)*e-Math.sin(p*Math.PI)*70;
+      ctx.save();ctx.translate(x,y);ctx.rotate(p*6);drawBlock({...f.v,pop:0},-L.cs/2,-L.cs/2,L.cs,false);ctx.restore()}});
+  if(b.flash>0){ctx.fillStyle=`rgba(255,255,230,${b.flash*.6})`;ctx.fillRect(0,0,L.W,L.H);b.flash=Math.max(0,b.flash-.06)}
+  const m=b.mini;if(!m)return;
+  if(m.kind==='snakes')m.targets.forEach(s=>{if(s.delay>0)return;const o=s.out,hy=s.y-30*o,w=Math.sin(s.ph)*5*o;
+    E(s.x,s.y+4,16,6,'#2a1b3a');                                         // hole
+    if(o<.03)return;ctx.strokeStyle='#3fae6a';ctx.lineWidth=9;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(s.x,s.y+3);ctx.quadraticCurveTo(s.x-w,s.y-15*o,s.x+w,hy);ctx.stroke();
+    E(s.x+w,hy,11*o,9*o,'#2f8f55');E(s.x+w-4*o,hy-3*o,2.6*o,2.6*o,'#fff35a');E(s.x+w+4*o,hy-3*o,2.6*o,2.6*o,'#fff35a');
+    if(!s.hit){ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(s.x+w,hy,16+Math.sin(S.time*8)*2,0,7);ctx.stroke();ctx.setLineDash([])}});
+  else{m.tents.forEach(tn=>{if(tn.delay>0||tn.out<.03)return;const pts=tentPoints(tn);
+      for(let i=0;i<pts.length-1;i++){ctx.strokeStyle=i%2?'#8a2be2':'#7a24c9';ctx.lineWidth=16*(1-i/pts.length)+4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[i+1].x,pts[i+1].y);ctx.stroke()}
+      pts.forEach((p,i)=>{if(i%2&&i<9)E(p.x+4,p.y,2.2,2.2,'#e9d6ff')})});
+    const g=m.gun;ctx.save();ctx.translate(g.x,g.y);E(0,10,26,10,'rgba(0,0,0,.3)');RR(-20,-4,40,18,6,'#6b4a2a');E(-12,14,7,7,'#3a2414');E(12,14,7,7,'#3a2414'); // cannon
+    ctx.rotate(g.ang+Math.PI/2);RR(-8,-34,16,34,6,'#3a3f4d');RR(-10,-36,20,6,3,'#596277');ctx.restore();
+    m.shots.forEach(s=>{if(s.t>=1)return;const x=s.x0+(s.tx-s.x0)*s.t,y=s.y0+(s.ty-s.y0)*s.t-Math.sin(s.t*Math.PI)*40;E(x,y,7,7,'#1a1a22');E(x-2,y-2,2,2,'#888')})}
+}
+function bossVictoryRewards(){
+  const b=S.boss,d=BOSS_DIFF[b.diff],B=BOSSES.find(x=>x.id===b.id),wins=store.get('bossWins',{}),key=S.level+':'+b.diff,first=!wins[key];
+  wins[key]=1;store.set('bossWins',wins);
+  const coinsWon=first?d.coins:Math.round(d.coins/3),items=[];
+  if(first&&b.diff!=='easy'){const[c,id]=B.items[0];if(!owns(c,id)){COS.own[c].push(id);items.push([c,id])}}
+  if(first&&b.diff==='hard'){const[c,id]=B.items[1];if(!owns(c,id)){COS.own[c].push(id);items.push([c,id])}}
+  if(items.length)saveCos();addCoins(coinsWon,false);return{coins:coinsWon,items,first};
+}
+
 /* ================= UI: screens, HUD, shop, modals ================= */
 let screen='home',paused=false;
-function showScreen(s){screen=s;$('#home').hidden=s!=='home';$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
+function showScreen(s){screen=s;if(s!=='game')setMusicMode(false);$('#home').hidden=s!=='home';$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
   // the game screen takes its zone's colours; menus keep the night look
   document.body.style.background=s==='game'&&S?gameBg(S.theme):''}
 // level backdrop: zone colours + a soft light from above + faint candy stripes + floating bokeh "marbles"
@@ -1370,15 +1701,18 @@ function hideTip(){const t=$('#tip');t&&t.remove()}
 let lastHud='';
 function hud(){
   // live rating: the clock ticks only while you play, and stars drop as you pass the target time or use power-ups
-  const sec=Math.floor(S.time),st=starsFor(S.time,S.par,S.powersUsed);
-  if(sec!==hud.sec){hud.sec=sec;$('#clock').textContent=fmtTime(sec)}
+  const sec=Math.floor(S.time),st=starsFor(S.time,S.par,S.par2,S.powersUsed);
+  // boss levels count DOWN the time you have left; the clock turns red in the last 30 seconds
+  if(S.boss){const rem=Math.max(0,Math.ceil(S.boss.limit-S.time));if(rem!==hud.sec){hud.sec=rem;$('#clock').textContent='⏱'+fmtTime(rem);$('#starbar').classList.toggle('warn',rem<=30)}}
+  else if(sec!==hud.sec){hud.sec=sec;$('#clock').textContent=fmtTime(sec);$('#starbar').classList.remove('warn')}
   if(st!==hud.st){if(hud.st>st&&hud.st!=null)shakeEl($('#starbar'));hud.st=st;$$('#starbar i').forEach((e,i)=>e.classList.toggle('off',i>=st))}
-  const free=S.charge>=MAXCHARGE,key=[S.level,free,S.charge,S.hammer,S.hist.length,coins,...POWERS.map(p=>inv[p.id])].join();
+  const pcap=bossPowerCap(),free=S.charge>=MAXCHARGE,key=[S.level,free,S.charge,S.hammer,S.hist.length,coins,S.powersUsed,!!S.boss,...POWERS.map(p=>inv[p.id])].join();
   if(key===lastHud)return;lastHud=key;
   $('#lvl').textContent='Niv. '+S.level;
   const bz=$('#bz');bz.style.setProperty('--p',S.charge/MAXCHARGE);bz.classList.toggle('free',free&&S.hist.length>0);
   $('#bzSub').textContent=free?'⟲ Anulează':`Combo ${S.charge}/${MAXCHARGE}`;
-  $$('.pw').forEach(b=>{const n=inv[b.dataset.p],badge=b.querySelector('b');badge.textContent=n>0?n:'+';badge.classList.toggle('zero',n<=0);b.classList.toggle('on',b.dataset.p==='hammer'&&S.hammer)});
+  $$('.pw').forEach(b=>{const n=inv[b.dataset.p],badge=b.querySelector('b');badge.textContent=n>0?n:'+';badge.classList.toggle('zero',n<=0);b.classList.toggle('on',b.dataset.p==='hammer'&&S.hammer);b.classList.toggle('locked',pcap!=null&&!(b.dataset.p==='hammer'&&S.hammer)&&(S.powersUsed>=pcap||n<=0))});
+  if(pcap!=null)$('#powers').dataset.left=pcap?`Power-up: ${Math.max(0,pcap-S.powersUsed)}/${pcap}`:'Fără power-up-uri';else delete $('#powers').dataset.left;
 }
 
 /* ================= shop: chests · ball skins · effects · themes · power-ups ================= */
@@ -1411,7 +1745,9 @@ function renderShop(highlight){
     const cats=shopTab==='theme'?['belt','bg']:[shopTab];
     body.innerHTML=cats.map(cat=>`${cats.length>1?`<h3 class="sec">${COS_CATS[cat]}</h3>`:''}<div class="grid2">${COSMETICS[cat].map(it=>{
       const own=owns(cat,it.id),eq=COS.eq[cat]===it.id;
+      const bossLock=it.boss&&!own?BOSSES.find(x=>x.id===it.boss):null;
       const btn=eq?`<button class="skbtn on" disabled>✓ Echipat</button>`:own?`<button class="skbtn equip" data-eq="${cat}:${it.id}">Echipează</button>`
+        :bossLock?`<button class="skbtn" disabled>🔒 ${bossLock.emoji} ${bossLock.name}</button>`
         :`<button class="skbtn" data-buy-cos="${cat}:${it.id}" ${coins<it.price?'disabled':''}>${coinTag(it.price)}</button>`;
       const prev=cat==='bg'?`<div class="bgprev" style="background:${bgPreview(it.id)}"></div>`:`<canvas data-prev="${cat}:${it.id}" width="300" height="124"></canvas>`;
       return `<div class="sk r-${it.rar}">${prev}<b>${it.name}</b><span class="rar">${RARITY[it.rar].name}</span>${btn}</div>`}).join('')}</div>`).join('');
@@ -1521,11 +1857,13 @@ function paintHome(){const l=store.get('level',1);$('#playLvl').textContent='Niv
   $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':''}
 function start(n,quiet){
   $$('.modal').forEach(m=>m.hidden=true);
-  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;
+  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);
   if(!quiet)levelIntro(n);
   window.claude?.hot?.snapshot?.(()=>({level:S.level,screen}));
 }
 function levelIntro(n){
+  if(isBoss(n)&&S.boss){const B=bossOf(n);banner(`⚔️ ${B.name.toUpperCase()}<small>${B.title} · ${BOSS_DIFF[S.boss.diff].name}</small>`,'hard');sfx.roar();buzz([60,40,90]);S.shake=.5;
+    const v=document.createElement('div');v.className='vignette';document.body.appendChild(v);v.animate([{opacity:0},{opacity:1,offset:.2},{opacity:0}],{duration:1400,fill:'forwards'});setTimeout(()=>v.remove(),1500);return}
   if(isHard(n)){banner('NIVEL GREU!<small>Nivelul '+n+' 🔥</small>','hard');sfx.hard();buzz([40,60,80]);
     const v=document.createElement('div');v.className='vignette';document.body.appendChild(v);
     v.animate([{opacity:0},{opacity:1,offset:.15},{opacity:.6,offset:.4},{opacity:1,offset:.55},{opacity:0}],{duration:1600}).finished.then(()=>v.remove())}
@@ -1592,13 +1930,27 @@ Object.assign(sfx,{
   ready:()=>[784,988,1175,1568].forEach((f,i)=>tone(f,f,.12,'triangle',.12,i*.06)),
   hard:()=>{tone(110,45,.9,'sawtooth',.12);tone(165,60,.8,'square',.05);tone(55,40,1,'sine',.25)},
   unlock:()=>[523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,f*1.01,.16,'triangle',.13,i*.07)),
+  roar:()=>{tone(150,60,.8,'sawtooth',.12);tone(95,45,.9,'square',.06);sfxNoise(.5,700,'lowpass',.18)},
+  thud:()=>{tone(95,38,.4,'sine',.4);sfxNoise(.3,320,'lowpass',.3)},
+  zap:()=>{sfxNoise(.25,3200,'highpass',.22);tone(1400,180,.3,'sawtooth',.07)},
+  hiss:()=>sfxNoise(.45,5200,'highpass',.14),
+  bonk:()=>{tone(520,240,.12,'square',.09);tone(900,500,.08,'triangle',.06)},
+  cannon:()=>{tone(140,50,.25,'sine',.35);sfxNoise(.2,900,'lowpass',.25)},
+  boom:()=>{tone(110,35,.45,'sine',.45);sfxNoise(.4,700,'lowpass',.3)},
+  splash:()=>sfxNoise(.4,1500,'bandpass',.2),
+  stone:()=>{tone(220,70,.6,'triangle',.14);sfxNoise(.5,380,'lowpass',.2)},
   whoosh:()=>{tone(260,1300,.32,'sine',.07);tone(520,2600,.25,'triangle',.025,.03)},
   boing:()=>{tone(180,620,.18,'sine',.2);tone(620,240,.25,'triangle',.12,.18);[1047,1319,1568].forEach((f,i)=>tone(f,f,.1,'square',.04,.35+i*.05))},
   count:()=>tone(1500,1500,.03,'square',.03)});
 
 /* ---- global particle layer (confetti, sparkles) above every screen ---- */
 const fxc=$('#fx'),fctx=fxc.getContext('2d');let parts=[];
-function sizeFx(){fxc.width=innerWidth*dpr;fxc.height=innerHeight*dpr;fctx.setTransform(dpr,0,0,dpr,0,0)}
+// size full-screen canvases from their real on-screen box (innerHeight can be smaller than the screen in an iPhone home-screen app)
+const screenBox=c=>{const r=c.getBoundingClientRect();return{w:Math.max(r.width,innerWidth),h:Math.max(r.height,innerHeight)}};
+function sizeFx(){const b=screenBox(fxc);fxc.width=Math.round(b.w*dpr);fxc.height=Math.round(b.h*dpr);fctx.setTransform(dpr,0,0,dpr,0,0)}
+// wipe the whole bitmap, whatever its size, so no particle can ever be left behind
+function wipe2d(c,cv2){c.save();c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cv2.width,cv2.height);c.restore()}
+let fxDirty=false;
 const CONF=['#ff4d6d','#ffd23f','#4ade4a','#3a86ff','#b06cff','#ff8c2a','#3ee0f0','#ff78c8'];
 /* break effects: particle shapes and colours per equipped effect. plain:true keeps the default confetti (menus, chests) */
 const FXS={
@@ -1606,6 +1958,7 @@ const FXS={
   stars:{shapes:['star'],colors:['#ffd23f','#fff3b0','#ffb000','#ffffff'],spark:'star',sparkColor:'#ffd23f'},
   bubbles:{shapes:['bubble'],colors:['#bfe9ff','#e6f8ff','#9fd8ff','#ffffff'],grav:-240,spark:'bubble',sparkColor:'#d9f3ff',rise:true},
   hearts:{shapes:['heart'],colors:['#ff4d6d','#ff8fb3','#ff2d55','#ffc2d4'],spark:'heart',sparkColor:'#ff5a7a'},
+  lightning:{shapes:['bolt'],colors:['#fff35a','#ffffff','#7df9ff'],spark:'bolt',sparkColor:'#fff35a'},
   fireworks:{shapes:['dot','star'],colors:['#ff3df0','#3df5ff','#ffe93d','#7dff5a','#ff8a3d','#ffffff'],spark:'dot',fire:true}};
 function drawShape(c,shape,s,col){
   c.fillStyle=col;c.strokeStyle=col;
@@ -1613,6 +1966,7 @@ function drawShape(c,shape,s,col){
   else if(shape==='dot'){c.beginPath();c.arc(0,0,s/2.4,0,7);c.fill()}
   else if(shape==='star'){c.beginPath();for(let k=0;k<10;k++){const r=k%2?s*.24:s*.6;c.lineTo(Math.cos(k*Math.PI/5-Math.PI/2)*r,Math.sin(k*Math.PI/5-Math.PI/2)*r)}c.closePath();c.fill()}
   else if(shape==='heart'){const h=s*.55;c.beginPath();c.moveTo(0,h*.6);c.bezierCurveTo(-h*1.4,-h*.2,-h*.6,-h*1.2,0,-h*.45);c.bezierCurveTo(h*.6,-h*1.2,h*1.4,-h*.2,0,h*.6);c.fill()}
+  else if(shape==='bolt'){c.beginPath();c.moveTo(s*.1,-s*.6);c.lineTo(-s*.3,s*.05);c.lineTo(0,s*.05);c.lineTo(-s*.15,s*.6);c.lineTo(s*.35,-s*.12);c.lineTo(s*.04,-s*.12);c.closePath();c.fill()}
   else if(shape==='bubble'){c.lineWidth=Math.max(1.2,s*.12);c.beginPath();c.arc(0,0,s/2,0,7);c.stroke();c.fillStyle='rgba(255,255,255,.75)';c.beginPath();c.arc(-s*.16,-s*.16,s*.1,0,7);c.fill()}
 }
 function burst(x,y,{n=30,colors=CONF,speed=420,dir=-Math.PI/2,spread=Math.PI*2,grav=900,size=8,life=1.3,plain=false}={}){
@@ -1626,7 +1980,8 @@ function burst(x,y,{n=30,colors=CONF,speed=420,dir=-Math.PI/2,spread=Math.PI*2,g
     burst(x+Math.cos(a)*d,y+Math.sin(a)*d-30,{n:Math.max(10,n>>1),speed:speed*.7,grav:350,size,life:life*.8,colors:F.colors,plain:true})},200+k*180);
 }
 function drawParts(dt){
-  fctx.clearRect(0,0,innerWidth,innerHeight);if(!parts.length)return;
+  if(!parts.length){if(fxDirty){wipe2d(fctx,fxc);fxDirty=false}return}
+  wipe2d(fctx,fxc);fxDirty=true;
   for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.life-=dt;if(p.life<=0){parts.splice(i,1);continue}
     p.vy+=p.grav*dt;p.vx*=1-1.2*dt;p.vy*=1-.6*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.rot+=p.vr*dt;
     fctx.save();fctx.globalAlpha=Math.min(1,p.life/.35);fctx.translate(p.x,p.y);fctx.rotate(p.shape==='bubble'?0:p.rot);
@@ -1681,9 +2036,9 @@ function buildMap(justUnlocked){
     <path d="${d}" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="4" transform="translate(-7,-3)"/></svg>`;
   // zone signposts stand beside the first level of each zone, on the side away from the road
   for(let z=0;z<N/10;z++){const p=pos(z*10+1);html+=`<div class="sign" style="left:${p.x<cx?cx+W/4:cx-W/4}px;top:${p.y+10}px"><b>Zona ${z+1}</b>${zoneName(z)}</div>`}
-  for(let i=1;i<=N;i++){const p=pos(i),hard=isHard(i),cls=(i<prog?'done':i===prog?'cur':'lock')+(hard?' hard':'')+(i===justUnlocked?' unlock':'');
+  for(let i=1;i<=N;i++){const p=pos(i),hard=isHard(i),boss=isBoss(i),cls=(i<prog?'done':i===prog?'cur':'lock')+(hard?' hard':'')+(boss?' boss':'')+(i===justUnlocked?' unlock':'');
     const bs=bestStars(i);
-    html+=`<button class="node ${cls}" data-l="${i}" style="left:${p.x}px;top:${p.y}px" aria-label="Nivelul ${i}${hard?', greu':''}${i<prog?`, ${bs} stele`:''}">${hard?'<span class="flame">🔥</span>':''}${i}${hard?'<em>GREU</em>':''}${i<prog?starRow(bs):''}</button>`}
+    html+=`<button class="node ${cls}" data-l="${i}" style="left:${p.x}px;top:${p.y}px" aria-label="Nivelul ${i}${hard?', greu':''}${boss?', boss '+bossOf(i).name:''}${i<prog?`, ${bs} stele`:''}">${hard?'<span class="flame">🔥</span>':''}${boss?`<span class="bossface">${bossOf(i).emoji}</span>`:''}${i}${hard?'<em>GREU</em>':''}${boss?'<em>BOSS</em>':''}${i<prog?starRow(bs):''}</button>`}
   const from=justUnlocked>1?pos(justUnlocked-1):pos(prog);
   html+=`<div class="player" id="player" style="left:${from.x}px;top:${from.y}px"></div>`;
   inner.style.height=H+'px';inner.innerHTML=html;
@@ -1699,15 +2054,32 @@ function buildMap(justUnlocked){
   }
 }
 function openLevelPop(n){
+  if(isBoss(n))return openBossPop(n);
+  $('#lpDiffs').hidden=true;$('#lpGo').textContent='▶ Joacă';
   const D=difficulty(n),probe=makeLevel(n);
   $('#lpT').textContent='Nivelul '+n;
   const b=$('#lpBadge');b.className='lvl-badge'+(D.hard?' hard':'');b.textContent=D.hard?'🔥 NIVEL GREU':n<store.get('level',1)?'✓ Terminat':'Nivel nou';
   $('#lpFacts').innerHTML=`<span>🎨 ${probe.nColors} culori</span><span>🧱 ${probe.nBlocks} blocuri</span><span>🎢 ${D.cap} locuri</span>`;
   const bs=bestStars(n);
   $('#lpP').innerHTML=(D.hard?'Bandă mai scurtă, mai multe culori și mai multe surprize. Pregătește-ți power-up-urile!':'Sparge blocurile și umple toate cutiile.')+
-    `<br><b>⭐⭐⭐</b> sub <b>${fmtTime(probe.par)}</b>, fără power-up-uri`+(bs?`<br>Recordul tău: ${'⭐'.repeat(bs)}`:'');
+    `<br><b>⭐⭐⭐</b> sub <b>${fmtTime(probe.par)}</b> · <b>⭐⭐</b> sub <b>${fmtTime(probe.par2)}</b><br><small>fiecare power-up folosit scade o stea</small>`+(bs?`<br>Recordul tău: ${'⭐'.repeat(bs)}`:'');
   $('#lpGo').onclick=()=>playLevel(n);
   showModal('lvlPop');
+}
+
+// boss level: pick a difficulty (time limit, how often the boss acts) and see the exclusive rewards
+function openBossPop(n){
+  const B=bossOf(n),wins=store.get('bossWins',{});
+  $('#lpT').textContent='Nivelul '+n;
+  const b=$('#lpBadge');b.className='lvl-badge boss';b.textContent=`${B.emoji} BOSS: ${B.name}`;
+  const items=B.items.map(([c,id])=>cosItem(c,id).name+(owns(c,id)?' ✓':'')).join(' · ');
+  $('#lpFacts').innerHTML=`<span>⏱ pe timp</span><span>⚔️ ${B.title}</span>`;
+  $('#lpP').innerHTML=`${B.desc}<br><b>Exclusiv:</b> ${items}`;
+  const starAt={},keep=bossDiff;for(const k in BOSS_DIFF){bossDiff=k;starAt[k]=fmtTime(makeLevel(n).par)}bossDiff=keep;
+  const paint=()=>{$('#lpDiffs').innerHTML=Object.entries(BOSS_DIFF).map(([k,d])=>{const done=wins[n+':'+k];
+    return `<button class="diffbtn ${k}${bossDiff===k?' on':''}" data-d="${k}"><b>${d.name}</b><small>⏱ ~${fmtTime(d.time)}</small><small>⭐⭐⭐ ${starAt[k]}</small><small>✨ ${d.powers?d.powers+' power-up'+(d.powers>1?'-uri':''):'fără power-up'}</small><small>🪙 ${d.coins} ${d.reward}</small>${done?'<i>✓ învins</i>':''}</button>`}).join('');
+    $$('#lpDiffs .diffbtn').forEach(btn=>btn.addEventListener('click',()=>{bossDiff=btn.dataset.d;sfx.ui();paint()}))};
+  paint();$('#lpDiffs').hidden=false;$('#lpGo').textContent='⚔️ Luptă!';$('#lpGo').onclick=()=>playLevel(n);showModal('lvlPop');
 }
 
 /* ---- home logo: per-letter spans; tap for a boing ---- */
@@ -1756,9 +2128,9 @@ $('#bz').addEventListener('click',()=>{if(S&&!paused)undo()});
 
 /* ---- home background: slow drifting marbles ---- */
 const hb=$('#homeBg'),hctx=hb.getContext('2d');let floaters=[];
-function sizeHome(){hb.width=innerWidth*dpr;hb.height=innerHeight*dpr;hctx.setTransform(dpr,0,0,dpr,0,0);
+function sizeHome(){const b=screenBox(hb);hb.width=Math.round(b.w*dpr);hb.height=Math.round(b.h*dpr);hctx.setTransform(dpr,0,0,dpr,0,0);
   floaters=Array.from({length:22},()=>({c:KEYS[Math.floor(Math.random()*KEYS.length)],x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:8+Math.random()*18,v:14+Math.random()*30,ph:Math.random()*6}))}
-function drawHome(dt){hctx.clearRect(0,0,innerWidth,innerHeight);
+function drawHome(dt){wipe2d(hctx,hb);
   floaters.forEach(f=>{f.y-=f.v*dt;f.ph+=dt;if(f.y<-40){f.y=innerHeight+40;f.x=Math.random()*innerWidth}
     ball(f.c,f.x+Math.sin(f.ph)*14,f.y,f.r,.38,hctx)})}
 
@@ -1772,6 +2144,9 @@ function frame(now){const dt=Math.min(1/30,(now-last)/1000);last=now;
 cv.addEventListener('pointerdown',e=>{if(paused)return;const r=cv.getBoundingClientRect();tapAt(e.clientX-r.left,e.clientY-r.top)});
 document.addEventListener('pointerdown',initAudio,{capture:true});
 addEventListener('resize',()=>{sizeHome();sizeFx();if(S&&screen==='game')layout()});
+// iOS changes the visible area without always firing resize (home-screen app, toolbars): keep the effect layer in sync
+if(window.visualViewport)visualViewport.addEventListener('resize',()=>{sizeFx();sizeHome()});
+setInterval(()=>{const b=screenBox(fxc);if(Math.abs(b.w*dpr-fxc.width)>2||Math.abs(b.h*dpr-fxc.height)>2)sizeFx()},1000);
 document.fonts&&document.fonts.ready.then(()=>{spriteCache={}});
 
 buildPowers();sizeHome();sizeFx();paintCoins();
