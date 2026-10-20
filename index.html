@@ -393,26 +393,97 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 .ld-bar b::after{content:"";position:absolute;left:5px;top:5px;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.85)}
 .ld-tip{margin:0;max-width:290px;color:var(--muted);font-size:14px;line-height:1.35;min-height:38px}
 @media (prefers-reduced-motion:reduce){.logo span,#play,#play::before,#play .shine::after,#bz.free,.bump,.node.cur,.player,.twinkle,.flame,.modal,.modal .card{animation:none!important}}
+/* ===== home menu: colourful 3D puzzle-adventure look ===== */
+#home{justify-content:flex-start;gap:clamp(6px,1.3vh,14px);padding-block:10px 14px;color:#fff}
+#home .home-top{position:static;width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.profile,#hCoins,.sidebtn{background:linear-gradient(rgba(30,44,120,.9),rgba(16,24,74,.92));border:2px solid rgba(255,255,255,.3);box-shadow:0 4px 0 rgba(8,14,50,.55),0 8px 16px rgba(10,20,60,.3);color:#fff}
+.profile{display:flex;align-items:center;gap:8px;padding:4px 14px 4px 4px;border-radius:999px;min-width:0;max-width:64%;text-align:left}
+.avatar{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;font:800 21px/1 var(--display);color:#5a2a00;background:radial-gradient(circle at 35% 30%,#fff3b0,#ffb000 60%,#c2410c);border:2px solid #fff;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.pinfo{display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:1px}
+.pinfo b{font:800 15px/1.1 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.pinfo small{font:700 12px/1.1 var(--body);color:#ffe7a0;display:flex;gap:4px;align-items:center}
+.pbar2{width:min(110px,26vw);height:6px;border-radius:3px;background:rgba(255,255,255,.2);overflow:hidden;margin-top:2px}
+.pbar2 i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,#4ade80,#ffd23f);transition:width .6s}
+#hCoins{display:flex;align-items:center;gap:6px;padding:5px 5px 5px 12px;border-radius:999px;font-size:18px;min-height:44px}
+#hCoins i{width:22px;height:22px}
+#hCoins .plus{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(#7af06a,#22a83a);color:#fff;font:800 20px/1 var(--display);box-shadow:0 2px 0 #157a2a}
+.home-row{width:100%;display:flex;justify-content:space-between;align-items:stretch;gap:10px}
+#home .chestbtn,.sidebtn{min-height:52px;border-radius:18px}
+#home .chestbtn{padding:4px 12px 4px 6px;background:linear-gradient(rgba(70,34,140,.92),rgba(36,16,86,.94));border:2px solid rgba(255,210,63,.6);box-shadow:0 4px 0 rgba(20,8,50,.55),0 8px 16px rgba(20,10,60,.3)}
+#home .chestbtn.ready{background:linear-gradient(#4fd18b,#1f9a5a);border-color:#fff3b0;box-shadow:0 4px 0 #13703f,0 0 22px rgba(255,230,120,.55);animation:chestBob 1.6s ease-in-out infinite}
+#home .chestbtn.wait{background:linear-gradient(rgba(70,34,140,.92),rgba(36,16,86,.94))}
+#home .chestbtn b{font-size:14px}#home .chestbtn small{font-size:12px}
+.sidebtn{position:relative;display:flex;align-items:center;gap:8px;padding:4px 12px 4px 8px;border-color:rgba(125,249,255,.5);text-align:left}
+.sidebtn .ic{font-size:26px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.35))}
+.sidebtn .txt{display:flex;flex-direction:column}
+.sidebtn b{font:800 14px/1.1 var(--display)}.sidebtn small{font:700 12px/1.2 var(--body);opacity:.85}
+.sidebtn .badge{position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;background:#ff4d6d;color:#fff;font:800 14px/22px var(--display);text-align:center;box-shadow:0 2px 0 #a3203a}
+.logowrap{position:relative;display:grid;place-items:center;margin-top:auto}
+.logowrap .logo{position:relative;z-index:1;filter:drop-shadow(0 8px 10px rgba(40,20,90,.35))}
+.hring{position:absolute;left:50%;top:52%;width:0;height:0;pointer-events:none}
+.hring i{position:absolute;width:24px;height:24px;margin:-12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95) 0 9%,var(--c) 38%,var(--c2) 100%);box-shadow:0 3px 6px rgba(0,0,0,.25)}
+#home .tag{margin:0;color:#fff;font-size:15px;font-weight:700;text-shadow:0 2px 4px rgba(20,30,90,.7)}
+#play{width:min(320px,86%);font-size:clamp(30px,8.6vw,38px);padding:14px 20px 10px;border-radius:28px;background:linear-gradient(#86f276,#34c444 50%,#1f9a33);color:#fff;text-shadow:0 3px 0 #136e24;border:3px solid rgba(255,255,255,.6);box-shadow:0 8px 0 #13702a,0 14px 28px rgba(20,90,40,.45);animation:breathe2 2s ease-in-out infinite}
+#play::before{border-color:#86f276}
+#play .blbl{display:flex;align-items:center;gap:14px}
+.playic{width:0;height:0;border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;filter:drop-shadow(0 3px 0 #136e24)}
+#play small{color:#effff0;opacity:.95;text-shadow:0 1px 0 #136e24}
+#play:active{transform:translateY(5px) scale(.98);box-shadow:0 3px 0 #13702a}
+#arcade{width:min(290px,78%);font-size:clamp(22px,6.4vw,27px);padding:11px 18px 8px;border-radius:24px;margin-top:2px;background:linear-gradient(#cf9dff,#8a3ff0 52%,#6a24c9);color:#fff;border:3px solid rgba(255,255,255,.5);text-shadow:0 3px 0 #3f1290;box-shadow:0 7px 0 #45128f,0 12px 24px rgba(70,20,140,.45)}
+#arcade .blbl{display:flex;align-items:center;gap:10px}
+#arcade .crown{font-size:.8em;filter:drop-shadow(0 2px 0 #8a5a00)}
+#arcade:active{transform:translateY(5px) scale(.98);box-shadow:0 2px 0 #45128f}
+#home .gift{color:#eaffd8;text-shadow:0 1px 3px rgba(0,40,0,.7)}
+#home .tiles{width:min(360px,100%);gap:10px;margin-top:auto}
+#home .tile{background:linear-gradient(rgba(36,56,150,.93),rgba(18,28,86,.95));border:2px solid rgba(255,255,255,.28);box-shadow:0 5px 0 rgba(8,14,50,.6),0 10px 18px rgba(10,20,60,.3);color:#fff;padding:10px 6px 9px;border-radius:20px;min-height:76px}
+#home .tile .tic{font-size:30px;line-height:1;filter:drop-shadow(0 3px 2px rgba(0,0,0,.35))}
+.promo{width:min(360px,100%);display:flex;align-items:center;gap:10px;padding:8px 12px 8px 8px;border-radius:20px;background:linear-gradient(100deg,rgba(96,36,170,.95),rgba(30,20,92,.95));border:2px solid rgba(255,210,63,.65);box-shadow:0 5px 0 rgba(20,8,50,.6),0 10px 18px rgba(10,20,60,.3);color:#fff;text-align:left;min-height:60px}
+.promo .pic{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:28px;background:radial-gradient(circle,rgba(255,255,255,.22),rgba(255,255,255,0) 70%)}
+.promo .pic canvas{width:46px;height:46px}
+.promo .ptxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.promo b{font:800 15px/1.15 var(--display);color:#ffd23f}
+.promo small{font:600 12px/1.25 var(--body);opacity:.92}
+.promo .pbar{height:6px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}.promo .pbar i{display:block;height:100%;width:var(--p,0%);background:linear-gradient(90deg,#4ade80,#ffd23f)}
+.promo .arrow{font:800 28px/1 var(--display);opacity:.85}
+.profile:active,#hCoins:active,.sidebtn:active,#home .chestbtn:active,.promo:active{transform:scale(.96)}
+@keyframes breathe2{50%{transform:scale(1.035)}}
+@keyframes chestBob{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-2deg)}60%{transform:translateY(0) rotate(2deg)}}
+@keyframes logoIn{0%{transform:translateY(-60px) scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@keyframes riseIn{0%{transform:translateY(24px) scale(.92);opacity:0}100%{transform:none;opacity:1}}
+#home.enter .logowrap{animation:logoIn .8s cubic-bezier(.3,1.5,.5,1) both}
+#home.enter #play{animation:riseIn .5s .2s cubic-bezier(.3,1.4,.5,1) both}
+#home.enter #arcade{animation:riseIn .5s .3s cubic-bezier(.3,1.4,.5,1) both}
+#home.enter .tiles{animation:riseIn .5s .4s both}#home.enter .promo{animation:riseIn .5s .5s both}
+#home.enter .home-top,#home.enter .home-row{animation:riseIn .4s both}
+@media (min-height:780px){#home .logo{font-size:clamp(72px,24vw,112px)}#play{padding:18px 20px 12px}#arcade{padding:13px 18px 10px}#home .tile{min-height:88px}#home .tile .tic{font-size:34px}.hring i{width:28px;height:28px;margin:-14px}}
+@media (max-height:720px){#home .tag{display:none}#home .logo{font-size:clamp(54px,16vw,82px)}#home .tile{min-height:66px;padding-block:7px}}
+@media (max-height:640px){.promo{display:none!important}.home-row small{display:none}}
+@media (max-width:360px){.sidebtn .txt b,#home .chestbtn b{font-size:12px}.pbar2{display:none}}
+@media (prefers-reduced-motion:reduce){#play,#home .chestbtn.ready,#home.enter .logowrap,#home.enter #play,#home.enter #arcade,#home.enter .tiles,#home.enter .promo,#home.enter .home-top,#home.enter .home-row{animation:none!important}}
 </style>
 
 <!-- HOME -->
 <div id="home" class="screen">
   <canvas id="homeBg" aria-hidden="true"></canvas>
   <div class="home-top">
-    <button class="icon" id="hSet" aria-label="Setări">⚙️</button>
-    <span class="pill coins"><i></i><b class="coinN">0</b></span>
+    <button class="profile" id="hProfile" aria-label="Progresul tău pe harta nivelurilor"><span class="avatar" id="hAvatar" aria-hidden="true">🙂</span><span class="pinfo"><b id="hName">Jucător</b><small><span aria-hidden="true">⭐</span><span id="hLvl">Nivelul 1</span></small><span class="pbar2" aria-hidden="true"><i id="hLvlBar"></i></span></span></button>
+    <button class="pill coins" id="hCoins" aria-label="Monede: deschide magazinul"><i></i><b class="coinN">0</b><span class="plus" aria-hidden="true">+</span></button>
   </div>
-  <p class="logo" id="logo" aria-label="Bazinga!"></p>
+  <div class="home-row">
+    <button class="chestbtn" id="hChest"><span class="mini" id="hChestIcon"></span><span class="txt"><b>Cufăr gratuit</b><small id="hChestT">Gata de deschis!</small></span></button>
+    <button class="sidebtn" id="hDaily" aria-label="Provocarea zilei în Arcade"><span class="ic" aria-hidden="true">📅</span><span class="txt"><b>Provocarea zilei</b><small id="hDailyT">Arcade</small></span><span class="badge" id="hDailyDot" hidden>!</span></button>
+  </div>
+  <div class="logowrap"><div class="hring" id="hRing" aria-hidden="true"></div><p class="logo" id="logo" aria-label="Bazinga!"></p></div>
   <p class="tag">Sparge blocuri. Umple cutii. Fă farse.</p>
-  <button class="btn" id="play"><span class="shine"></span><span class="holdbar" aria-hidden="true"></span>▶ Joacă<small id="playLvl">Nivelul 1</small></button>
-  <button class="btn" id="arcade"><span class="shine"></span>🕹️ Arcade<small id="arcBest">Pe scor · fără sfârșit</small></button>
+  <button class="btn" id="play"><span class="shine"></span><span class="holdbar" aria-hidden="true"></span><span class="blbl"><span class="playic" aria-hidden="true"></span>JOACĂ</span><small id="playLvl">Nivelul 1</small></button>
+  <button class="btn" id="arcade"><span class="shine"></span><span class="blbl"><span aria-hidden="true">🎮</span>ARCADE<span class="crown" aria-hidden="true">👑</span></span><small id="arcBest">Pe scor · fără sfârșit</small></button>
   <p class="gift" id="gift"></p>
-  <button class="chestbtn" id="hChest"><span class="mini" id="hChestIcon"></span><span class="txt"><b>Cufăr gratuit</b><small id="hChestT">Gata de deschis!</small></span></button>
   <div class="tiles">
-    <button class="tile" id="hShop">🛒<span>Magazin</span></button>
-    <button class="tile" id="hHow">❓<span>Cum se joacă</span></button>
-    <button class="tile" id="hSet2">🎵<span>Setări</span></button>
+    <button class="tile" id="hShop"><span class="tic" aria-hidden="true">🏪</span><span>Magazin</span></button>
+    <button class="tile" id="hHow"><span class="tic" aria-hidden="true">📖</span><span>Cum se joacă</span></button>
+    <button class="tile" id="hSet2"><span class="tic" aria-hidden="true">⚙️</span><span>Setări</span></button>
   </div>
+  <button class="promo" id="hPromo" hidden><span class="pic" id="hPromoIc" aria-hidden="true"></span><span class="ptxt"><b id="hPromoT"></b><small id="hPromoS"></small><span class="pbar" id="hPromoBar" hidden><i></i></span></span><span class="arrow" aria-hidden="true">›</span></button>
 </div>
 
 <!-- LEVEL MAP -->
@@ -2875,7 +2946,7 @@ function drawBoss2Overlay(b,t){
 
 /* ================= UI: screens, HUD, shop, modals ================= */
 let screen='home',paused=false;
-function showScreen(s){screen=s;if(s!=='game'){setMusicMode(false);MUSIC.bpm=104}$('#home').hidden=s!=='home';$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
+function showScreen(s){screen=s;if(s!=='game'){setMusicMode(false);MUSIC.bpm=104}$('#home').hidden=s!=='home';if(s==='home')homeEnter();$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
   // the game screen takes its zone's colours; menus keep the night look
   document.body.style.background=s==='game'&&S?gameBg(S.theme):''}
 // level backdrop: zone colours + a soft light from above + faint candy stripes + floating bokeh "marbles"
@@ -3082,7 +3153,7 @@ function paintSettings(){paintSwitch('#swMusic',SET.music);paintSwitch('#swSfx',
 
 function paintHome(){const l=store.get('level',1);$('#playLvl').textContent='Nivelul '+l+(isHard(l)?' 🔥':'');paintCoins();
   $('#arcBest').textContent=arcBest()?'🏆 Record: '+fmtN(arcBest()):'Pe scor · fără sfârșit';paintArcDot();
-  $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':''}
+  $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':'';paintHomeExtras()}
 function start(n,quiet){
   $$('.modal').forEach(m=>m.hidden=true);
   S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);if(!S.boss)MUSIC.bpm=104;
@@ -3349,7 +3420,13 @@ $$('#arcTabs button').forEach(b=>b.addEventListener('click',()=>{arcTab=b.datase
 $('#pMap').addEventListener('click',()=>goMap(0));
 $('#hShop').addEventListener('click',()=>openShop());
 $('#hHow').addEventListener('click',()=>showModal('how'));
-[$('#hSet'),$('#hSet2')].forEach(b=>b.addEventListener('click',()=>{paintSettings();showModal('settings')}));
+$('#hSet2').addEventListener('click',()=>{paintSettings();showModal('settings')});
+$('#hCoins').addEventListener('click',()=>{shopTab='chests';openShop()});
+$('#hDaily').addEventListener('click',()=>{initAudio();openArcHub('play')});
+$('#hProfile').addEventListener('click',()=>{initAudio();firstGift=false;goMap(0)});
+$('#hPromo').addEventListener('click',()=>{initAudio();if(homePromoNow)homePromoNow.go()});
+// a soft click on every menu card (the big buttons already have their own transition sounds)
+$$('#home .tile,#hCoins,#hDaily,#hProfile,#hPromo').forEach(b=>b.addEventListener('pointerdown',()=>{initAudio();sfx.ui()}));
 $('#pauseBtn').addEventListener('click',()=>showModal('pause'));
 $('#pResume').addEventListener('click',()=>hideModal('pause'));
 $('#pRestart').addEventListener('click',()=>S.arcade?arcAgain():playLevel(S.level,true));
@@ -3358,14 +3435,73 @@ $('#pSet').addEventListener('click',()=>{hideModal('pause');paintSettings();show
 $('#pHome').addEventListener('click',goHome);
 $('#bz').addEventListener('click',()=>{if(S&&!paused){if(S.arcade)arcadeBazinga();else undo()}});
 
-/* ---- home background: slow drifting marbles ---- */
-const hb=$('#homeBg'),hctx=hb.getContext('2d');let floaters=[];
-function sizeHome(){const b=screenBox(hb);hb.width=Math.round(b.w*dpr);hb.height=Math.round(b.h*dpr);hctx.setTransform(dpr,0,0,dpr,0,0);
-  floaters=Array.from({length:22},()=>({c:KEYS[Math.floor(Math.random()*KEYS.length)],x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:8+Math.random()*18,v:14+Math.random()*30,ph:Math.random()*6}))}
-function drawHome(dt){wipe2d(hctx,hb);
-  floaters.forEach(f=>{f.y-=f.v*dt;f.ph+=dt;if(f.y<-40){f.y=innerHeight+40;f.x=Math.random()*innerWidth}
-    ball(f.c,f.x+Math.sin(f.ph)*14,f.y,f.r,.38,hctx)})}
-
+/* ---- home: a painted fantasy landscape (cached), drifting clouds, a waterfall, marbles rolling on a stone track,
+   and marbles orbiting the logo. Everything stays still when the system asks for reduced motion. ---- */
+const hb=$('#homeBg'),hctx=hb.getContext('2d');let homeScene=null,homeT=0;
+function sizeHome(){const b=screenBox(hb);hb.width=Math.round(b.w*dpr);hb.height=Math.round(b.h*dpr);hctx.setTransform(dpr,0,0,dpr,0,0);homeScene=null}
+const trackPt=(u,W,H)=>{const p=[[-70,H*.9],[W*.25,H*.74],[W*.72,H*1.04],[W+70,H*.83]],v=1-u;
+  return[v*v*v*p[0][0]+3*v*v*u*p[1][0]+3*v*u*u*p[2][0]+u*u*u*p[3][0],v*v*v*p[0][1]+3*v*v*u*p[1][1]+3*v*u*u*p[2][1]+u*u*u*p[3][1]]};
+function buildHomeScene(){const W=innerWidth,H=innerHeight,c=document.createElement('canvas');c.width=Math.max(1,Math.round(W*dpr));c.height=Math.max(1,Math.round(H*dpr));
+  const g=c.getContext('2d');g.scale(dpr,dpr);
+  let gr=g.createLinearGradient(0,0,0,H*.72);gr.addColorStop(0,'#3a7bff');gr.addColorStop(.45,'#8fd0ff');gr.addColorStop(1,'#ffe3a8');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const sx=W*.74,sy=H*.2;gr=g.createRadialGradient(sx,sy,4,sx,sy,W*.65);gr.addColorStop(0,'rgba(255,250,220,.95)');gr.addColorStop(.16,'rgba(255,240,180,.55)');gr.addColorStop(1,'rgba(255,230,160,0)');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const ridge=(y0,amp,col,seed,trees)=>{const r=rng(seed),pts=[[0,y0]];let x=0;while(x<W+60){const nx=x+40+r()*60;pts.push([nx,y0-amp*r()]);x=nx}
+    g.fillStyle=col;g.beginPath();g.moveTo(0,H);g.lineTo(0,y0);for(let i=1;i<pts.length;i++){const[a,b2]=pts[i-1],[c2,d]=pts[i];g.quadraticCurveTo(a,b2,(a+c2)/2,(b2+d)/2)}g.lineTo(W,H);g.closePath();g.fill();
+    if(trees)for(let i=1;i<pts.length;i+=2){const[a,b2]=pts[i];g.fillStyle=trees;g.beginPath();g.arc(a,b2+6,10+r()*8,0,7);g.arc(a+12,b2+10,8+r()*6,0,7);g.fill()}};
+  ridge(H*.47,H*.13,'#a9c1f2',3);ridge(H*.53,H*.09,'#86aee6',7);
+  const tower=(x,base,w,h,roof)=>{const tg=g.createLinearGradient(x-w/2,0,x+w/2,0);tg.addColorStop(0,'#f6e7c8');tg.addColorStop(1,'#c49e70');g.fillStyle=tg;g.fillRect(x-w/2,base-h,w,h);
+    g.fillStyle='#5a3a2a';for(let k=0;k<3;k++)g.fillRect(x-w*.12,base-h*(.3+k*.22),w*.24,h*.1);
+    g.fillStyle=roof;g.beginPath();g.moveTo(x-w*.62,base-h);g.lineTo(x,base-h-w*1.3);g.lineTo(x+w*.62,base-h);g.closePath();g.fill();
+    g.fillStyle='rgba(255,255,255,.25)';g.beginPath();g.moveTo(x-w*.1,base-h);g.lineTo(x,base-h-w*1.3);g.lineTo(x-w*.45,base-h);g.closePath();g.fill();
+    g.strokeStyle='#7a4a2a';g.lineWidth=1.5;g.beginPath();g.moveTo(x,base-h-w*1.3);g.lineTo(x,base-h-w*1.3-12);g.stroke();g.fillStyle=roof;g.fillRect(x,base-h-w*1.3-12,10,6)};
+  const cliff=(pts,top)=>{const cg=g.createLinearGradient(0,top,0,H*.7);cg.addColorStop(0,'#d9a06a');cg.addColorStop(1,'#7a4a2a');g.fillStyle=cg;g.beginPath();g.moveTo(pts[0][0],pts[0][1]);pts.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.fill();
+    g.fillStyle='#5fc24a';g.beginPath();g.moveTo(pts[1][0]-4,pts[1][1]);g.lineTo(pts[2][0]+4,pts[2][1]);g.lineTo(pts[2][0],pts[2][1]+10);g.lineTo(pts[1][0],pts[1][1]+10);g.closePath();g.fill()};
+  cliff([[-10,H*.66],[-6,H*.31],[W*.27,H*.3],[W*.33,H*.52],[W*.36,H*.66]],H*.3);
+  tower(W*.05,H*.31,W*.075,H*.11,'#e84a5f');tower(W*.15,H*.31,W*.095,H*.17,'#4a6cff');tower(W*.245,H*.31,W*.065,H*.09,'#9a4dff');
+  gr=g.createLinearGradient(0,H*.34,0,H*.62);gr.addColorStop(0,'rgba(190,240,255,.95)');gr.addColorStop(1,'rgba(120,200,255,.6)');g.fillStyle=gr;g.fillRect(W*.27,H*.33,W*.045,H*.29);
+  cliff([[W*.7,H*.62],[W*.78,H*.39],[W*1.02,H*.37],[W*1.02,H*.62]],H*.37);
+  tower(W*.9,H*.38,W*.085,H*.2,'#ff8a00');tower(W*.8,H*.39,W*.06,H*.1,'#3fd13a');
+  ridge(H*.6,H*.06,'#74d35e',11,'#3f9d3a');ridge(H*.68,H*.05,'#52bb48',13,'#2f8a34');
+  g.lineCap='round';
+  [[W*.2,'#a9784a'],[W*.14,'#d8b07c'],[W*.035,'rgba(90,50,20,.45)']].forEach(([lw,col])=>{g.strokeStyle=col;g.lineWidth=lw;g.beginPath();for(let k=0;k<=40;k++){const[x,y]=trackPt(k/40,W,H);k?g.lineTo(x,y):g.moveTo(x,y)}g.stroke()});
+  [[W*.08,H*.985,W*.11,'red'],[W*.93,H*.97,W*.1,'blue'],[W*.78,H*1.01,W*.08,'green'],[W*.25,H*1.02,W*.07,'yellow']].forEach(([x,y,r,k])=>ball(k,x,y,r,1,g));
+  homeScene={c,w:W,h:H}}
+const hRing=$('#hRing');hRing.innerHTML=['red','yellow','green','blue','purple','orange'].map(k=>`<i style="--c:${COLORS[k]};--c2:${shade(COLORS[k],-.45)}"></i>`).join('');
+function orbitHome(t){const els=hRing.children,rx=Math.min(innerWidth*.43,200),ry=rx*.24;
+  for(let i=0;i<els.length;i++){const a=t*.8+i*Math.PI*2/els.length,sn=Math.sin(a),k=.7+.3*(sn+1)/2;els[i].style.transform=`translate(${Math.cos(a)*rx}px,${sn*ry}px) scale(${k})`;els[i].style.zIndex=sn>0?3:0}}
+const CLOUDS=[[.1,.08,1],[.55,.13,.8],[.85,.05,1.2],[.32,.2,.7]];
+function drawHome(dt){homeT+=dt;wipe2d(hctx,hb);const W=innerWidth,H=innerHeight,t=homeT;
+  if(!homeScene||homeScene.w!==W||homeScene.h!==H)buildHomeScene();hctx.drawImage(homeScene.c,0,0,W,H);
+  CLOUDS.forEach(([fx,fy,s],i)=>{const x=((fx*W+t*(6+i*3))%(W+220))-110,y=H*fy,r=26*s;hctx.fillStyle='rgba(255,255,255,.88)';hctx.beginPath();
+    hctx.arc(x,y,r,0,7);hctx.arc(x+r*1.1,y+r*.2,r*.8,0,7);hctx.arc(x-r*1.1,y+r*.25,r*.75,0,7);hctx.arc(x+r*.2,y-r*.5,r*.7,0,7);hctx.fill()});
+  const n=8,R=W*.036;for(let i=0;i<n;i++){const u=((i/n)+t*.025)%1,[x,y]=trackPt(u,W,H);
+    hctx.fillStyle='rgba(60,30,10,.25)';hctx.beginPath();hctx.ellipse(x+2,y+R*.7,R*.9,R*.3,0,0,7);hctx.fill();ball(KEYS[i%KEYS.length],x,y-R*.25,R,1,hctx)}
+  orbitHome(t)}
+/* ---- home: profile (real progress), daily shortcut, one contextual promo card built from real game data ---- */
+let homePromoNow=null;
+function homeEnter(){if(reduce)return;const h=$('#home');h.classList.remove('enter');void h.offsetWidth;h.classList.add('enter');clearTimeout(homeEnter.t);homeEnter.t=setTimeout(()=>h.classList.remove('enter'),1500)}
+function homePromo(){
+  const n=arcClaimables();if(n){const ms=(store.get('arcMis',{list:[]}).list||[]).some(m=>m.p>=m.g);
+    return{em:'🎁',t:`${n} recompens${n>1?'e':'ă'} de luat în Arcade`,s:ms?'Ai misiuni terminate':'Provocarea zilei sau praguri de scor',go:()=>openArcHub(ms?'mis':'play')}}
+  const L0=store.get('level',1),nb=Math.max(25,Math.ceil(L0/25)*25),B=bossOf(nb),idx=B.items.findIndex(([c,id])=>!owns(c,id));
+  const bossItem=idx<0?null:{ball:B.items[idx][0]==='ball'?B.items[idx][1]:null,em:B.emoji,t:`Exclusiv: ${cosItem(...B.items[idx]).name}`,s:`Învinge ${B.name} la nivelul ${nb} ${idx?'pe Greu':'pe Normal sau mai greu'}`,go:()=>{firstGift=false;goMap(0)}};
+  if(bossItem&&nb-L0<=10)return bossItem;
+  const buy=[];['ball','fx','belt','bg'].forEach(cat=>COSMETICS[cat].forEach(o=>{if(o.price>0&&!owns(cat,o.id)&&o.price<=coins)buy.push({cat,o})}));
+  if(buy.length){buy.sort((a,b)=>b.o.price-a.o.price);const{cat,o}=buy[0];
+    return{ball:cat==='ball'?o.id:null,em:'🛒',t:`Îți permiți: ${o.name}`,s:`${RARITY[o.rar].name} · ${o.price} monede`,go:()=>{shopTab=cat==='belt'||cat==='bg'?'theme':cat;openShop()}}}
+  const best=arcBest(),cl=msClaimed(),mi=ARC_MS.findIndex((m,i)=>!cl.includes(i)&&best<m.s);
+  if(best>0&&mi>=0){const ms=ARC_MS[mi];return{em:'🕹️',t:`Arcade: ${fmtN(best)} / ${fmtN(ms.s)}`,s:'Următoarea recompensă: '+(ms.item?cosItem(...ms.item).name+' (exclusiv)':ms.chest?CHESTS[ms.chest].name:ms.coins+' monede'),prog:best/ms.s,go:()=>openArcHub('play')}}
+  if(bossItem)return bossItem;
+  return{em:'📅',t:'Provocarea zilei',s:'Aceeași tablă pentru toți. Fă 1.500 de puncte pentru un cufăr.',go:()=>openArcHub('play')}}
+function paintHomeExtras(){
+  const L0=store.get('level',1),nm=store.get('arcName','');
+  $('#hName').textContent=nm||'Jucător';$('#hAvatar').textContent=nm?nm[0].toUpperCase():'🙂';
+  $('#hLvl').textContent='Nivelul '+L0;$('#hLvlBar').style.width=(((L0-1)%10)/10*100)+'%';
+  $('#hProfile').title=`Zona ${Math.floor((L0-1)/10)+1}: ${(L0-1)%10}/10 niveluri`;
+  const d=dailyState();$('#hDailyT').textContent=d.claimed?'✓ premiu luat':d.best?`azi: ${fmtN(d.best)}`:'Arcade · cufăr';$('#hDailyDot').hidden=d.plays>0;
+  const p=homePromoNow=homePromo(),ic=$('#hPromoIc');$('#hPromo').hidden=!p;if(!p)return;
+  $('#hPromoT').textContent=p.t;$('#hPromoS').textContent=p.s;const bar=$('#hPromoBar');bar.hidden=p.prog==null;if(p.prog!=null)bar.style.setProperty('--p',Math.round(Math.min(1,p.prog)*100)+'%');
+  if(p.ball){ic.innerHTML='<canvas width="92" height="92"></canvas>';const c2=ic.firstChild.getContext('2d'),sp=sprite('purple',20,p.ball),sz=sp.width/dpr*2;c2.drawImage(sp,46-sz/2,46-sz/2,sz,sz)}else ic.textContent=p.em}
 /* ================= loop & input ================= */
 let last=performance.now();
 function frame(now){const dt=Math.min(1/30,(now-last)/1000);last=now;
