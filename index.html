@@ -460,13 +460,46 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
 @media (max-height:640px){.promo{display:none!important}.home-row small{display:none}}
 @media (max-width:360px){.sidebtn .txt b,#home .chestbtn b{font-size:12px}.pbar2{display:none}}
 @media (prefers-reduced-motion:reduce){#play,#home .chestbtn.ready,#home.enter .logowrap,#home.enter #play,#home.enter #arcade,#home.enter .tiles,#home.enter .promo,#home.enter .home-top,#home.enter .home-row{animation:none!important}}
+/* ===== player level: frames, profile, XP strip ===== */
+.sk.r-level{--rc:#19c3a6;background:radial-gradient(120% 80% at 50% 0%,rgba(25,195,166,.3),transparent 70%),#0f2a2e}
+.sk.r-level .rar{background:linear-gradient(90deg,#19c3a6,#ffd23f)}
+.avatar{position:relative;width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;font:800 21px/1 var(--display);color:#5a2a00;background:radial-gradient(circle at 35% 30%,#fff3b0,#ffb000 60%,#c2410c);border:2px solid #fff;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.avatar.fr-bronze{border-color:#f0c08a;box-shadow:0 0 0 3px #8a5a2a,0 2px 0 rgba(0,0,0,.25)}
+.avatar.fr-silver{border-color:#ffffff;box-shadow:0 0 0 3px #8a93a6,0 0 10px rgba(220,230,255,.7)}
+.avatar.fr-gold{border-color:#fff3b0;box-shadow:0 0 0 3px #d4a21a,0 0 12px rgba(255,210,63,.75)}
+.avatar.fr-emerald{border-color:#c8ffe0;box-shadow:0 0 0 3px #16a35a,0 0 12px rgba(40,220,120,.65)}
+.avatar.fr-sapphire{border-color:#d6eaff;box-shadow:0 0 0 3px #1f5fd6,0 0 12px rgba(60,140,255,.7)}
+.avatar.fr-ruby{border-color:#ffd0d8;box-shadow:0 0 0 3px #c8102e,0 0 14px rgba(255,40,80,.7)}
+.avatar.fr-rainbow{border-color:#fff;animation:frRainbow 3s linear infinite}
+.avatar.fr-supreme{border-color:#fff3b0;box-shadow:0 0 0 3px #d4a21a,0 0 0 6px #7a24c9,0 0 18px #ffd23f;animation:frSupreme 2s ease-in-out infinite}
+.avatar.fr-supreme::after{content:"👑";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:16px}
+@keyframes frRainbow{0%{box-shadow:0 0 0 3px #ff3d3d,0 0 14px #ff3d3d}25%{box-shadow:0 0 0 3px #ffd23f,0 0 14px #ffd23f}50%{box-shadow:0 0 0 3px #3dff6e,0 0 14px #3dff6e}75%{box-shadow:0 0 0 3px #3df5ff,0 0 14px #3df5ff}100%{box-shadow:0 0 0 3px #ff3d3d,0 0 14px #ff3d3d}}
+@keyframes frSupreme{50%{box-shadow:0 0 0 3px #ffd23f,0 0 0 6px #9a4dff,0 0 28px #ffd23f}}
+.avatar.big{width:76px;height:76px;font-size:36px}
+.prof-hero{display:flex;align-items:center;gap:16px;padding-top:8px}.prof-id{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.prof-title{font:700 13px var(--body);color:#ffe7a0}
+.prof-lvl{display:flex;justify-content:space-between;align-items:baseline}.prof-lvl b{font:800 22px var(--display);color:var(--accent)}.prof-lvl span{font:700 13px var(--body);color:var(--muted)}
+.xpbar{height:10px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden}.xpbar.big{height:14px;border-radius:7px}
+.xpbar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#19c3a6,#ffd23f);transition:width 1s cubic-bezier(.3,1,.4,1)}
+.frames{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.frbtn{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px 8px;border-radius:16px;background:var(--panel);border:2px solid var(--glass-edge);color:var(--fg)}
+.frbtn.on{border-color:var(--accent);box-shadow:0 0 12px rgba(255,210,63,.45)}.frbtn.locked{opacity:.55}.frbtn small{font:700 12px var(--body)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:7px 12px;border-radius:999px;background:var(--panel);border:2px solid var(--glass-edge);font:700 13px var(--body);color:var(--fg)}
+.chip.on{background:var(--accent);color:var(--ink);border-color:#fff3b0}.chip.locked{opacity:.5}
+.lvrow .lvbadge{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:800 15px var(--display);background:linear-gradient(#19c3a6,#0e7a68);color:#fff;border:2px solid rgba(255,255,255,.4)}
+.lvrow p{margin:0 0 4px;font-size:13px;line-height:1.35}.lvrow.got{opacity:.72}.lvrow.next{border-color:#19c3a6;box-shadow:0 0 12px rgba(25,195,166,.4)}
+.xplist{margin:0;padding-left:18px;font-size:13px;line-height:1.55;color:var(--muted)}.xplist b{color:var(--fg)}
+.xpgain{display:flex;flex-direction:column;gap:5px;width:min(300px,100%);margin:8px auto 0}.xpgain .row{display:flex;justify-content:space-between;gap:8px;font:800 14px var(--display);color:#9ff5e4}
+.lvup{color:var(--accent)!important;font:800 18px/1.2 var(--display)!important;margin:4px 0 0}
+.lvrew{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}.lvrew span{padding:5px 10px;border-radius:12px;background:var(--panel);font-size:12px;font-weight:700}
+@media (prefers-reduced-motion:reduce){.avatar.fr-rainbow,.avatar.fr-supreme{animation:none!important}}
 </style>
 
 <!-- HOME -->
 <div id="home" class="screen">
   <canvas id="homeBg" aria-hidden="true"></canvas>
   <div class="home-top">
-    <button class="profile" id="hProfile" aria-label="Progresul tău pe harta nivelurilor"><span class="avatar" id="hAvatar" aria-hidden="true">🙂</span><span class="pinfo"><b id="hName">Jucător</b><small><span aria-hidden="true">⭐</span><span id="hLvl">Nivelul 1</span></small><span class="pbar2" aria-hidden="true"><i id="hLvlBar"></i></span></span></button>
+    <button class="profile" id="hProfile" aria-label="Profilul tău: nivel, rame și recompense"><span class="avatar" id="hAvatar" aria-hidden="true">🙂</span><span class="pinfo"><b id="hName">Jucător</b><small><span aria-hidden="true">⭐</span><span id="hLvl">Nivelul 1</span></small><span class="pbar2" aria-hidden="true"><i id="hLvlBar"></i></span></span></button>
     <button class="pill coins" id="hCoins" aria-label="Monede: deschide magazinul"><i></i><b class="coinN">0</b><span class="plus" aria-hidden="true">+</span></button>
   </div>
   <div class="home-row">
@@ -509,6 +542,12 @@ h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;color:var(
   </div>
   <div id="stage"><canvas id="cv" aria-label="Tabla de joc"></canvas><p id="hint"></p></div>
 </div>
+
+<!-- PLAYER PROFILE -->
+<div id="profile" class="modal" hidden><div class="card shopcard">
+  <div class="card-head"><h2>Profilul tău</h2><button class="x" data-close aria-label="Închide">✕</button></div>
+  <div class="shopbody" id="profBody"></div>
+</div></div>
 
 <!-- ARCADE MENU -->
 <div id="arcHub" class="modal" hidden><div class="card shopcard">
@@ -1078,6 +1117,18 @@ function sprite(color,R,skin=COS.eq.ball){
     case'ember':{const eg=g.createRadialGradient(m,m,rr*.05,m,m,rr);eg.addColorStop(0,'#fff6c8');eg.addColorStop(.35,shade(hex,.45));eg.addColorStop(.75,hex);eg.addColorStop(1,shade(hex,-.55));
       g.save();g.shadowColor='#ff8a00';g.shadowBlur=rr*.55;g.fillStyle=eg;circle(rr*.9);g.fill();g.restore();g.fillStyle='rgba(255,240,170,.9)';const sp=rng(hex.charCodeAt(4)*7+1);
       for(let k=0;k<6;k++){g.beginPath();g.arc(m+(sp()-.5)*rr*1.3,m+(sp()-.5)*rr*1.3,rr*(.04+sp()*.05),0,7);g.fill()}break}
+    case'stripe':{classic();g.save();circle(rr);g.clip();g.fillStyle='rgba(255,255,255,.88)';for(let k=0;k<6;k+=2){g.beginPath();g.moveTo(m,m);g.arc(m,m,rr,k*Math.PI/3-.2,k*Math.PI/3+Math.PI/3-.2);g.closePath();g.fill()}
+      g.restore();g.fillStyle='rgba(255,255,255,.95)';circle(rr*.16);g.fill();gloss(.5);break}
+    case'marble':{const mg=g.createRadialGradient(m-rr*.3,m-rr*.35,rr*.1,m,m,rr);mg.addColorStop(0,shade(hex,.6));mg.addColorStop(1,shade(hex,-.25));g.fillStyle=mg;circle(rr);g.fill();
+      g.save();circle(rr);g.clip();g.strokeStyle='rgba(255,255,255,.55)';g.lineWidth=rr*.09;const vr=rng(hex.charCodeAt(1)*31+7);
+      for(let k=0;k<3;k++){g.beginPath();let x=m-rr,y=m+(vr()-.5)*rr*1.4;g.moveTo(x,y);for(let j=0;j<4;j++){x+=rr*.55;y+=(vr()-.5)*rr*.9;g.quadraticCurveTo(x-rr*.25,y+(vr()-.5)*rr*.6,x,y)}g.stroke()}g.restore();gloss(.8);break}
+    case'crystal':{const pts=[];for(let k=0;k<8;k++){const a=k*Math.PI/4+Math.PI/8;pts.push([m+Math.cos(a)*rr,m+Math.sin(a)*rr])}
+      pts.forEach((p,k)=>{const q=pts[(k+1)%8];g.fillStyle=shade(hex,[.5,.3,.1,-.1,-.3,-.15,.05,.35][k]);g.beginPath();g.moveTo(m,m);g.lineTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.closePath();g.fill()});
+      g.fillStyle=hexA(shade(hex,.7),.85);g.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4+Math.PI/8;g.lineTo(m+Math.cos(a)*rr*.45,m+Math.sin(a)*rr*.45)}g.closePath();g.fill();g.strokeStyle='rgba(255,255,255,.55)';g.lineWidth=1;g.stroke();break}
+    case'aurora':{const ag=g.createLinearGradient(m-rr,m-rr,m+rr,m+rr);ag.addColorStop(0,shade(hex,.5));ag.addColorStop(.5,hex);ag.addColorStop(1,shade(hex,-.4));g.fillStyle=ag;circle(rr);g.fill();
+      g.save();circle(rr);g.clip();[['rgba(80,255,170,.45)',-.3],['rgba(190,90,255,.4)',.15],['rgba(80,200,255,.35)',.5]].forEach(([col,o])=>{g.strokeStyle=col;g.lineWidth=rr*.28;g.beginPath();g.moveTo(m-rr,m+o*rr);g.bezierCurveTo(m-rr*.3,m+o*rr-rr*.5,m+rr*.3,m+o*rr+rr*.4,m+rr,m+o*rr-rr*.2);g.stroke()});g.restore();gloss(.7);break}
+    case'royal':{classic();g.save();g.strokeStyle='#ffd23f';g.lineWidth=rr*.16;g.shadowColor='#ffd23f';g.shadowBlur=rr*.3;circle(rr*.9);g.stroke();g.restore();
+      const yc=m-rr*.05,w=rr*.5;g.fillStyle='#ffd23f';g.beginPath();g.moveTo(m-w,yc+rr*.2);g.lineTo(m-w,yc-rr*.15);g.lineTo(m-w*.5,yc+rr*.05);g.lineTo(m,yc-rr*.3);g.lineTo(m+w*.5,yc+rr*.05);g.lineTo(m+w,yc-rr*.15);g.lineTo(m+w,yc+rr*.2);g.closePath();g.fill();gloss(.7);break}
     case'pixel':{const n=9,cell=rr*2/n; // 8-bit ball: a circle of square pixels, lit from the top left
       for(let i=0;i<n;i++)for(let j=0;j<n;j++){const cx=m-rr+(i+.5)*cell,cy=m-rr+(j+.5)*cell,d=Math.hypot(cx-m,cy-m);if(d>rr*.98)continue;
         const lit=Math.hypot(m-rr*.35-cx,m-rr*.35-cy)/rr;g.fillStyle=d>rr*.78?shade(hex,-.45):lit<.35?shade(hex,.55):lit<.95?hex:shade(hex,-.22);
@@ -1543,6 +1594,7 @@ function winLevel(){S.over=true;sfx.win();
   const B=S.boss,stars=B?bossStars():starsFor(S.time,S.par,S.par2,S.powersUsed),best=bestStars(S.level),bonus=stars>best?STAR_COINS[stars]-STAR_COINS[best]:0;
   saveStars(S.level,stars);if(bonus)addCoins(bonus,false);
   const br=B?bossVictoryRewards():null,lost=B?B.heartsMax-B.hearts:0,next=()=>goMap(unlocked?S.level+1:0);
+  const xpRes=grantXP(levelXP(stars,best,B?br.first:unlocked,B));
   celebrate();if(br)setTimeout(celebrate,900);
   setTimeout(()=>{result(br?`Ai învins ${B.name}!`:S.hard?'Nivel greu învins!':['Ai reușit!','Bine!','Super!','Perfect!'][stars],
     B?(lost===0?'PERFECT! Nicio inimă pierdută.':`Ai pierdut ${lost} ${lost===1?'inimă':'inimi'}. Fără nicio inimă pierdută iei 3 stele.`)
@@ -1552,6 +1604,7 @@ function winLevel(){S.over=true;sfx.win();
     $('#rX').innerHTML=`<div class="res-stars">${[0,1,2].map(()=>'<i>⭐</i>').join('')}</div>
       <div class="res-facts">${B?`<span>⏱ ${fmtTime(S.time)}</span><span>❤️ ${B.hearts}/${B.heartsMax}</span>`:`<span>⏱ ${fmtTime(S.time)} · ⭐⭐⭐ ${fmtTime(S.par)} · ⭐⭐ ${fmtTime(S.par2)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>`}${bonus?`<span>⭐ bonus +${bonus}</span>`:''}${br?`<span>⚔️ ${BOSS_DIFF[B.diff].name}: +${br.coins}${br.first?'':' (rejucat)'}</span>`:''}${br&&br.title?`<span>🏅 ${br.title}</span>`:''}</div>`+
       (br&&br.items.length?`<p class="note">Recompense exclusive:</p><div class="co-rewards">${br.items.map(([c,id])=>{const it=cosItem(c,id);return `<div class="rw sk r-boss" style="width:120px">${c==='bg'?`<div class="bgprev" style="background:${bgPreview(id)};height:40px"></div>`:`<canvas data-brprev="${c}:${id}" width="300" height="124"></canvas>`}<span>${it.name}</span><span class="rar">Boss</span></div>`}).join('')}</div>`:'');
+    $('#rX').insertAdjacentHTML('beforeend',xpBlock(xpRes));xpBlockAnim(xpRes);
     $$('#rX canvas[data-brprev]').forEach(c2=>{const[c,id]=c2.dataset.brprev.split(':');drawPreview(c2,c,id)});
     $$('#rX .res-stars i').forEach((el,i)=>{if(i<stars)setTimeout(()=>{el.classList.add('on');[880,1175,1568].forEach((f,j)=>j===i&&tone(f,f*1.5,.25,'triangle',.16));buzz(20);
       const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:18,colors:['#ffd23f','#fff3b0','#ff8c2a'],speed:300,grav:400})},350+i*380)});
@@ -1767,6 +1820,8 @@ function arcadeOver(){
       (d?`<p class="note">📅 Provocarea zilei: ${d.best>=ARC.dailyTarget?(d.claimed?'premiul de azi e luat ✓':'🎁 ai atins ținta! Ia cufărul din meniul Arcade.'):`mai ai ${fmtN(ARC.dailyTarget-d.best)} puncte până la cufăr.`}</p>`:'')+
       (n?`<p class="note">🎁 Ai ${n} recompens${n>1?'e':'ă'} de luat în meniul Arcade.</p>`:'')+
       `<button class="skbtn share" id="arcShare">📤 Provoacă un prieten cu ${fmtN(A.score)}</button>`;
+    const ax=Math.min(XP_RULES.arcade.cap,Math.floor(A.score/XP_RULES.arcade.per))-(A.xpGiven||0);
+    if(ax>0){A.xpGiven=(A.xpGiven||0)+ax;const xr=grantXP(ax);$('#rX').insertAdjacentHTML('beforeend',xpBlock(xr));xpBlockAnim(xr)}
     $('#arcShare').addEventListener('click',()=>shareChallenge(A.score,A.seed));
     if(rec||(A.vs&&A.score>A.target))celebrate();
     setTimeout(()=>{countUp(S.earned);paintCoins(true)},400)},1000);
@@ -1921,10 +1976,10 @@ function renderArcHub(){
   const on=(sel,fn)=>body.querySelectorAll(sel).forEach(b=>b.addEventListener('click',()=>fn(b)));
   on('[data-arc="free"]',()=>playArcade({mode:'free'}));
   on('[data-arc="daily"]',()=>playArcade({mode:'daily',seed:todayKey()}));
-  on('[data-arc="daily-claim"]',()=>{const d=dailyState();if(d.best<ARC.dailyTarget||d.claimed)return;d.claimed=true;store.set('arcDaily',d);renderArcHub();paintArcDot();openChest('basic')});
+  on('[data-arc="daily-claim"]',()=>{const d=dailyState();if(d.best<ARC.dailyTarget||d.claimed)return;d.claimed=true;store.set('arcDaily',d);xpToast(grantXP(XP_RULES.daily));renderArcHub();paintArcDot();openChest('basic')});
   on('[data-ms]',b=>claimMs(+b.dataset.ms));
   on('[data-mis]',b=>{const s=misState(),i=+b.dataset.mis,m=s.list[i];if(!m||m.p<m.g)return;
-    addCoins(m.rw);s.done++;s.list.splice(i,1);s.list.push(newMission(s));store.set('arcMis',s);sfx.buy();buzz(20);
+    addCoins(m.rw);xpToast(grantXP(XP_RULES.mission));s.done++;s.list.splice(i,1);s.list.push(newMission(s));store.set('arcMis',s);sfx.buy();buzz(20);
     const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:30,colors:['#ffc94a','#fff3b0','#ffd23f'],speed:320,grav:500,plain:true});renderArcHub();paintArcDot()});
   on('[data-vs]',b=>{const n=b.dataset.vs,f=store.get('arcFriends',{})[n]||(inc&&inc.n===n?{s:inc.s,d:inc.d}:null);if(f){arcIncoming=null;playArcade({mode:'vs',seed:f.d,target:f.s,vs:n})}});
   on('[data-arc="share"]',()=>{const t=store.get('arcTop',[])[0];if(t)shareChallenge(t.s,t.seed)});
@@ -2944,6 +2999,129 @@ function drawBoss2Overlay(b,t){
   if(u&&u.kind==='aval'&&u.win>0){const[x,y]=P(200,120),r=Math.max(30,b.fr.bh*.13);ctx.save();ctx.strokeStyle=`rgba(255,220,60,${.6+.4*Math.sin(t*25)})`;ctx.lineWidth=4;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.stroke();
     ctx.fillStyle='#ffd23f';ctx.font=`800 14px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.fillText(`LOVEȘTE OCHIUL! ${u.taps}/3`,x,y+r+16);ctx.restore()}}
 
+/* ================= PLAYER LEVEL: 1–100, XP from everything you play =================
+   XP to go from level L to L+1 = 50 + 4·L  (54 at level 1 … 446 at level 99, 24.750 XP in total).
+   Every level-up pays 10 + L coins; every 5th level is a milestone with exclusive rewards
+   (profile frames, titles, ball skins, belts, backgrounds, effects, coins) – never power-ups.
+   Saved under the new key bz2_player; existing keys are untouched. */
+const PL_MAX=100;
+const xpNeed=L=>50+4*L;
+const xpTotalTo=L=>{let t=0;for(let i=1;i<L;i++)t+=xpNeed(i);return t};
+const XP_MAX=xpTotalTo(PL_MAX);
+// how much XP each thing gives
+const XP_RULES={level:{first:30,perStar:5,hardK:1.5,replay:8,replayStar:2,betterStar:5},
+  boss:{easy:80,normal:150,hard:250,nightmare:400,replayK:.25},arcade:{per:50,cap:60},mission:25,daily:40};
+const BOSS_XP=XP_RULES.boss;
+// profile frames: a ring around the avatar and a matching edge on the name card
+const FRAMES=[
+  {id:'none',name:'Simplă',lvl:1,edge:'rgba(255,255,255,.3)'},
+  {id:'bronze',name:'Bronz',lvl:5,edge:'#c98a5a'},{id:'silver',name:'Argint',lvl:15,edge:'#d6dbe6'},
+  {id:'gold',name:'Aur',lvl:35,edge:'#ffd23f'},{id:'emerald',name:'Smarald',lvl:55,edge:'#3fd18b'},
+  {id:'sapphire',name:'Safir',lvl:65,edge:'#4a8cff'},{id:'ruby',name:'Rubin',lvl:75,edge:'#ff3d5a'},
+  {id:'rainbow',name:'Curcubeu',lvl:90,edge:'#ff3df0'},{id:'supreme',name:'Coroana Bazinga',lvl:100,edge:'#ffd23f'}];
+const PL_TITLES={10:'Mână sigură',25:'Ochi de vultur',50:'Mintea combo-urilor',75:'Stea strălucitoare',100:'Coroana Bazinga'};
+// milestone rewards (every 5 levels)
+const PL_MS={
+  5:[{frame:'bronze'},{coins:100}],10:[{item:['ball','stripe']},{title:10}],15:[{frame:'silver'}],20:[{item:['bg','forest']}],
+  25:[{title:25},{coins:250}],30:[{item:['ball','marble']}],35:[{frame:'gold'}],40:[{item:['belt','gold']}],45:[{item:['fx','sparkle']}],
+  50:[{item:['ball','crystal']},{title:50}],55:[{frame:'emerald'}],60:[{item:['bg','aurora']}],65:[{frame:'sapphire'},{coins:400}],
+  70:[{item:['belt','rainbow']}],75:[{frame:'ruby'},{title:75}],80:[{item:['ball','aurora']}],85:[{item:['bg','castle']}],
+  90:[{frame:'rainbow'}],95:[{item:['fx','coinrain']}],100:[{frame:'supreme'},{item:['ball','royal']},{title:100}]};
+
+// the level-exclusive cosmetics (shown locked in the shop until you reach the level)
+RARITY.level={name:'Nivel',color:'#19c3a6'};
+COSMETICS.ball.push({id:'stripe',name:'Dungi',rar:'level',price:0,plvl:10},{id:'marble',name:'Marmură',rar:'level',price:0,plvl:30},
+  {id:'crystal',name:'Cristal',rar:'level',price:0,plvl:50},{id:'aurora',name:'Aurora',rar:'level',price:0,plvl:80},{id:'royal',name:'Regal',rar:'level',price:0,plvl:100});
+COSMETICS.belt.push({id:'gold',name:'Aur',rar:'level',price:0,plvl:40},{id:'rainbow',name:'Curcubeu',rar:'level',price:0,plvl:70});
+COSMETICS.bg.push({id:'forest',name:'Pădurea fermecată',rar:'level',price:0,plvl:20},{id:'aurora',name:'Aurora boreală',rar:'level',price:0,plvl:60},{id:'castle',name:'Castelul regal',rar:'level',price:0,plvl:85});
+COSMETICS.fx.push({id:'sparkle',name:'Sclipici',rar:'level',price:0,plvl:45},{id:'coinrain',name:'Ploaie de monede',rar:'level',price:0,plvl:95});
+Object.assign(BELTS,{gold:{rim:['#fff1a8','#c98a12'],ch:'#5a3a08',sock:'#7a520e',edge:'#b07a10',ink:'#fff3c4',gauge:'#4a3006',glow:['#ffd23f','#fff3b0']},
+  rainbow:{rim:['#ff6a9a','#5ab8ff'],ch:'#2a1a4a',sock:'#3a2a6a',edge:'#ffd23f',ink:'#ffffff',gauge:'#241547',glow:['#ff3df0','#3df5ff'],stripe:'#ffe93d'}});
+Object.assign(BGS,{
+  forest:{line:'#2f7a3a',css:()=>`radial-gradient(60% 40% at 30% 10%,rgba(255,250,200,.65),transparent 70%),repeating-linear-gradient(100deg,rgba(255,255,220,.12) 0 18px,transparent 18px 60px),linear-gradient(#9be08a,#3f9d4a 55%,#1f5a2a)`},
+  aurora:{line:'#2a6a8a',css:()=>`radial-gradient(80% 30% at 30% 22%,rgba(80,255,170,.55),transparent 70%),radial-gradient(70% 28% at 75% 30%,rgba(190,90,255,.5),transparent 70%),linear-gradient(#071a33,#0c2a4a 55%,#06101f)`},
+  castle:{line:'#8a5a2a',css:()=>`radial-gradient(50% 30% at 50% 25%,rgba(255,230,170,.9),transparent 70%),linear-gradient(transparent 62%,rgba(60,30,60,.55) 62% 64%,transparent 64%),linear-gradient(#ffb36b,#ff7a6b 45%,#7a3a8a 80%,#3a1a4a)`}});
+
+/* ---- state ---- */
+function plState(){const p=store.get('player',null)||{};
+  return Object.assign({xp:0,frame:'none',title:'',frames:['none'],titles:[],got:[],migrated:false},p)}
+function plLevel(xp){let L=1,acc=0;while(L<PL_MAX&&xp>=acc+xpNeed(L)){acc+=xpNeed(L);L++}return{L,into:xp-acc,need:L<PL_MAX?xpNeed(L):0}}
+const titleName=t=>PL_TITLES[t]||t||'';
+// everything a level gives you when you reach it: coins always, the milestone's rewards on multiples of 5
+function applyLevelRewards(p,L){const out=[],c=10+L;addCoins(c,false);out.push({em:'🪙',text:`+${c} monede`});
+  (PL_MS[L]||[]).forEach(r=>{
+    if(r.coins){addCoins(r.coins,false);out.push({em:'🪙',text:`+${r.coins} monede`})}
+    if(r.frame&&!p.frames.includes(r.frame)){p.frames.push(r.frame);out.push({em:'🖼️',text:'Ramă '+FRAMES.find(f=>f.id===r.frame).name,frame:r.frame})}
+    if(r.title&&!p.titles.includes(r.title)){p.titles.push(r.title);out.push({em:'🏷️',text:'Titlu „'+titleName(r.title)+'”'})}
+    if(r.item){const[cat,id]=r.item;if(!owns(cat,id)){COS.own[cat].push(id);saveCos()}out.push({em:{ball:'⚪',belt:'🎢',bg:'🏞️',fx:'✨'}[cat],text:cosItem(cat,id).name+' (exclusiv)',item:r.item})}});
+  return out}
+function grantXP(n){const p=plState(),lv0=plLevel(p.xp),gain=Math.max(0,Math.round(n));
+  p.xp=Math.min(XP_MAX,p.xp+gain);const lv=plLevel(p.xp),ups=[],rewards=[];
+  for(let L=lv0.L+1;L<=lv.L;L++){ups.push(L);if(!p.got.includes(L)){p.got.push(L);rewards.push(...applyLevelRewards(p,L))}}
+  store.set('player',p);if(ups.length)paintCoins(true);paintPlayerCard();return{gain,ups,rewards,lv,lv0}}
+// players who already had progress before this system get their XP once, from real saved data
+function plMigrate(){const p=plState();if(p.migrated)return;let xp=0;const R=XP_RULES.level;
+  Object.entries(store.get('stars',{})).forEach(([n,s])=>{n=+n;if(!s||isBoss(n))return;xp+=(R.first+R.perStar*s)*(isHard(n)?R.hardK:1)});
+  Object.keys(store.get('bossWins',{})).forEach(k=>{xp+=BOSS_XP[k.split(':')[1]]||0});
+  xp+=Math.min(XP_RULES.arcade.cap,Math.floor(arcBest()/XP_RULES.arcade.per));
+  const m=store.get('arcMis',null);if(m&&m.done)xp+=m.done*XP_RULES.mission;
+  p.migrated=true;store.set('player',p);if(xp>0)grantXP(xp)}
+
+/* ---- XP for a finished level (called from the win screen) ---- */
+function levelXP(stars,best,first,boss){const R=XP_RULES.level;
+  if(boss)return first?BOSS_XP[boss.diff]:Math.round(BOSS_XP[boss.diff]*BOSS_XP.replayK);
+  if(first)return Math.round((R.first+R.perStar*stars)*(S.hard?R.hardK:1));
+  return R.replay+R.replayStar*stars+Math.max(0,stars-best)*R.betterStar}
+// the XP strip on the result screen: the bar fills from where you were, level-ups and their rewards below
+function xpBlock(res){const lv=res.lv,pct=lv.need?lv.into/lv.need*100:100,start=res.ups.length?0:Math.max(0,(lv.into-res.gain)/(lv.need||1)*100);
+  return `<div class="xpgain"><div class="row"><span>⭐ +${res.gain} XP</span><span>Nivel jucător ${lv.L}${lv.L>=PL_MAX?' · MAX':''}</span></div><div class="xpbar"><i data-w="${pct.toFixed(1)}%" style="width:${start.toFixed(1)}%"></i></div>`+
+    (res.ups.length?`<p class="note lvup">🎉 NIVEL ${res.ups[res.ups.length-1]}!</p><div class="lvrew">${res.rewards.map(r=>`<span>${r.em} ${arcEsc(r.text)}</span>`).join('')}</div>`:'')+`</div>`}
+function xpBlockAnim(res){requestAnimationFrame(()=>requestAnimationFrame(()=>{const i=$('#rX .xpbar i');if(i)i.style.width=i.dataset.w}));
+  if(res.ups.length){setTimeout(()=>{sfx.unlock();buzz([20,30,20]);const b=$('#rX .lvup');if(b){const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:50,speed:420,grav:500,colors:['#19c3a6','#ffd23f','#ffffff','#ff78c8'],plain:true})}},900)}}
+// XP from places without a result screen (missions, the daily chest): a short banner
+function xpToast(res){if(res.ups.length){banner(`NIVEL ${res.ups[res.ups.length-1]}!<small>${res.rewards.filter(r=>r.em!=='🪙'||res.rewards.length<3).slice(0,3).map(r=>r.em+' '+r.text).join(' · ')}</small>`);sfx.unlock();celebrate()}
+  else banner(`<small>⭐ +${res.gain} XP</small>`)}
+
+/* ---- the name card on the home screen and the profile window ---- */
+const frameOf=id=>FRAMES.find(f=>f.id===id)||FRAMES[0];
+function paintPlayerCard(){const card=$('#hProfile');if(!card)return;const p=plState(),lv=plLevel(p.xp),fr=frameOf(p.frame),av=$('#hAvatar');
+  av.className='avatar fr-'+fr.id;card.style.borderColor=fr.edge;
+  $('#hLvl').textContent='Nivel '+lv.L+(p.title?' · '+titleName(p.title):'');$('#hLvlBar').style.width=(lv.need?lv.into/lv.need*100:100)+'%';
+  card.title=lv.need?`${lv.into}/${lv.need} XP până la nivelul ${lv.L+1}`:'Nivel maxim'}
+function openProfile(){renderProfile();showModal('profile')}
+function renderProfile(){
+  const p=plState(),lv=plLevel(p.xp),nm=store.get('arcName',''),ini=nm?arcEsc(nm[0].toUpperCase()):'🙂',fr=frameOf(p.frame);
+  const bossTitles=store.get('titles',[]),allTitles=[...p.titles.map(t=>({id:t,name:titleName(t)})),...bossTitles.map(t=>({id:t,name:t}))];
+  const ms=Object.keys(PL_MS).map(Number).sort((a,b)=>a-b);
+  $('#profBody').innerHTML=`
+  <div class="prof-hero"><span class="avatar big fr-${fr.id}">${ini}</span><div class="prof-id">
+    <label class="sr" for="profName">Numele tău</label><input class="tin" id="profName" maxlength="16" autocomplete="nickname" value="${arcEsc(nm)}" placeholder="Scrie-ți numele">
+    <span class="prof-title">${p.title?'🏷️ '+arcEsc(titleName(p.title)):'Fără titlu'}</span></div></div>
+  <div class="prof-lvl"><b>Nivelul ${lv.L}</b><span>${lv.need?`${fmtN(lv.into)} / ${fmtN(lv.need)} XP`:'NIVEL MAXIM 👑'}</span></div>
+  <div class="xpbar big"><i style="width:${lv.need?lv.into/lv.need*100:100}%"></i></div>
+  <p class="note">${lv.L<PL_MAX?`Mai ai ${fmtN(XP_MAX-p.xp)} XP până la nivelul 100.`:'Ai atins nivelul maxim!'}</p>
+  <h3 class="sec">Rame</h3>
+  <div class="frames">${FRAMES.map(f=>{const own=p.frames.includes(f.id),on=p.frame===f.id;
+    return `<button class="frbtn${on?' on':''}${own?'':' locked'}" data-fr="${f.id}" ${own?'':'disabled'} aria-label="Rama ${f.name}${own?'':', se deblochează la nivelul '+f.lvl}"><span class="avatar fr-${f.id}">${own?ini:'🔒'}</span><small>${own?f.name:'Nivel '+f.lvl}</small></button>`}).join('')}</div>
+  <h3 class="sec">Titlu</h3>
+  <div class="chips"><button class="chip${p.title?'':' on'}" data-ti="">Fără titlu</button>${allTitles.map(t=>`<button class="chip${p.title===t.id?' on':''}" data-ti="${arcEsc(t.id)}">${arcEsc(t.name)}</button>`).join('')}
+    ${Object.keys(PL_TITLES).filter(k=>!p.titles.includes(+k)).map(k=>`<span class="chip locked">🔒 Nivel ${k}</span>`).join('')}</div>
+  <h3 class="sec">Recompense pe niveluri</h3>
+  ${ms.map(L=>{const got=p.got.includes(L)||lv.L>=L;const items=PL_MS[L].map(r=>r.coins?`🪙 ${r.coins} monede`:r.frame?`🖼️ Ramă ${frameOf(r.frame).name}`:r.title?`🏷️ Titlu „${titleName(r.title)}”`:`${{ball:'⚪ Bile',belt:'🎢 Bandă',bg:'🏞️ Fundal',fx:'✨ Efect'}[r.item[0]]} „${cosItem(...r.item).name}”`).join(' + ');
+    return `<div class="arow lvrow${got?' got':L===Math.ceil((lv.L+1)/5)*5?' next':''}"><span class="lvbadge">${L}</span><div><p>${items}</p>${!got&&L===Math.ceil((lv.L+1)/5)*5?`<div class="pbar"><i style="width:${Math.max(0,Math.min(100,(p.xp-xpTotalTo(L-5))/(xpTotalTo(L)-xpTotalTo(L-5))*100)).toFixed(0)}%"></i></div>`:''}</div><span class="em">${got?'✅':'🔒'}</span></div>`}).join('')}
+  <h3 class="sec">Cum câștigi XP</h3>
+  <ul class="xplist"><li>Nivel terminat prima dată: <b>${XP_RULES.level.first}</b> + <b>${XP_RULES.level.perStar}</b> pe stea (×1,5 la nivelurile grele)</li>
+    <li>Nivel rejucat: <b>${XP_RULES.level.replay}</b> + <b>${XP_RULES.level.replayStar}</b> pe stea, plus <b>${XP_RULES.level.betterStar}</b> pentru fiecare stea nouă</li>
+    <li>Boss învins: Ușor <b>${BOSS_XP.easy}</b> · Normal <b>${BOSS_XP.normal}</b> · Greu <b>${BOSS_XP.hard}</b> · Coșmar <b>${BOSS_XP.nightmare}</b> (rejucat: un sfert)</li>
+    <li>Tură Arcade: <b>1</b> XP la fiecare ${XP_RULES.arcade.per} puncte (maxim ${XP_RULES.arcade.cap})</li>
+    <li>Misiune Arcade: <b>${XP_RULES.mission}</b> · Cufărul provocării zilei: <b>${XP_RULES.daily}</b></li>
+    <li>Fiecare nivel nou dă și <b>10 + nivel</b> monede</li></ul>`;
+  $$('#profBody [data-fr]').forEach(b=>b.addEventListener('click',()=>{const q=plState();if(!q.frames.includes(b.dataset.fr))return;q.frame=b.dataset.fr;store.set('player',q);sfx.buy();renderProfile();paintPlayerCard()}));
+  $$('#profBody [data-ti]').forEach(b=>b.addEventListener('click',()=>{const q=plState(),v=b.dataset.ti;q.title=v===''?'':isNaN(+v)?v:+v;store.set('player',q);sfx.ui();renderProfile();paintPlayerCard()}));
+  const ni=$('#profName');ni.addEventListener('input',()=>{store.set('arcName',ni.value.trim().slice(0,16));const a=$('#profBody .prof-hero .avatar');const n2=store.get('arcName','');a.textContent=n2?n2[0].toUpperCase():'🙂';
+    $('#hName').textContent=n2||'Jucător';$('#hAvatar').textContent=n2?n2[0].toUpperCase():'🙂'});
+}
+
 /* ================= UI: screens, HUD, shop, modals ================= */
 let screen='home',paused=false;
 function showScreen(s){screen=s;if(s!=='game'){setMusicMode(false);MUSIC.bpm=104}$('#home').hidden=s!=='home';if(s==='home')homeEnter();$('#game').hidden=s!=='game';$('#map').hidden=s!=='map';if(s==='home')paintHome();
@@ -3042,10 +3220,11 @@ function renderShop(highlight){
     const cats=shopTab==='theme'?['belt','bg']:[shopTab];
     body.innerHTML=cats.map(cat=>`${cats.length>1?`<h3 class="sec">${COS_CATS[cat]}</h3>`:''}<div class="grid2">${COSMETICS[cat].map(it=>{
       const own=owns(cat,it.id),eq=COS.eq[cat]===it.id;
-      const bossLock=it.boss&&!own?BOSSES.find(x=>x.id===it.boss):null,arcLock=it.arcade&&!own;
+      const bossLock=it.boss&&!own?BOSSES.find(x=>x.id===it.boss):null,arcLock=it.arcade&&!own,lvLock=it.plvl&&!own;
       const btn=eq?`<button class="skbtn on" disabled>✓ Echipat</button>`:own?`<button class="skbtn equip" data-eq="${cat}:${it.id}">Echipează</button>`
         :bossLock?`<button class="skbtn" disabled>🔒 ${bossLock.emoji} ${bossLock.name}</button>`
         :arcLock?`<button class="skbtn" disabled>🔒 🕹️ ${fmtN(it.arcade)} pct</button>`
+        :lvLock?`<button class="skbtn" disabled>🔒 ⭐ Nivel ${it.plvl}</button>`
         :`<button class="skbtn" data-buy-cos="${cat}:${it.id}" ${coins<it.price?'disabled':''}>${coinTag(it.price)}</button>`;
       const prev=cat==='bg'?`<div class="bgprev" style="background:${bgPreview(it.id)}"></div>`:`<canvas data-prev="${cat}:${it.id}" width="300" height="124"></canvas>`;
       return `<div class="sk r-${it.rar}">${prev}<b>${it.name}</b><span class="rar">${RARITY[it.rar].name}</span>${btn}</div>`}).join('')}</div>`).join('');
@@ -3259,7 +3438,9 @@ const FXS={
   hearts:{shapes:['heart'],colors:['#ff4d6d','#ff8fb3','#ff2d55','#ffc2d4'],spark:'heart',sparkColor:'#ff5a7a'},
   lightning:{shapes:['bolt'],colors:['#fff35a','#ffffff','#7df9ff'],spark:'bolt',sparkColor:'#fff35a'},
   fireworks:{shapes:['dot','star'],colors:['#ff3df0','#3df5ff','#ffe93d','#7dff5a','#ff8a3d','#ffffff'],spark:'dot',fire:true},
-  feathers:{shapes:['feather'],colors:['#ff3d1a','#ff8a00','#ffd23f','#fff3b0'],spark:'feather',sparkColor:'#ffb000',rise:true}};
+  feathers:{shapes:['feather'],colors:['#ff3d1a','#ff8a00','#ffd23f','#fff3b0'],spark:'feather',sparkColor:'#ffb000',rise:true},
+  sparkle:{shapes:['sparkle'],colors:['#ffffff','#bfefff','#ffe6ff','#fff3b0'],spark:'sparkle',sparkColor:'#ffffff'},
+  coinrain:{shapes:['coin'],colors:['#ffd23f','#ffb000','#fff3b0'],spark:'coin',sparkColor:'#ffd23f'}};
 function drawShape(c,shape,s,col){
   c.fillStyle=col;c.strokeStyle=col;
   if(shape==='rect')c.fillRect(-s/2,-s/4,s,s/2);
@@ -3267,6 +3448,8 @@ function drawShape(c,shape,s,col){
   else if(shape==='star'){c.beginPath();for(let k=0;k<10;k++){const r=k%2?s*.24:s*.6;c.lineTo(Math.cos(k*Math.PI/5-Math.PI/2)*r,Math.sin(k*Math.PI/5-Math.PI/2)*r)}c.closePath();c.fill()}
   else if(shape==='heart'){const h=s*.55;c.beginPath();c.moveTo(0,h*.6);c.bezierCurveTo(-h*1.4,-h*.2,-h*.6,-h*1.2,0,-h*.45);c.bezierCurveTo(h*.6,-h*1.2,h*1.4,-h*.2,0,h*.6);c.fill()}
   else if(shape==='bolt'){c.beginPath();c.moveTo(s*.1,-s*.6);c.lineTo(-s*.3,s*.05);c.lineTo(0,s*.05);c.lineTo(-s*.15,s*.6);c.lineTo(s*.35,-s*.12);c.lineTo(s*.04,-s*.12);c.closePath();c.fill()}
+  else if(shape==='sparkle'){c.beginPath();for(let k=0;k<8;k++){const r=k%2?s*.12:s*.6,a=k*Math.PI/4;c.lineTo(Math.cos(a)*r,Math.sin(a)*r)}c.closePath();c.fill()}
+  else if(shape==='coin'){c.beginPath();c.arc(0,0,s*.42,0,7);c.fill();c.strokeStyle='rgba(140,90,0,.7)';c.lineWidth=Math.max(1,s*.08);c.beginPath();c.arc(0,0,s*.28,0,7);c.stroke()}
   else if(shape==='feather'){c.beginPath();c.ellipse(0,0,s*.22,s*.6,.5,0,7);c.fill();c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=1;c.beginPath();c.moveTo(-s*.28,s*.45);c.lineTo(s*.28,-s*.45);c.stroke()}
   else if(shape==='bubble'){c.lineWidth=Math.max(1.2,s*.12);c.beginPath();c.arc(0,0,s/2,0,7);c.stroke();c.fillStyle='rgba(255,255,255,.75)';c.beginPath();c.arc(-s*.16,-s*.16,s*.1,0,7);c.fill()}
 }
@@ -3423,7 +3606,7 @@ $('#hHow').addEventListener('click',()=>showModal('how'));
 $('#hSet2').addEventListener('click',()=>{paintSettings();showModal('settings')});
 $('#hCoins').addEventListener('click',()=>{shopTab='chests';openShop()});
 $('#hDaily').addEventListener('click',()=>{initAudio();openArcHub('play')});
-$('#hProfile').addEventListener('click',()=>{initAudio();firstGift=false;goMap(0)});
+$('#hProfile').addEventListener('click',()=>{initAudio();openProfile()});
 $('#hPromo').addEventListener('click',()=>{initAudio();if(homePromoNow)homePromoNow.go()});
 // a soft click on every menu card (the big buttons already have their own transition sounds)
 $$('#home .tile,#hCoins,#hDaily,#hProfile,#hPromo').forEach(b=>b.addEventListener('pointerdown',()=>{initAudio();sfx.ui()}));
@@ -3496,8 +3679,7 @@ function homePromo(){
 function paintHomeExtras(){
   const L0=store.get('level',1),nm=store.get('arcName','');
   $('#hName').textContent=nm||'Jucător';$('#hAvatar').textContent=nm?nm[0].toUpperCase():'🙂';
-  $('#hLvl').textContent='Nivelul '+L0;$('#hLvlBar').style.width=(((L0-1)%10)/10*100)+'%';
-  $('#hProfile').title=`Zona ${Math.floor((L0-1)/10)+1}: ${(L0-1)%10}/10 niveluri`;
+  paintPlayerCard();
   const d=dailyState();$('#hDailyT').textContent=d.claimed?'✓ premiu luat':d.best?`azi: ${fmtN(d.best)}`:'Arcade · cufăr';$('#hDailyDot').hidden=d.plays>0;
   const p=homePromoNow=homePromo(),ic=$('#hPromoIc');$('#hPromo').hidden=!p;if(!p)return;
   $('#hPromoT').textContent=p.t;$('#hPromoS').textContent=p.s;const bar=$('#hPromoBar');bar.hidden=p.prog==null;if(p.prog!=null)bar.style.setProperty('--p',Math.round(Math.min(1,p.prog)*100)+'%');
@@ -3520,12 +3702,13 @@ document.fonts&&document.fonts.ready.then(()=>{spriteCache={}});
 buildPowers();sizeHome();sizeFx();paintCoins();
 // restore anything localStorage lost from the IndexedDB mirror, and mirror what only localStorage has
 (async()=>{const saved=await idb.all();let restored=false;
-  for(const k of ['level','coins','inv','stars','settings','muted','cos','freeChestAt','bossWins','arcadeBest','arcMis','arcMs','arcDaily','arcTop','arcFriends','arcName']){
+  for(const k of ['level','coins','inv','stars','settings','muted','cos','freeChestAt','bossWins','arcadeBest','arcMis','arcMs','arcDaily','arcTop','arcFriends','arcName','titles','player']){
     let local=null;try{local=localStorage.getItem('bz2_'+k)}catch(e){}
     if(local==null&&k in saved){store.mem[k]=saved[k];try{localStorage.setItem('bz2_'+k,JSON.stringify(saved[k]))}catch(e){}restored=true}
     else if(local!=null&&!(k in saved))idb.put(k,JSON.parse(local))}
   if(restored){coins=store.get('coins',0);inv=store.get('inv',inv);Object.assign(SET,store.get('settings',{}));Object.assign(COS,store.get('cos',{}));spriteCache={};firstGift=false;
-    paintCoins();if(screen==='home')paintHome();lastHud=''}})();
+    paintCoins();if(screen==='home')paintHome();lastHud=''}
+  plMigrate();if(screen==='home')paintHome()})();
 (()=>{let q=null;try{q=new URLSearchParams(location.search).get('c')}catch(e){}if(!q)return;const o=parseArcCode('BZ'+q);
   try{history.replaceState(null,'',location.pathname)}catch(e){}
   if(o){addFriend(o);arcIncoming=o;setTimeout(()=>openArcHub('rank'),700)}})();
