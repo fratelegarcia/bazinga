@@ -917,13 +917,49 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 #home .gift{margin:0;font:var(--text-small);font-weight:700;color:var(--color-success-soft);text-shadow:0 1px 3px var(--color-scene-ink)}
 #home .gift:empty{display:none}
 /* bottom navigation */
-.hnav{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:5px;border-radius:22px;margin-top:auto;
+.hnav{width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:5px;border-radius:22px;margin-top:auto;
   background:var(--gloss-soft),var(--mat-navy);border:2px solid var(--rim-navy);box-shadow:var(--shadow-mat)}
 .hnav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:16px;color:var(--color-text-muted);font:700 11px/1 var(--font-body)}
 .hnav .ico{width:28px;height:28px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.35))}
 .hnav button.on{color:var(--color-reward);background:linear-gradient(180deg,rgba(255,210,63,.24),rgba(255,210,63,.04));box-shadow:inset 0 0 0 2px var(--rim-gold)}
 @media (hover:hover){.hnav button:hover,.rbtn:hover,.hcard:hover{filter:brightness(1.1)}}
 @keyframes breathe2{50%{transform:scale(1.035)}}
+/* ===== skill tree ===== */
+.skcard{position:relative;width:min(460px,100%);height:min(760px,calc(100% - 8px));padding:16px;gap:10px}
+.spbal{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 6px;border-radius:var(--radius-pill);background:var(--gloss-soft),var(--mat-purple);border:2px solid var(--rim-purple);box-shadow:var(--shadow-mat-sm);font:var(--text-number);color:#fff;margin-left:auto}
+.spbal .ico{width:24px;height:24px}
+.skhead{display:flex;flex-direction:column;gap:6px;flex:none}
+.sklv{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-2);font:var(--text-label)}
+.sklv .prog{height:10px}.sklv small{font:var(--text-caption);color:var(--color-text-muted)}
+.skhead .note{margin:0;font:var(--text-caption);color:var(--color-text-muted)}
+.sktabs button{display:inline-flex;align-items:center;gap:6px;min-height:var(--hit-min)}
+.skbody{flex:1;min-height:0;overflow:auto;display:grid;gap:var(--space-3);align-content:start;padding:2px}
+.skcol{display:none;flex-direction:column;gap:var(--space-2)}.skcol.on{display:flex}
+.skcol .sec{margin:0 2px;font:var(--text-label);text-transform:uppercase;letter-spacing:.05em;color:var(--bc)}.skcol .sec small{text-transform:none;letter-spacing:0;color:var(--color-text-muted);font:var(--text-caption)}
+.br-mastery{--bc:#c9a8ff;--bg2:var(--mat-purple)}.br-fortune{--bc:#ffd23f;--bg2:var(--mat-gold)}.br-combat{--bc:#ff8a8a;--bg2:linear-gradient(180deg,#ff6a7a,#a8122e)}
+.skc{position:relative;text-align:left;display:grid;grid-template-columns:48px 1fr;gap:6px var(--space-2);padding:10px;border-radius:var(--radius-lg);background:var(--gloss-soft),var(--mat-navy);border:2px solid var(--rim-navy);box-shadow:var(--shadow-mat-sm)}
+.skc.can{border-color:var(--bc);box-shadow:var(--shadow-mat-sm),0 0 14px color-mix(in srgb,var(--bc) 45%,transparent)}
+.skc.max{border-color:var(--rim-gold)}
+.skc.lock{opacity:.78}.skc.lock .skic{filter:grayscale(.8)}
+.skic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--gloss-soft),var(--bg2);border:2px solid rgba(255,255,255,.35);box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.skic .ico{width:30px;height:30px}
+.sktx{min-width:0;display:flex;flex-direction:column;gap:3px}
+.sktx h3{margin:0;font:var(--text-card-title);display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}.sktx h3 small{font:var(--text-caption);color:var(--bc)}
+.sktx p{margin:0;font:var(--text-caption);color:var(--color-text);line-height:1.3}
+.sktx .next{color:var(--color-text-muted)}.sktx .next b{color:var(--bc)}.sktx .why{color:#ffb3c0}
+.pips{display:flex;gap:4px}.pips i{width:20px;height:7px;border-radius:4px;background:rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(0,0,0,.3)}
+.pips i.on{background:linear-gradient(180deg,#fff3b0,var(--bc));box-shadow:0 0 6px color-mix(in srgb,var(--bc) 60%,transparent)}
+.skup{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:var(--hit-min);border-radius:var(--radius-md);font:var(--text-label);color:#fff;
+  background:var(--gloss),var(--btn-green);box-shadow:0 4px 0 var(--btn-green-edge);text-shadow:var(--text-on-btn-shadow);transition:transform var(--dur-fast) var(--ease-out)}
+.skup .ico{width:22px;height:22px}
+.skup:active{transform:translateY(3px);box-shadow:0 1px 0 var(--btn-green-edge)}
+.skup.need{background:var(--mat-glass);box-shadow:none;color:var(--color-text-muted);text-shadow:none;border:1.5px solid rgba(169,194,255,.3)}
+.skup.lock,.skup.max{background:var(--mat-glass);box-shadow:none;color:var(--color-text-muted);text-shadow:none;border:1.5px solid rgba(169,194,255,.25)}
+.skup.max{color:var(--color-reward)}
+@media (min-width:760px){.skcard{width:min(1040px,100%)}.sktabs{display:none}.skbody{grid-template-columns:repeat(3,minmax(0,1fr))}.skcol{display:flex}}
+.hnav .nbadge{position:absolute;top:2px;right:calc(50% - 26px)}.hnav button{position:relative}
+.sktag{display:inline-block;margin-left:4px;padding:1px 6px;border-radius:999px;font:700 10px/1.4 var(--font-body);background:var(--mat-purple);color:#fff;vertical-align:middle}
+
 @keyframes chestBob{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-2deg)}60%{transform:translateY(0) rotate(2deg)}}
 @keyframes logoIn{0%{transform:translateY(-60px) scale(.6);opacity:0}100%{transform:none;opacity:1}}
 @keyframes riseIn{0%{transform:translateY(24px) scale(.92);opacity:0}100%{transform:none;opacity:1}}
@@ -1016,6 +1052,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 <symbol id="i-skull" viewBox="0 0 32 32"><path d="M16 3C9 3 5 8 5 14c0 4 2 6 4 7v4h14v-4c2-1 4-3 4-7 0-6-4-11-11-11z" fill="url(#g-silver)" stroke="#5a6488" stroke-width="1.4"/><circle cx="11.5" cy="15" r="3" fill="#d81e3c"/><circle cx="20.5" cy="15" r="3" fill="#d81e3c"/><path d="M13 25v3M16 25v3M19 25v3" stroke="#5a6488" stroke-width="1.6"/></symbol>
 <symbol id="i-palette" viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.4 3 15c0 6 4.6 11 10 11 2 0 2.6-1.2 2.2-2.6-.5-1.8.6-3.4 2.6-3.4H22c4 0 7-2.8 7-7C29 7.6 23 3 16 3z" fill="#f4e2b0" stroke="#a8875a" stroke-width="1.4"/><circle cx="10" cy="12" r="2.6" fill="#e0204a"/><circle cx="15" cy="8.5" r="2.6" fill="#ffd23f"/><circle cx="21" cy="9.5" r="2.6" fill="#2d6bff"/><circle cx="24" cy="15" r="2.6" fill="#1f9a33"/><circle cx="9" cy="18.5" r="2.6" fill="#9a4dff"/></symbol>
 <symbol id="i-mascot" viewBox="0 0 32 32"><circle cx="16" cy="18" r="12" fill="url(#g-gold)" stroke="#c27a00" stroke-width="1.2"/><path d="M8 9l-1-6 4 3 5-5 5 5 4-3-1 6z" fill="url(#g-gold)" stroke="#c27a00" stroke-width="1" stroke-linejoin="round"/><ellipse cx="12" cy="16.5" rx="2.6" ry="3.2" fill="#fff" stroke="#8a4a14" stroke-width=".8"/><ellipse cx="20" cy="16.5" rx="2.6" ry="3.2" fill="#fff" stroke="#8a4a14" stroke-width=".8"/><circle cx="12.4" cy="17" r="1.5" fill="#3a1a05"/><circle cx="19.6" cy="17" r="1.5" fill="#3a1a05"/><path d="M10.5 21.5q5.5 6 11 0z" fill="#7a1420"/></symbol>
+<symbol id="i-sp" viewBox="0 0 32 32"><path d="M16 3l11 9-11 17L5 12z" fill="url(#g-purple)" stroke="#3f1290" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 12h22M11 12l5 17 5-17M11 12l5-9 5 9" fill="none" stroke="#e2cfff" stroke-width="1.2" stroke-linejoin="round" opacity=".85"/><path d="M10 9l3-3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></symbol>
 <symbol id="i-pause" viewBox="0 0 32 32"><rect x="8" y="6" width="6" height="20" rx="2.5" fill="#ffd23f" stroke="#c27a00" stroke-width="1.2"/><rect x="18" y="6" width="6" height="20" rx="2.5" fill="#ffd23f" stroke="#c27a00" stroke-width="1.2"/></symbol>
 <symbol id="i-fire" viewBox="0 0 32 32"><path d="M16 3c1 6 8 8 8 16a8 8 0 0 1-16 0c0-4 2-6 3-8 1 3 3 3 3 3-1-4 0-8 2-11z" fill="url(#g-red)" stroke="#9a0f3a" stroke-width="1.2"/><path d="M16 15c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 2-4 0 1 1 2 2 2 0-2-1-4 0-6z" fill="#ffd23f"/></symbol>
 </svg>
@@ -1087,6 +1124,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
   <nav class="hnav" aria-label="Navigare principală">
     <button class="on" id="nHome" aria-current="page"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg><span>Acasă</span></button>
     <button id="nMap"><svg class="ico" aria-hidden="true"><use href="#i-map"/></svg><span>Niveluri</span></button>
+    <button id="nSkills"><svg class="ico" aria-hidden="true"><use href="#i-sp"/></svg><span>Skill-uri</span><span class="nbadge" id="nSkDot" hidden>!</span></button>
     <button id="hShop"><svg class="ico" aria-hidden="true"><use href="#i-shop"/></svg><span>Magazin</span></button>
     <button id="hSet2"><svg class="ico" aria-hidden="true"><use href="#i-gear"/></svg><span>Setări</span></button>
   </nav>
@@ -1165,6 +1203,14 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
     <p class="note" id="setNote"></p>
     <button class="btn ghost" id="setHow"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg> Cum se joacă</button>
   </div>
+</div></div>
+
+<!-- SKILL TREE -->
+<div id="skills" class="modal" hidden><div class="card skcard">
+  <div class="card-head"><h2>Skill-uri</h2><span class="spbal" id="skSP"></span><button class="x" data-close aria-label="Închide">✕</button></div>
+  <div class="skhead" id="skHead"></div>
+  <div class="tabs sktabs" role="tablist" id="skTabs"><button role="tab" data-br="mastery">🧠 Mastery</button><button role="tab" data-br="fortune">💰 Fortune</button><button role="tab" data-br="combat">⚔️ Combat</button></div>
+  <div class="skbody" id="skBody"></div>
 </div></div>
 
 <!-- HOW TO -->
@@ -1368,11 +1414,13 @@ const freeChestReady=()=>Date.now()>=store.get('freeChestAt',0);
 const freeChestLeft=()=>Math.max(0,store.get('freeChestAt',0)-Date.now());
 const fmtLeft=ms=>{const s=Math.ceil(ms/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`};
 // roll a chest's rewards (applied immediately, so closing the animation early never loses anything)
-function rollChest(type){
+// SP from earned chests: [chance, amount]
+const CHEST_SP={free:[.03,1],basic:[.15,1],epic:[1,1],golden:[1,2],legendary:[1,4]};
+function rollChest(type,bought){
   const C=CHESTS[type],ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
   const out={coins:ri(...C.coins),powers:[],item:null};
   for(let i=0;i<C.power;i++)out.powers.push(POWERS[Math.floor(Math.random()*POWERS.length)].id);
-  if(C.skin&&Math.random()<C.skin.chance){
+  if(C.skin&&Math.random()<(C.skin.chance>=1?1:Math.min(1,C.skin.chance*(1+skVal('f2'))))){
     const pool=[];Object.keys(COSMETICS).forEach(cat=>COSMETICS[cat].forEach(it=>{const w=C.skin.w[it.rar];if(w&&!owns(cat,it.id))pool.push({cat,it,w})}));
     if(pool.length){let t=Math.random()*pool.reduce((a,p)=>a+p.w,0);for(const p of pool){t-=p.w;if(t<=0){out.item={cat:p.cat,id:p.it.id};break}}if(!out.item){const p=pool[pool.length-1];out.item={cat:p.cat,id:p.it.id}}}
     else{out.bonus=Math.round(C.price*.5);out.coins+=out.bonus} // everything already owned: pay out coins instead
@@ -1380,6 +1428,8 @@ function rollChest(type){
   addCoins(out.coins,false);out.powers.forEach(p=>inv[p]++);saveInv();
   if(out.item){COS.own[out.item.cat].push(out.item.id);saveCos()}
   if(type==='free')store.set('freeChestAt',Date.now()+FREE_CHEST_MS);
+  // rolled last, so it never changes what else the chest gives
+  if(!bought&&CHEST_SP[type]){const[p,n]=CHEST_SP[type];if(p>=1||Math.random()<p)out.sp=grantSP(n)}
   return out;
 }
 function addCoins(n,paint=true){coins=Math.max(0,coins+n);store.set('coins',coins);if(paint)paintCoins(n>0)}
@@ -1425,6 +1475,9 @@ const BOSS_DIFF={
   hard:{name:'Greu',time:240,every:[5.5,8.5],hpK:1.7,coins:600,powers:0,hearts:2,tele:1.5,win:.5,aim:.6,crit:2,bite:1.6,reward:'+ 2 obiecte exclusive'},
   nightmare:{name:'Coșmar',time:210,every:[4.5,7],hpK:1.9,coins:1000,powers:0,hearts:1,tele:1,win:.38,aim:.45,crit:2,bite:1.3,reward:'+ Cufăr Legendar + titlu'}};
 let bossDiff='normal';
+// the mirror / lightning-rod window, a little longer with Battle Instinct (Easy and Normal only)
+const c2On=b=>b.diff==='easy'||b.diff==='normal';
+const bossWin=b=>BOSS_DIFF[b.diff].win+(c2On(b)?skVal('c2'):0);
 /* star rating: start from 3, lose one for going over the target time, another for going far over (×1.6),
    and one per power-up used (max 2). Bazinga! undo is earned with combos, so it costs nothing. */
 const STAR_COINS=[0,10,25,50];
@@ -1921,7 +1974,7 @@ function drawTexts(){
     ctx.font=`800 ${t.size}px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillStyle='#c2410c';ctx.fillText(t.text,0,t.size*.08);ctx.fillStyle=t.color||'#ffd23f';ctx.fillText(t.text,0,0);ctx.restore()});
 }
-function draw(){ctx.clearRect(0,0,L.W,L.H);drawBossBack();drawPlayfield();drawBoard();drawBoss();drawBelt();drawHolders();drawFx();drawBalls();drawBossOverlay();drawTexts()}
+function draw(){ctx.clearRect(0,0,L.W,L.H);drawBossBack();drawPlayfield();drawBoard();drawInsight();drawBoss();drawBelt();drawHolders();drawFx();drawBalls();drawBossOverlay();drawTexts()}
 
 /* ================= audio: buses, sfx, background music ================= */
 let AC=null,master,musicBus,sfxBus,noiseBuf;
@@ -2081,6 +2134,16 @@ function undo(){
 }
 function shakeEl(el){el.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:280})}
 
+// Tactical Insight: counts quiet time and picks a block you can break now that fits on the belt (never a hidden colour reveal)
+function insightTick(dt){const v=skVal('m3');if(!v||S.boss||S.over||S.hammer||paused){if(!v||S.boss)S.insight=null;return}
+  S.idleT=(S.idleT||0)+dt;if(S.idleT<v){S.insight=null;return}
+  const ok=id=>{const c=S.grid[Math.floor(id/S.cols)]?.[id%S.cols];return c&&c.t==='block'&&S.tappable.has(id)&&!(S.arcade&&(c.special==='bomb'||c.ice))&&room()>=(c.three?3:9)};
+  if(S.insight&&ok(S.insight.id))return;const ids=[...S.tappable].filter(ok);
+  S.insight=ids.length?{id:ids.find(id=>!S.grid[Math.floor(id/S.cols)][id%S.cols].hidden)??ids[0],t0:S.time}:null}
+function drawInsight(){const I=S.insight;if(!I)return;const x=I.id%S.cols,y=Math.floor(I.id/S.cols),oy=S.arcade?arcOY():0;
+  const px=L.bx+x*L.cs,py=L.by+y*L.cs+oy,a=reduce?.9:.55+.45*Math.sin((S.time-I.t0)*5);
+  ctx.save();ctx.lineWidth=4;ctx.strokeStyle='rgba(255,236,120,'+a.toFixed(2)+')';ctx.shadowColor='#ffd23f';ctx.shadowBlur=14;
+  ctx.beginPath();ctx.roundRect(px+3,py+3,L.cs-6,L.cs-6,L.cs*.2);ctx.stroke();ctx.restore()}
 function tapAt(px,py){
   if(S.over)return;
   if(S.boss&&bossTapRoute(px,py))return;
@@ -2097,7 +2160,7 @@ function tapAt(px,py){
     // say what is actually full: usually the belt (the funnel only fills once the belt has no room)
     const msg=S.balls.length+queued()>=9?'Pâlnia e plină!':'Banda e aproape plină!';
     text(msg,L.W/2,L.mouthY+10,20,false,'#f23d57');return}
-  snapshot(hammer?{x,y,power:'hammer'}:{x,y});
+  snapshot(hammer?{x,y,power:'hammer'}:{x,y});S.idleT=0;S.insight=null;
   const cx=L.bx+x*L.cs+L.cs/2,cy=L.by+y*L.cs+L.cs/2+oy;
   if(hammer){S.hammer=false;inv.hammer--;saveInv();S.powersUsed++;sfx.power();c.hidden=false;S.shake=.25;text('Poc!',cx,cy-10,26);setHint()}
   // opening sequence: squash → balls pop out one by one (rising notes) → shell shrinks, ring + sparks
@@ -2117,9 +2180,9 @@ function holderDone(h){
   const cr=cv.getBoundingClientRect(),hx=cr.left+L.colX[h.k],hy=cr.top+h.y+L.hh/2;
   burst(hx,hy,{n:18,colors:[COLORS[h.color],'#fff',shade(COLORS[h.color],.4)],speed:300,grav:700,size:6,life:.9});
   if(pay){coinFly(hx,hy);text('+1',L.colX[h.k],h.y-6,22,false,'#ffc94a')}
-  const now=S.time;S.combo=now-S.lastDone<1.3?S.combo+1:1;S.lastDone=now;S.comboMax=Math.max(S.comboMax||0,S.combo);
+  const now=S.time;S.combo=now-S.lastDone<1.3*(S.arcade?1+skVal('c4'):1)?S.combo+1:1;S.lastDone=now;S.comboMax=Math.max(S.comboMax||0,S.combo);
   let gain=1;if(S.combo>=2){gain=2;text('Combo x'+S.combo,L.colX[h.k],h.y-34,16)}
-  const was=S.charge;S.charge=Math.min(MAXCHARGE,S.charge+gain);
+  const was=S.charge;S.charge=Math.min(MAXCHARGE,S.charge+gain*(1+skVal('m2')));
   if(was<MAXCHARGE&&S.charge>=MAXCHARGE){text('BAZINGA! e gata!',L.W/2,L.mouthY-10,22,false,'#4ade80');sfx.ready();
     const r=$('#bz').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:26,colors:['#ffd23f','#fff3b0'],speed:260,grav:300})}
   if(S.arcade)arcadeBox(h);
@@ -2167,7 +2230,7 @@ function usePower(id){
   const r=POWER_FN[id]();
   if(r===false){if(id!=='hammer')S.hist.pop();sfx.bad();return}
   if(r==='toggle'){sfx.ui();return} // the hammer is spent when it actually breaks a block
-  inv[id]--;saveInv();sfx.power();buzz(20);S.powersUsed++;(S.pwTypes=S.pwTypes||[]).includes(id)||S.pwTypes.push(id);
+  inv[id]--;saveInv();sfx.power();buzz(20);S.powersUsed++;S.idleT=0;S.insight=null;(S.pwTypes=S.pwTypes||[]).includes(id)||S.pwTypes.push(id);
 }
 
 function update(dt){
@@ -2182,7 +2245,7 @@ function update(dt){
   if(rush&&!S.rush){text('⏩ Turbo',L.W/2,L.cy+L.r+L.beltR+22,18,false,S.theme.line);tone(300,900,.25,'sine',.06)}
   S.rush=rush;S.speedMul=(S.speedMul||1)+((rush?3.5:1)-(S.speedMul||1))*Math.min(1,dt*(rush?6:6));
   const frozen=!!(S.boss&&S.boss.frozen); // Medusa's gaze stops the belt completely
-  S.time+=dt;S.offset=(S.offset-(frozen?0:L.speed*S.speedMul)*dt+L.P)%L.P;S.shake=Math.max(0,S.shake-dt);
+  insightTick(dt);S.time+=dt;S.offset=(S.offset-(frozen?0:L.speed*S.speedMul)*dt+L.P)%L.P;S.shake=Math.max(0,S.shake-dt);
   if(S.boss)bossUpdate(dt);
   if(S.arcade)arcadeUpdate(dt);
   S.bb.forEach(b=>b.ps=b.s);   // remember where each belt ball was before it moves this frame
@@ -2211,7 +2274,7 @@ function winLevel(){S.over=true;sfx.win();
   const prog=store.get('level',1),unlocked=S.level>=prog;if(unlocked)store.set('level',S.level+1);
   // stars: bonus coins only for stars above your previous best on this level (replays can't farm it)
   // a boss fight rates the hearts you kept; normal levels rate time and power-ups
-  const B=S.boss,stars=B?bossStars():starsFor(S.time,S.par,S.par2,S.powersUsed),best=bestStars(S.level),bonus=stars>best?STAR_COINS[stars]-STAR_COINS[best]:0;
+  const B=S.boss,stars=B?bossStars():starsFor(S.time,S.par,S.par2,S.powersUsed),best=bestStars(S.level),bonus=stars>best?Math.round((STAR_COINS[stars]-STAR_COINS[best])*(1+skVal('f1'))):0;
   saveStars(S.level,stars);if(bonus)addCoins(bonus,false);
   const br=B?bossVictoryRewards():null,lost=B?B.heartsMax-B.hearts:0,next=()=>goMap(unlocked?S.level+1:0);
   const xpRes=grantXP(levelXP(stars,best,B?br.first:unlocked,B));
@@ -2223,7 +2286,7 @@ function winLevel(){S.over=true;sfx.win();
     ...(br&&br.chest?[{label:'🎁 Deschide Cufărul Legendar',fn:()=>{openChest(br.chest);next()}}]:[]),
     {label:'Continuă',ghost:!!(br&&br.chest),fn:next},{label:'Rejoacă',ghost:true,fn:()=>playLevel(S.level,true)}]);
     $('#rX').innerHTML=`<div class="res-stars">${[0,1,2].map(()=>'<i>'+ico('star')+'</i>').join('')}</div>
-      <div class="res-facts">${B?`<span>⏱ ${fmtTime(S.time)}</span><span>❤️ ${B.hearts}/${B.heartsMax}</span>`:`<span>⏱ ${fmtTime(S.time)} · ⭐⭐⭐ ${fmtTime(S.par)} · ⭐⭐ ${fmtTime(S.par2)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>${S.replay?'<span>🔁 rejucat: monede din cutii ×½</span>':''}`}${bonus?`<span>⭐ bonus +${bonus}</span>`:''}${br?`<span>⚔️ ${BOSS_DIFF[B.diff].name}: +${br.coins}${br.first?'':' (rejucat)'}</span>`:''}${br&&br.title?`<span>🏅 ${br.title}</span>`:''}</div>`+
+      <div class="res-facts">${B?`<span>⏱ ${fmtTime(S.time)}</span><span>❤️ ${B.hearts}/${B.heartsMax}</span>`:`<span>⏱ ${fmtTime(S.time)} · ⭐⭐⭐ ${fmtTime(S.par)} · ⭐⭐ ${fmtTime(S.par2)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>${S.replay?'<span>🔁 rejucat: monede din cutii ×½</span>':''}`}${bonus?`<span>⭐ bonus +${bonus}</span>`:''}${br?`<span>⚔️ ${BOSS_DIFF[B.diff].name}: +${br.coins}${br.first?'':' (rejucat)'}</span>`:''}${br&&br.sp?`<span>${ico('sp')} +${br.sp} SP</span>`:''}${br&&br.title?`<span>🏅 ${br.title}</span>`:''}</div>`+
       (br&&br.items.length?`<p class="note">Recompense exclusive:</p><div class="co-rewards">${br.items.map(([c,id])=>{const it=cosItem(c,id);return `<div class="rw sk r-boss" style="width:120px">${c==='bg'?`<div class="bgprev" style="background:${bgPreview(id)};height:40px"></div>`:`<canvas data-brprev="${c}:${id}" width="300" height="124"></canvas>`}<span>${it.name}</span><span class="rar">Boss</span></div>`}).join('')}</div>`:'');
     if(br)$('#rX').insertAdjacentHTML('beforeend',`<div class="boss-next">${bossNextTips(B,br).map(t=>`<p>${t}</p>`).join('')}</div>`);
     $('#rX').insertAdjacentHTML('beforeend',xpBlock(xpRes));xpBlockAnim(xpRes);
@@ -2253,11 +2316,12 @@ function checkEnd(dt){
   S.stuckT+=dt;
   if(S.stuckT<LOOP_SEC*.6)return;
   S.over=true;sfx.lose();buzz(120);
-  const ready=S.charge>=MAXCHARGE&&S.hist.length>0;
+  const ready=S.charge>=MAXCHARGE&&S.hist.length>0,lv1=skVal('m1'),last=!ready&&lv1>0&&!S.lastChance&&S.hist.length>0&&S.charge>=MAXCHARGE*lv1-1e-9;
   result('Blocat!','Banda e plină și nicio bilă nu mai încape în cutiile de sus.',[
     ...(ready?[{label:'⟲ BAZINGA! Anulează',fn:()=>{undo()}}]:[]),
+    ...(last?[{label:'⟲ Ultima șansă: anulează',fn:()=>{S.lastChance=true;S.charge=MAXCHARGE;undo()}}]:[]),
     ...SAVE_PW.filter(id=>inv[id]>0).map(id=>{const p=POWERS.find(q=>q.id===id);return{label:`Folosește ${p.name} (${inv[id]})`,ghost:ready,fn:()=>{S.over=false;S.stuckT=0;usePower(id)}}}),
-    {label:'Reîncearcă',ghost:ready||SAVE_PW.some(id=>inv[id]>0),fn:()=>playLevel(S.level,true)},{label:'Harta nivelurilor',ghost:true,fn:()=>goMap(0)}]);
+    {label:'Reîncearcă',ghost:ready||last||SAVE_PW.some(id=>inv[id]>0),fn:()=>playLevel(S.level,true)},{label:'Harta nivelurilor',ghost:true,fn:()=>goMap(0)}]);
   shakeEl($('#result .card'));
 }
 
@@ -2434,7 +2498,7 @@ function arcHint(h){const A=S.arcade,d=A.danger&&!S.over;
   h.textContent=d?'⚠️ Atenție! Un bloc e chiar deasupra marginii!':A.mode==='vs'?`⚔️ Bate-l pe ${A.vs}: ${fmtN(A.target)} puncte`:A.mode==='daily'?`📅 Provocarea zilei · țintă ${fmtN(ARC.dailyTarget)} puncte`:'🕹️ Nu lăsa blocurile să atingă linia roșie!';
   h.classList.toggle('alert',d)}
 function arcRecordRun(){const A=S.arcade,top=store.get('arcTop',[]),e=top.find(t=>t.id===A.runId);
-  if(e)e.s=A.score;else top.push({id:A.runId,s:A.score,seed:A.seed,m:A.mode,d:Date.now()});
+  const k=A.mode==='free'&&skVal('c4')>0?1:0;if(e)e.s=A.score;else top.push(k?{id:A.runId,s:A.score,seed:A.seed,m:A.mode,d:Date.now(),k}:{id:A.runId,s:A.score,seed:A.seed,m:A.mode,d:Date.now()});
   top.sort((a,b)=>b.s-a.s);store.set('arcTop',top.slice(0,10))}
 function arcadeOver(){
   const A=S.arcade;S.over=true;S.shake=.7;sfx.lose();buzz([80,60,160]);setHint();
@@ -2458,7 +2522,7 @@ function arcadeOver(){
       `<button class="skbtn share" id="arcShare">📤 Provoacă un prieten cu ${fmtN(A.score)}</button>`;
     const ax=Math.min(XP_RULES.arcade.cap,Math.floor(A.score/XP_RULES.arcade.per))-(A.xpGiven||0);
     if(ax>0){A.xpGiven=(A.xpGiven||0)+ax;const xr=grantXP(ax);$('#rX').insertAdjacentHTML('beforeend',xpBlock(xr));xpBlockAnim(xr)}
-    $('#arcShare').addEventListener('click',()=>shareChallenge(A.score,A.seed));
+    $('#arcShare').addEventListener('click',()=>shareChallenge(A.score,A.seed,A.mode==='free'&&skVal('c4')>0));
     if(rec||(A.vs&&A.score>A.target))celebrate();
     setTimeout(()=>{countUp(S.earned);paintCoins(true)},400)},1000);
 }
@@ -2589,15 +2653,15 @@ function paintArcDot(){const b=$('#arcade');if(!b)return;let d=b.querySelector('
    your friend plays the very same board and tries to beat you, then sends their code back ---- */
 const b64u={enc:s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''),
   dec:s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))))};
-const arcCode=(score,seed)=>'BZ'+b64u.enc(JSON.stringify({n:arcName(),s:score,d:seed}));
+const arcCode=(score,seed,k)=>'BZ'+b64u.enc(JSON.stringify(k?{n:arcName(),s:score,d:seed,k:1}:{n:arcName(),s:score,d:seed}));
 function parseArcCode(t){const m=/BZ([A-Za-z0-9_-]{8,})/.exec(t||'');if(!m)return null;
-  try{const o=JSON.parse(b64u.dec(m[1]));if(o&&o.n&&isFinite(o.s)&&isFinite(o.d))return{n:String(o.n).slice(0,16),s:Math.max(0,Math.floor(o.s)),d:Math.floor(o.d)}}catch(e){}
+  try{const o=JSON.parse(b64u.dec(m[1]));if(o&&o.n&&isFinite(o.s)&&isFinite(o.d))return{n:String(o.n).slice(0,16),s:Math.max(0,Math.floor(o.s)),d:Math.floor(o.d),k:o.k?1:0}}catch(e){}
   return null}
-function addFriend(o){const f=store.get('arcFriends',{});if(!f[o.n]||o.s>f[o.n].s)f[o.n]={s:o.s,d:o.d};store.set('arcFriends',f)}
-async function shareChallenge(score,seed){
+function addFriend(o){const f=store.get('arcFriends',{});if(!f[o.n]||o.s>f[o.n].s)f[o.n]=o.k?{s:o.s,d:o.d,k:1}:{s:o.s,d:o.d};store.set('arcFriends',f)}
+async function shareChallenge(score,seed,k){
   if(!store.get('arcName','')){openArcHub('rank');banner('<small>Scrie-ți întâi numele, ca prietenii să știe cine îi provoacă</small>');setTimeout(()=>{const i=$('#arcNameIn');if(i)i.focus()},400);return}
-  const code=arcCode(score,seed),url=/github\.io$/.test(location.hostname)?location.origin+location.pathname+'?c='+code.slice(2):'';
-  const text=`🕹️ Te provoc la Bazinga! Arcade: bate ${fmtN(score)} de puncte pe aceeași tablă!\nCodul meu: ${code}`+(url?'\n'+url:'');
+  const code=arcCode(score,seed,k),url=/github\.io$/.test(location.hostname)?location.origin+location.pathname+'?c='+code.slice(2):'';
+  const text=`🕹️ Te provoc la Bazinga! Arcade: bate ${fmtN(score)} de puncte pe aceeași tablă${k?' (scor făcut cu skill-uri)':''}!\nCodul meu: ${code}`+(url?'\n'+url:'');
   if(navigator.share){try{await navigator.share({text});return}catch(e){if(e&&e.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(text);banner('<small>Provocarea a fost copiată. Trimite-o cui vrei!</small>');sfx.ui();return}catch(e){}
   openArcHub('rank');banner('<small>Copiază codul de aici și trimite-l</small>');
@@ -2626,11 +2690,11 @@ function renderArcHub(){if(arcShownTab!==arcTab){arcShownTab=arcTab;setTimeout((
       `<p class="note">Misiuni terminate: ${s.done}</p>`;
   }else{
     const f=store.get('arcFriends',{}),top=store.get('arcTop',[]),inc=arcIncoming;
-    const list=[{n:arcName(),s:best,me:true},...Object.entries(f).map(([n,v])=>({n,s:v.s}))].sort((a,b)=>b.s-a.s);
-    body.innerHTML=(inc?`<div class="arow vs"><span class="em">⚔️</span><div><h3>${arcEsc(inc.n)} te provoacă!</h3><p>Bate ${fmtN(inc.s)} de puncte pe aceeași tablă.</p></div><button class="skbtn" data-vs="${arcEsc(inc.n)}">Joacă</button></div>`:'')+
+    const list=[{n:arcName(),s:best,me:true},...Object.entries(f).map(([n,v])=>({n,s:v.s,k:v.k}))].sort((a,b)=>b.s-a.s);
+    body.innerHTML=(inc?`<div class="arow vs"><span class="em">⚔️</span><div><h3>${arcEsc(inc.n)} te provoacă!${inc.k?'<span class="sktag">cu skill-uri</span>':''}</h3><p>Bate ${fmtN(inc.s)} de puncte pe aceeași tablă.</p></div><button class="skbtn" data-vs="${arcEsc(inc.n)}">Joacă</button></div>`:'')+
     `<label class="lbl" for="arcNameIn">Numele tău</label><input class="tin" id="arcNameIn" maxlength="16" autocomplete="nickname" value="${arcEsc(store.get('arcName',''))}" placeholder="Scrie-ți numele">
     <h3 class="sec">Clasament</h3>
-    ${list.map((e,i)=>`<div class="lbrow${e.me?' me':''}"><span class="pos">${['🥇','🥈','🥉'][i]||i+1}</span><b>${arcEsc(e.n)}${e.me?' (tu)':''}</b><span class="sc">${fmtN(e.s)}</span>${e.me?'':`<button class="skbtn" data-vs="${arcEsc(e.n)}" aria-label="Joacă provocarea lui ${arcEsc(e.n)}">⚔️</button>`}</div>`).join('')}
+    ${list.map((e,i)=>`<div class="lbrow${e.me?' me':''}"><span class="pos">${['🥇','🥈','🥉'][i]||i+1}</span><b>${arcEsc(e.n)}${e.me?' (tu)':''}${e.k?'<span class="sktag">cu skill-uri</span>':''}</b><span class="sc">${fmtN(e.s)}</span>${e.me?'':`<button class="skbtn" data-vs="${arcEsc(e.n)}" aria-label="Joacă provocarea lui ${arcEsc(e.n)}">⚔️</button>`}</div>`).join('')}
     ${list.length<2?'<p class="note">Încă nu ai prieteni aici. Trimite-le o provocare. Când îți trimit codul lor, apar în clasament.</p>':''}
     <div class="arow"><span class="em">📤</span><div><h3>Trimite o provocare</h3><p>${top.length?`Cu cea mai bună tură a ta: ${fmtN(top[0].s)} puncte.`:'Joacă o tură ca să ai ce trimite.'}</p></div><button class="skbtn" data-arc="share" ${top.length?'':'disabled'}>Trimite</button></div>
     ${top.length?`<textarea class="tin code" readonly rows="2" id="myCode" aria-label="Codul tău">${arcCode(top[0].s,top[0].seed)}</textarea>`:''}
@@ -2647,12 +2711,12 @@ function renderArcHub(){if(arcShownTab!==arcTab){arcShownTab=arcTab;setTimeout((
     addCoins(m.rw,false);rewardFly(b,m.rw);xpToast(grantXP(XP_RULES.mission));s.done++;s.list.splice(i,1);s.list.push(newMission(s));store.set('arcMis',s);achCheck(true);sfx.buy();buzz(20);
     const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:30,colors:['#ffc94a','#fff3b0','#ffd23f'],speed:320,grav:500,plain:true});renderArcHub();paintArcDot()});
   on('[data-vs]',b=>{const n=b.dataset.vs,f=store.get('arcFriends',{})[n]||(inc&&inc.n===n?{s:inc.s,d:inc.d}:null);if(f){arcIncoming=null;playArcade({mode:'vs',seed:f.d,target:f.s,vs:n})}});
-  on('[data-arc="share"]',()=>{const t=store.get('arcTop',[])[0];if(t)shareChallenge(t.s,t.seed)});
+  on('[data-arc="share"]',()=>{const t=store.get('arcTop',[])[0];if(t)shareChallenge(t.s,t.seed,t.k)});
   on('[data-arc="code"]',()=>{const inp=$('#codeIn'),o=parseArcCode(inp.value);
     if(!o){shakeEl(inp);sfx.bad();inp.value='';inp.placeholder='Cod greșit, mai încearcă';return}
     addFriend(o);arcIncoming=o;sfx.unlock();renderArcHub()});
   const nm=$('#arcNameIn');if(nm)nm.addEventListener('input',()=>{store.set('arcName',nm.value.trim().slice(0,16));const me=body.querySelector('.lbrow.me b');if(me)me.textContent=arcName()+' (tu)';
-    const code=$('#myCode'),t=store.get('arcTop',[])[0];if(code&&t)code.value=arcCode(t.s,t.seed)});
+    const code=$('#myCode'),t=store.get('arcTop',[])[0];if(code&&t)code.value=arcCode(t.s,t.seed,t.k)});
   const mc=$('#myCode');if(mc)mc.addEventListener('click',()=>mc.select());
 }
 
@@ -2893,8 +2957,8 @@ function reflectBolt(b){const[x,y]=bossPt('gem'),r=rodPos(b.charge?b.charge.aim:
 function bossHit(h){const b=S.boss;if(!b||b.trans||b.dying!=null||S.over)return;
   const d=BOSS_DIFF[b.diff],crit=h.color===b.weak;
   // filling a weak-colour box while he charges interrupts the attack
-  if(crit&&b.charge&&!b.charge.ult){b.charge=null;dealDamage(b,d.crit*2,true);stagger(b,3,'ÎNTRERUPT!');return}
-  dealDamage(b,(crit?d.crit:1)*(S.combo>=3?1.25:1)*(b.stagT>0?2:1),crit)}
+  if(crit&&b.charge&&!b.charge.ult){b.charge=null;dealDamage(b,(1+skVal('c1'))*d.crit*2,true);stagger(b,3,'ÎNTRERUPT!');return}
+  dealDamage(b,(1+skVal('c1'))*(crit?d.crit:1)*(S.combo>=3?1.25:1)*(b.stagT>0?2:1),crit)}
 function dealDamage(b,dmg,crit){if(b.trans||b.dying!=null)return;
   b.hp=Math.max(0,b.hp-dmg);b.hitT=.18;const[x,y]=bossPt('gem');
   text((crit?'CRITIC −':'−')+Math.round(dmg*10)/10,x+rnd(-30,30),y-10,crit?28:20,crit,crit?'#ffd23f':'#ffffff');
@@ -2961,7 +3025,7 @@ function bossUpdate(dt){
   if(b.mini)bossMiniUpdate(dt);
   const c=b.charge;
   if(c){c.t+=dt;
-    if(c.counter==='rod'){const d=BOSS_DIFF[b.diff],lock=c.dur-c.t<=d.win;c.aimT+=dt;if(!lock&&c.aimT>=d.aim){c.aimT=0;c.aim=(c.aim+1+Math.floor(Math.random()*2))%3}}
+    if(c.counter==='rod'){const d=BOSS_DIFF[b.diff],lock=c.dur-c.t<=bossWin(b);c.aimT+=dt;if(!lock&&c.aimT>=d.aim){c.aimT=0;c.aim=(c.aim+1+Math.floor(Math.random()*2))%3}}
     if(c.t>=c.dur){if(c.counter)counterFail(b,c,'Prea târziu!');else execAttack(b,c)}}
   else if(!b.mini&&!b.ult&&b.stagT<=0&&b.intro>=1&&S.time>=b.next&&!S.emitters.length)startAttack(b,pickAttack(b));
   // steam from the bull's nostrils, harder while he charges or rages
@@ -3121,7 +3185,7 @@ function bossTapRoute(px,py){
     if(m.kind==='snakes'){for(const s of m.targets){if(s.hit||s.bit||s.out<.4||s.delay>0)continue;
       if(Math.hypot(px-s.x,py-(s.y-L.cs*.7*s.out))<Math.max(26,L.cs*.6)){s.hit=true;m.hits++;sfx.bonk();buzz(20);setMiniHint();
         const cr=cv.getBoundingClientRect();burst(cr.left+s.x,cr.top+s.y-30,{n:12,colors:['#4ade80','#fff3b0'],speed:220,grav:500,plain:true});return true}}}}
-  if(c&&c.counter==='mirror'){const mp=mirrorPos();if(Math.hypot(px-mp.x,py-mp.y)<mp.r*1.5){if(c.dur-c.t<=d.win)counterSuccess(b,c,'REFLECTAT!');else counterFail(b,c,'Prea devreme!');return true}}
+  if(c&&c.counter==='mirror'){const mp=mirrorPos();if(Math.hypot(px-mp.x,py-mp.y)<mp.r*1.5){if(c.dur-c.t<=bossWin(b))counterSuccess(b,c,'REFLECTAT!');else counterFail(b,c,'Prea devreme!');return true}}
   if(c&&c.counter==='rod'){const i=rodHit(px,py);if(i>=0){if(i===c.aim)counterSuccess(b,c,'TRĂSNET ÎNTORS!');else counterFail(b,c,'Paratrăsnetul greșit!');return true}}
   if(b.cloud&&Math.hypot(px-b.cloud.x,py-b.cloud.y)<b.cloud.r){b.cloud.hp--;b.cloud.hit=.2;sfx.bonk();buzz(15);if(b.cloud.hp<=0){b.cloud=null;text('Norul s-a risipit!',px,py-20,22,false,'#cfd6ff');sfx.unlock()}return true}
   for(let i=0;i<b.ink.length;i++){const k=b.ink[i];if(Math.hypot(px-k.x,py-k.y)<k.r){b.ink.splice(i,1);sfx.splash();buzz(10);return true}}
@@ -3294,11 +3358,11 @@ function drawBossOverlay(){
   // charging attacks: the row about to be pushed, the mirror, the lightning rods
   if(c&&c.key==='push'&&c.row>=0){const y=L.by+c.row*L.cs,a=.25+.25*Math.sin(t*14);ctx.fillStyle=`rgba(255,60,30,${a})`;ctx.fillRect(L.bx,y,L.cs*S.cols,L.cs);
     ctx.fillStyle='rgba(255,255,255,.85)';ctx.font=`800 ${L.cs*.5}px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('⇄',L.W/2,y+L.cs/2)}
-  if(c&&c.counter==='mirror'){const mp=mirrorPos(),open=c.dur-c.t<=d.win;ctx.save();ctx.translate(mp.x,mp.y);
+  if(c&&c.counter==='mirror'){const mp=mirrorPos(),open=c.dur-c.t<=bossWin(b);ctx.save();ctx.translate(mp.x,mp.y);
     ctx.shadowColor=open?'#4ade80':'#7df9ff';ctx.shadowBlur=open?26:10;const g=ctx.createLinearGradient(-mp.r,-mp.r,mp.r,mp.r);g.addColorStop(0,'#ffffff');g.addColorStop(.5,open?'#b8ffcf':'#b9d8ff');g.addColorStop(1,'#5a7aa0');
     ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(0,0,mp.r*.8,mp.r,0,0,7);ctx.fill();ctx.lineWidth=4;ctx.strokeStyle=open?'#4ade80':'#d4a21a';ctx.stroke();ctx.shadowBlur=0;
     ctx.fillStyle='#fff';ctx.font=`800 10px 'Baloo 2',sans-serif`;ctx.textAlign='center';ctx.fillText(open?'ACUM!':'OGLINDA',0,mp.r+12);ctx.restore()}
-  if(c&&c.counter==='rod'){const lock=c.dur-c.t<=d.win;for(let i=0;i<3;i++){const r=rodPos(i),on=i===c.aim;
+  if(c&&c.counter==='rod'){const lock=c.dur-c.t<=bossWin(b);for(let i=0;i<3;i++){const r=rodPos(i),on=i===c.aim;
       ctx.fillStyle='#8d96a8';ctx.fillRect(r.x-2.5,r.y-r.h,5,r.h);RR(r.x-9,r.y-3,18,6,3,'#4a5262');
       ctx.save();ctx.shadowColor=on?'#ff4d4d':'#7df9ff';ctx.shadowBlur=on?18:6;E(r.x,r.y-r.h,7,7,on?(lock?'#ff2d2d':'#ff8a8a'):'#cfe8ff');ctx.restore()}
     const[zx,zy]=bossPt('bolt'),r=rodPos(c.aim);ctx.save();ctx.setLineDash([6,6]);ctx.lineDashOffset=-t*40;ctx.strokeStyle='rgba(255,90,90,.85)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(zx,zy);ctx.lineTo(r.x,r.y-r.h);ctx.stroke();ctx.restore()}
@@ -3369,12 +3433,13 @@ function bossNextTips(b,br){const BB=BOSSES.find(x=>x.id===b.id),it=k=>{const[c,
 function bossVictoryRewards(){
   const b=S.boss,d=BOSS_DIFF[b.diff],B=BOSSES.find(x=>x.id===b.id),wins=store.get('bossWins',{}),key=S.level+':'+b.diff,first=!wins[key];
   wins[key]=1;store.set('bossWins',wins);
-  const coinsWon=first?d.coins:Math.round(d.coins/3),items=[];let title=null,chest=null;
+  const coinsWon=first?Math.round(d.coins*(1+skVal('c3'))):Math.round(d.coins/3),items=[];let title=null,chest=null;
   const give=([c,id])=>{if(!owns(c,id)){COS.own[c].push(id);items.push([c,id])}};
   if(first&&b.diff!=='easy')give(B.items[0]);
   if(first&&(b.diff==='hard'||b.diff==='nightmare'))give(B.items[1]);
   if(first&&b.diff==='nightmare'){const tl=store.get('titles',[]);if(!tl.includes(B.titleWin)){tl.push(B.titleWin);store.set('titles',tl)}title=B.titleWin;chest='legendary'}
-  if(items.length)saveCos();addCoins(coinsWon,false);return{coins:coinsWon,items,first,title,chest};
+  const sp=first?grantSP(SP_BOSS[b.diff]||0,'boss:'+key):0;
+  if(items.length)saveCos();addCoins(coinsWon,false);return{coins:coinsWon,items,first,title,chest,sp};
 }
 
 /* ================= BOSSES 5–8: Hades · Ciclopul · Sfinxul · Fenixul =================
@@ -3618,7 +3683,7 @@ MINI_HINT.eyeg=m=>m.open?'👁️ OCHIUL E DESCHIS: NU ATINGE TABLA!':'✋ Ochiu
 function cyclopsUlt(b){b.ult={kind:'aval',end:S.time+18,rockT:S.time+1,blinkT:S.time+2.5,win:0,taps:0};cyclopsBoulder(b,2);
   banner('AVALANȘA!<small>când clipește, lovește-l de 3 ori în ochi!</small>','hard');sfx.roar();S.shake=.8}
 ULT_TICK.aval=(b,u,dt)=>{if(S.time>=u.rockT){u.rockT=S.time+2.2;cyclopsBoulder(b,1)}
-  if(u.win>0){u.win-=dt;if(u.win<=0){u.taps=0;u.blinkT=S.time+rnd(2.2,3.2)}}else if(S.time>=u.blinkT){u.win={easy:1.3,normal:1,hard:.85,nightmare:.7}[b.diff];u.taps=0;tone(700,900,.12,'triangle',.08)}
+  if(u.win>0){u.win-=dt;if(u.win<=0){u.taps=0;u.blinkT=S.time+rnd(2.2,3.2)}}else if(S.time>=u.blinkT){u.win={easy:1.3,normal:1,hard:.85,nightmare:.7}[b.diff]+(c2On(b)?skVal('c2'):0);u.taps=0;tone(700,900,.12,'triangle',.08)}
   if(S.time>=u.end)ultEnd(b,false)};
 const eyeHit=(px,py)=>{const[x,y]=P(200,120);return Math.hypot(px-x,py-y)<Math.max(30,S.boss.fr.bh*.13)};
 
@@ -3861,8 +3926,9 @@ function skMigrate(){const r=skRead();if(!r.ok||r.s.mig)return;let n=0;
 /* ---- XP for a finished level (called from the win screen) ---- */
 function levelXP(stars,best,first,boss){const R=XP_RULES.level;
   if(boss)return first?BOSS_XP[boss.diff]:Math.round(BOSS_XP[boss.diff]*BOSS_XP.replayK);
-  if(first)return Math.round((R.first+R.perStar*stars)*(S.hard?R.hardK:1));
-  return R.replay+R.replayStar*stars+Math.max(0,stars-best)*R.betterStar}
+  const k=1+skVal('f4');
+  if(first)return Math.round((R.first+R.perStar*stars)*(S.hard?R.hardK:1)*k);
+  return Math.round((R.replay+R.replayStar*stars+Math.max(0,stars-best)*R.betterStar)*k)}
 // the XP strip on the result screen: the bar fills from where you were, level-ups and their rewards below
 function xpBlock(res){const lv=res.lv,pct=lv.need?lv.into/lv.need*100:100,start=res.ups.length?0:Math.max(0,(lv.into-res.gain)/(lv.need||1)*100);
   return `<div class="xpgain"><div class="row"><span>⭐ +${res.gain} XP</span><span>Nivel jucător ${lv.L}${lv.L>=PL_MAX?' · MAX':''}</span></div><div class="xpbar"><i data-w="${pct.toFixed(1)}%" style="width:${start.toFixed(1)}%"></i></div>`+
@@ -4086,7 +4152,7 @@ function hud(){
   if(key===lastHud)return;lastHud=key;
   $('#lvl').textContent=S.arcade?'⚡ Viteza '+S.arcade.lvl:'Niv. '+S.level;
   const bz=$('#bz');bz.style.setProperty('--p',S.charge/MAXCHARGE);bz.classList.toggle('free',free&&(S.arcade||S.hist.length>0));
-  $('#bzSub').textContent=free?(S.arcade?'⬆ Urcă tabla':'⟲ Anulează'):`Combo ${S.charge}/${MAXCHARGE}`;
+  $('#bzSub').textContent=free?(S.arcade?'⬆ Urcă tabla':'⟲ Anulează'):`Combo ${Math.floor(S.charge)}/${MAXCHARGE}`;
   $$('.pw').forEach(b=>{const n=inv[b.dataset.p],badge=b.querySelector('b');badge.textContent=n>0?n:'+';badge.classList.toggle('zero',n<=0);b.classList.toggle('on',b.dataset.p==='hammer'&&S.hammer);b.classList.toggle('locked',pcap!=null&&!(b.dataset.p==='hammer'&&S.hammer)&&(S.powersUsed>=pcap||n<=0))});
   if(pcap!=null)$('#powers').dataset.left=pcap?`Power-up: ${Math.max(0,pcap-S.powersUsed)}/${pcap}`:'Fără power-up-uri';else delete $('#powers').dataset.left;
 }
@@ -4158,8 +4224,8 @@ function renderShop(highlight){
   closeSkDetail(true);
   if(shopTab==='power'){
     body.innerHTML=POWERS.map(p=>`<div class="item" data-id="${p.id}"><div class="ic pw-ic">${powerTile(p)}</div>
-      <div><h3>${p.name}</h3><p>${p.desc}</p><span class="own">Ai: <b>${inv[p.id]}</b></span>${coins<p.price?` <small class="short">· îți lipsesc ${fmtN(p.price-coins)}</small>`:''}</div>
-      <button class="buy" data-buy="${p.id}" ${coins<p.price?'disabled':''}>${coinTag(p.price)}</button></div>`).join('')+
+      <div><h3>${p.name}</h3><p>${p.desc}</p><span class="own">Ai: <b>${inv[p.id]}</b></span>${pwPrice(p)<p.price?` <small>· Resourceful: ${p.price} → ${pwPrice(p)}</small>`:''}${coins<pwPrice(p)?` <small class="short">· îți lipsesc ${fmtN(pwPrice(p)-coins)}</small>`:''}</div>
+      <button class="buy" data-buy="${p.id}" ${coins<pwPrice(p)?'disabled':''}>${coinTag(pwPrice(p))}</button></div>`).join('')+
       `<p class="note">BAZINGA! e gratuit: combo-urile îi umplu bara, iar când e plină anulează ultima mutare.</p>`;
     body.querySelectorAll('[data-buy]').forEach(b=>b.addEventListener('click',()=>buy(b.dataset.buy)));
     if(highlight){const el=body.querySelector(`[data-id="${highlight}"]`);el&&(el.style.borderColor='var(--accent)')}
@@ -4255,9 +4321,10 @@ function buyCos(btn){const[cat,id]=btn.dataset.buyCos.split(':'),it=cosItem(cat,
   addCoins(-it.price);sfx.unlock();buzz([15,30,15]);
   const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top,{n:40,speed:400,grav:600,plain:true});equip(cat,id);
   shopToast(`🎉 Al tău: <b>${it.name}</b> · −${fmtN(it.price)} <span class="coin"></span>`)}
+const pwPrice=p=>Math.ceil(p.price*(1-Math.min(.1,skVal('f3'))));
 function buy(id){
-  const p=POWERS.find(q=>q.id===id);if(coins<p.price){sfx.bad();return}
-  addCoins(-p.price);inv[id]++;saveInv();sfx.buy();buzz(15);lastHud='';renderShop(id);shopToast(`+1 <b>${p.name}</b> · ai ${inv[id]}`);
+  const p=POWERS.find(q=>q.id===id),pr=pwPrice(p);if(coins<pr){sfx.bad();return}
+  addCoins(-pr);inv[id]++;saveInv();sfx.buy();buzz(15);lastHud='';renderShop(id);shopToast(`+1 <b>${p.name}</b> · ai ${inv[id]}`);
 }
 
 /* ================= chest opening: tap 5 times, it hops and the lid lifts a little more each time; the 5th tap bursts it open ================= */
@@ -4268,12 +4335,12 @@ function buyChest(type,btn){
   else{const C=CHESTS[type];if(coins<C.price){sfx.bad();shopToast(`Îți lipsesc <b>${fmtN(C.price-coins)}</b> monede`);return}
     if(!btn.classList.contains('sure')){btn.classList.add('sure');btn.innerHTML='Sigur? ✓';sfx.ui();setTimeout(()=>{if(btn.isConnected&&btn.classList.contains('sure')){btn.classList.remove('sure');btn.innerHTML=coinTag(C.price)}},3000);return}
     addCoins(-C.price,false)}
-  openChest(type);
+  openChest(type,type!=='free');
 }
-function openChest(type){
+function openChest(type,bought){
   const ov=$('#chestOv'),C=CHESTS[type];
   // rewards are rolled and saved now; the five taps only reveal them
-  chestState={type,taps:0,done:false,reward:rollChest(type)};achAdd('chests',1);
+  chestState={type,taps:0,done:false,reward:rollChest(type,bought)};achAdd('chests',1);
   ov.classList.remove('open');$('#coTitle').textContent=C.name;$('#coStage').innerHTML=chestHTML(type,22);
   $('#coDots').innerHTML='<i></i>'.repeat(5);$('#coHint').textContent='Atinge cufărul de 5 ori!';$('#coRewards').innerHTML='';$('#coSum').hidden=true;$('#coEquip').hidden=true;$('#coCollect').hidden=true;
   ov.hidden=false;sfx.whoosh();
@@ -4303,6 +4370,7 @@ function showRewards(rw){
   cards.push(`<div class="rw" style="--rc:#ffc94a"><span class="big">+${rw.coins}</span><span class="coin" style="width:22px;height:22px"></span>monede</div>`);
   const counts={};rw.powers.forEach(p=>counts[p]=(counts[p]||0)+1);
   Object.entries(counts).forEach(([id,c])=>{const p=POWERS.find(q=>q.id===id);cards.push(`<div class="rw pw-ic" style="--rc:${p.c[2]}">${powerTile(p)}${p.name}${c>1?' ×'+c:''}</div>`)});
+  if(rw.sp)cards.push(`<div class="rw" style="--rc:#b07bff"><span class="big">+${rw.sp}</span>${ico('sp')} SP</div>`);
   if(rw.item){const it=cosItem(rw.item.cat,rw.item.id),rc=it.rar==='legendary'?'#ff4d6d':RARITY[it.rar].color;
     cards.push(`<div class="rw sk r-${it.rar}" style="--rc:${rc};width:120px"><span class="rwnew">NOU</span>${rw.item.cat==='bg'?`<div class="bgprev" style="background:${bgPreview(it.id)};height:40px"></div>`:`<canvas data-rwprev width="300" height="124"></canvas>`}<span>${it.name}</span><span class="rar">${RARITY[it.rar].name}</span></div>`)}
   box.innerHTML='';
@@ -4311,7 +4379,7 @@ function showRewards(rw){
     if(i===cards.length-1)setTimeout(()=>{coSummary(rw);$('#coCollect').hidden=false},250)},500+i*380));
 }
 function coSummary(rw){const np=rw.powers.length,it=rw.item&&cosItem(rw.item.cat,rw.item.id);
-  const parts=[`+${fmtN(rw.coins)} <span class="coin"></span>`,`${np} power-up${np===1?'':'-uri'}`];if(it)parts.push(`1 obiect nou (${RARITY[it.rar].name})`);
+  const parts=[`+${fmtN(rw.coins)} <span class="coin"></span>`,`${np} power-up${np===1?'':'-uri'}`];if(it)parts.push(`1 obiect nou (${RARITY[it.rar].name})`);if(rw.sp)parts.push(`+${rw.sp} SP`);
   $('#coSum').innerHTML=`<b>Ai primit:</b> ${parts.join(' · ')}${rw.bonus?`<br><small>Ai deja tot ce putea ieși din cufăr, așa că primești +${fmtN(rw.bonus)} monede în loc.</small>`:''}<br><small>Acum ai ${fmtN(coins)} monede</small>`;
   $('#coSum').hidden=false;
   const eb=$('#coEquip');if(it&&COS.eq[rw.item.cat]!==rw.item.id){eb.hidden=false;eb.disabled=false;eb.textContent=`Echipează ${it.name}`;
@@ -4356,7 +4424,7 @@ function paintHome(){const l=store.get('level',1);$('#playLvl').textContent='Niv
   $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':'';paintHomeExtras()}
 function start(n,quiet){
   $$('.modal').forEach(m=>m.hidden=true);
-  S=makeLevel(n);S.replay=!S.boss&&n<store.get('level',1);S.boxN=0;showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);if(!S.boss)MUSIC.bpm=104;
+  S=makeLevel(n);S.replay=!S.boss&&n<store.get('level',1);S.boxN=0;{const add=S.boss?0:skVal('m4');if(add){S.cap+=add;S.capBase+=add}}showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);if(!S.boss)MUSIC.bpm=104;
   if(!quiet)levelIntro(n);
   window.claude?.hot?.snapshot?.(()=>({level:S.arcade?0:S.level,screen:S.arcade?'home':screen}));
 }
@@ -4762,6 +4830,40 @@ $('#arcade').addEventListener('click',()=>{initAudio();firstGift=false;openArcHu
 $$('#arcTabs button').forEach(b=>b.addEventListener('click',()=>{arcTab=b.dataset.tab;renderArcHub();sfx.ui()}));
 $('#pMap').addEventListener('click',()=>goMap(0));
 $('#hShop').addEventListener('click',()=>openShop());
+/* ---- skill tree screen ---- */
+let skBr='mastery';
+const SK_ICON={m1:'back',m2:'fire',m3:'target',m4:'plus',f1:'coin',f2:'chest',f3:'shop',f4:'star',c1:'skull',c2:'pause',c3:'crown',c4:'gamepad'};
+const SK_ROMAN=['I','II','III','IV','V'];
+// the state of one skill card: max / locked by level / can buy / not enough SP
+function skCardHTML(k){const t=skTier(k.id),c=skCan(k.id),st=t>=SK_MAX?'max':c.why==='nivel'?'lock':c.ok?'can':'need';
+  const pips=[...Array(SK_MAX)].map((_,i)=>`<i class="${i<t?'on':''}"></i>`).join('');
+  const now=t?k.d(k.v[t-1]):'Încă nu l-ai învățat.',next=t<SK_MAX?k.d(k.v[t]):'';
+  const cost=t<SK_MAX?skCost(k,t):0;
+  const btn=st==='max'?'<button class="skup max" disabled>✓ MAXIM</button>'
+    :st==='lock'?`<button class="skup lock" disabled>${ico('lock')} Nivelul ${k.lvl}</button>`
+    :`<button class="skup${st==='need'?' need':''}" data-sk="${k.id}"${st==='need'?' aria-disabled="true"':''}>⬆ Upgrade · ${cost} ${ico('sp')}</button>`;
+  return `<div class="skc ${st}" data-skc="${k.id}"><div class="skic">${ico(SK_ICON[k.id])}</div><div class="sktx">
+    <h3>${k.name} <small>${t?'Tier '+SK_ROMAN[t-1]:'—'}</small></h3><div class="pips" aria-label="Tier ${t} din 5">${pips}</div>
+    <p class="now">${now}</p>${next?`<p class="next"><b>${t?'Următorul':'Tier I'}:</b> ${next}</p>`:''}
+    ${st==='lock'?`<p class="why">Se deblochează la nivelul ${k.lvl} (ești la ${plLevel(plState().xp).L}).</p>`:st==='need'?`<p class="why">Îți lipsesc ${cost-skState().sp} SP.</p>`:''}</div>${btn}</div>`}
+function renderSkills(){const p=plState(),lv=plLevel(p.xp),s=skState();
+  $('#skSP').innerHTML=`${ico('sp')}<b>${s.sp}</b> SP`;
+  $('#skHead').innerHTML=`<div class="sklv"><b>Nivel ${lv.L}</b><span class="prog xp"><i style="width:${lv.need?Math.round(lv.into/lv.need*100):100}%"></i></span><small>${lv.need?`XP ${lv.into} / ${lv.need}`:'Nivel maxim'}</small></div>
+    <p class="note">SP: prima victorie pe fiecare boss și dificultate (Ușor 1 · Normal 2 · Greu 3 · Coșmar 5) și cuferele câștigate, nu cele cumpărate.</p>`;
+  $$('#skTabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.br===skBr));
+  $('#skBody').innerHTML=Object.entries(SK_BRANCH).map(([br,B])=>`<section class="skcol br-${br}${br===skBr?' on':''}"><h3 class="sec">${B.name} <small>${B.sub}</small></h3>${SKILLS.filter(k=>k.br===br).map(skCardHTML).join('')}</section>`).join('');
+  paintSkDot()}
+function openSkills(){renderSkills();showModal('skills')}
+// a dot on the bottom bar when something can be bought now
+function paintSkDot(){const d=$('#nSkDot');if(d)d.hidden=!SKILLS.some(k=>skCan(k.id).ok)}
+$('#skTabs').addEventListener('click',e=>{const b=e.target.closest('button[data-br]');if(!b)return;skBr=b.dataset.br;sfx.ui();renderSkills();Motion.stagger($('#skBody .skcol.on'))});
+$('#skBody').addEventListener('click',e=>{const b=e.target.closest('button[data-sk]');if(!b)return;const id=b.dataset.sk;
+  if(b.getAttribute('aria-disabled')==='true'){sfx.bad();buzz(30);shakeEl(b.closest('.skc'));shakeEl($('#skSP'));return}
+  const r=skBuy(id);if(!r.ok){sfx.bad();renderSkills();return}
+  sfx.unlock();buzz([15,30,15]);const rc=b.getBoundingClientRect();burst(rc.left+rc.width/2,rc.top,{n:36,speed:380,grav:600,colors:['#b07bff','#ffd23f','#ffffff'],plain:true});
+  renderSkills();const card=$(`#skBody [data-skc="${id}"]`);if(card)Motion.pop(card);Motion.pop($('#skSP'))});
+$('#nSkills').addEventListener('click',()=>{initAudio();openSkills()});
+
 $('#hCos').addEventListener('click',()=>{shopTab='ball';openShop()});
 $('#hChests').addEventListener('click',()=>{shopTab='chests';openShop()});
 $('#hMis').addEventListener('click',()=>{initAudio();openArcHub('mis')});
@@ -4896,7 +4998,7 @@ function paintHomeExtras(){
   // stars already collected in the current zone, under JOACĂ
   {const z=Math.floor((L0-1)/10),st=store.get('stars',{});let got=0;for(let i=z*10+1;i<=z*10+10;i++)got+=st[i]||0;$('#playStars').innerHTML=got?ico('star')+` ${got}/30 în zonă`:''}
   paintPlayerCard();
-  const d=dailyState();updateDailyUI();$('#hDailyDot').hidden=d.plays>0;}
+  const d=dailyState();updateDailyUI();$('#hDailyDot').hidden=d.plays>0;paintSkDot();}
 /* ================= loop & input ================= */
 let last=performance.now();
 function frame(now){const dt=Math.min(1/30,(now-last)/1000);last=now;
