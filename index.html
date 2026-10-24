@@ -228,6 +228,7 @@ body{overscroll-behavior:none;-webkit-touch-callout:none}
 /* the v2 motion helpers stand still with reduced motion */
 @media (prefers-reduced-motion:reduce){.fx-float,.fx-bob,.fx-pulse,.fx-glow,.fx-sparkle::after,.fx-pop,.fx-stagger>*{animation:none!important}}
 html,body{height:100%}
+@media (display-mode:standalone){html,body{height:100vh}}
 [hidden]{display:none!important}
 body{margin:0;background:radial-gradient(120% 60% at 50% 0%,var(--bg-hi),var(--bg) 70%) var(--bg);color:var(--fg);font-family:var(--body);overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
@@ -829,7 +830,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 .ld-tip{margin:0;max-width:290px;color:var(--muted);font-size:14px;line-height:1.35;min-height:38px}
 @media (prefers-reduced-motion:reduce){.logo span,#play,#play::before,#play .shine::after,#bz.free,.bump,.node.cur,.node.cur::before,.node.boss,.player,.twinkle,.flame,.cloud,.starbar.warn,.lvl-badge.hard,.modal,.modal .card{animation:none!important}.starbar.warn{background:var(--color-danger-wash)}}
 /* ===== home menu v2 (redesign phase 3): fantasy sky world, mascot, side rails, bottom navigation — on design tokens ===== */
-#home{justify-content:flex-start;gap:clamp(6px,1.1vh,12px);padding-block:calc(8px + var(--safe-top)) calc(8px + var(--safe-bottom));color:var(--color-on-scene)}
+#home{justify-content:flex-start;gap:clamp(8px,1.6vh,16px);padding-block:calc(8px + var(--safe-top)) calc(8px + var(--safe-bottom));color:var(--color-on-scene)}
 #home .home-top{position:static;width:100%;display:flex;justify-content:space-between;align-items:center;gap:var(--space-2)}
 .profile{display:flex;align-items:center;gap:var(--space-2);padding:5px 14px 5px 5px;border-radius:var(--radius-pill);min-width:0;max-width:68%;text-align:left;
   background:var(--gloss-soft),var(--mat-navy);border:2px solid var(--rim-navy);box-shadow:var(--shadow-mat-sm);color:var(--color-text)}
@@ -848,6 +849,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 .hcard .mini{width:44px;height:42px;display:grid;place-items:center;flex:none;font-size:5px}
 .hcard .mini .ico{width:38px;height:38px}
 .hcard .txt{display:flex;flex-direction:column;min-width:0;gap:1px}
+.hcard>.txt>b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:clamp(13px,3.7vw,16px)}
 .hcard>.txt>b{font:var(--text-card-title);line-height:1.05}
 .hcard small{font:var(--text-caption);color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hcard small b{display:block;font:var(--text-number);color:var(--color-reward);font-variant-numeric:tabular-nums}
@@ -857,21 +859,21 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 .hcard:active,.rbtn:active,.profile:active,#hCoins:active,.promo:active,.hnav button:active{transform:scale(.95)}
 .profile,#hCoins,.promo,.hnav button{transition:transform var(--dur-fast) var(--ease-out)}
 /* the stage: tool rails on both sides, logo + mascot in the middle */
-.hstage{position:relative;flex:1;min-height:150px;width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);align-items:center;column-gap:var(--space-1);row-gap:2px}
+.hstage{position:relative;flex:1;min-height:0;width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);align-items:center;column-gap:var(--space-1);row-gap:2px}
 /* the wordmark gets its own full-width row; rails and mascot share the row below */
 .hstage>.rail.left{grid-column:1;grid-row:2}.hstage>.rail.right{grid-column:3;grid-row:2}
 .hero{display:contents}
 #home .hero>.logo{grid-column:1/-1;grid-row:1;justify-self:center}
 #home .hero>.mascot{grid-column:2;grid-row:2;justify-self:center;align-self:center}
 #home .hero>.hring{grid-column:2;grid-row:2}
-.rail{display:flex;flex-direction:column;gap:var(--space-2);z-index:2}
-.rbtn{position:relative;width:64px;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 2px;border-radius:var(--radius-md);
+.rail{display:flex;flex-direction:column;gap:var(--space-3);z-index:2;align-self:center}
+.rbtn{position:relative;width:62px;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 2px;border-radius:var(--radius-md);
   background:var(--gloss-soft),var(--mat-navy);border:2px solid var(--rim-navy);box-shadow:var(--shadow-mat-sm);color:var(--color-text);font:700 10.5px/1.1 var(--font-body);text-align:center;transition:transform var(--dur-fast) var(--ease-out)}
 .rbtn .ico{width:32px;height:32px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.35))}
 .hstage::before{content:"";position:absolute;left:50%;top:46%;width:min(340px,96%);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,244,190,.6),rgba(255,210,90,.2) 40%,rgba(255,210,90,0) 68%);pointer-events:none}
 #home .hring{position:relative;left:auto;top:auto;justify-self:center;align-self:center}
 /* the wordmark: gold letters, a deep blue outline, a sky-blue rim */
-#home .logo{position:relative;z-index:1;margin:0;font:800 clamp(44px,min(16.5vw,8.6vh),82px)/1.05 var(--font-display);letter-spacing:.01em;white-space:nowrap;transform:rotate(-4deg);cursor:pointer;filter:none;color:inherit}
+#home .logo{position:relative;z-index:1;margin:0;font:800 clamp(40px,min(14.5vw,7.4vh),72px)/1.05 var(--font-display);letter-spacing:.01em;white-space:nowrap;transform:rotate(-4deg);cursor:pointer;filter:none;color:inherit}
 #home .logo{animation:fxGlow 4s ease-in-out infinite}
 #home .logo>span{position:relative;z-index:0;display:inline-block;text-shadow:none;color:inherit}
 #home .logo>span>i{font-style:normal;background:linear-gradient(180deg,#fffbe0 6%,#ffe14a 38%,#ffb21e 70%,#ff8a00);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -880,7 +882,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 #home .logo>span::after{z-index:-2;color:#bfe6ff;-webkit-text-stroke:.3em #bfe6ff;opacity:.9}
 #home .logo>span.bang{animation:hop 3.2s cubic-bezier(.3,1.4,.5,1) infinite;animation-delay:.6s;transform-origin:50% 100%}
 #home .logo>span.bang>i{background-image:linear-gradient(180deg,#ffe0f0,#ff5aa0 45%,#e0204a)}
-.mascot{position:relative;z-index:1;width:clamp(92px,17vh,150px);aspect-ratio:200/220;margin-top:2px;padding:0;border-radius:40%;-webkit-tap-highlight-color:transparent}
+.mascot{position:relative;z-index:1;width:clamp(88px,16vh,140px);aspect-ratio:200/220;margin-top:2px;padding:0;border-radius:40%;-webkit-tap-highlight-color:transparent}
 .mascot svg{width:100%;height:100%;display:block;overflow:visible}
 .m-eyes{transform-box:fill-box;transform-origin:50% 50%;animation:blink 4.6s infinite}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.08)}}
@@ -914,18 +916,8 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 .hstars:empty{display:none}.hstars .ico{width:15px;height:15px}
 #home .gift{margin:0;font:var(--text-small);font-weight:700;color:var(--color-success-soft);text-shadow:0 1px 3px var(--color-scene-ink)}
 #home .gift:empty{display:none}
-/* the featured card */
-.promo{width:100%;max-width:420px;display:flex;align-items:center;gap:10px;padding:var(--space-2) var(--space-3) var(--space-2) var(--space-2);border-radius:var(--radius-lg);
-  background:var(--gloss-soft),var(--mat-purple);border:2px solid var(--rim-gold);box-shadow:var(--shadow-mat-sm);color:var(--color-text);text-align:left}
-.promo .pic{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:28px;background:radial-gradient(circle,var(--color-glow-soft),var(--color-glow-none) 70%)}
-.promo .pic canvas{width:46px;height:46px}
-.promo .ptxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.promo b{font:var(--text-card-title);color:var(--color-reward)}
-.promo small{font:var(--text-caption);opacity:.92}
-.promo .pbar{height:6px;border-radius:3px;overflow:hidden}.promo .pbar i{display:block;height:100%;width:var(--p,0%)}
-.promo .arrow{font:800 28px/1 var(--font-display);opacity:.85}
 /* bottom navigation */
-.hnav{width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:5px;border-radius:22px;margin-top:auto;
+.hnav{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:5px;border-radius:22px;margin-top:auto;
   background:var(--gloss-soft),var(--mat-navy);border:2px solid var(--rim-navy);box-shadow:var(--shadow-mat)}
 .hnav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:16px;color:var(--color-text-muted);font:700 11px/1 var(--font-body)}
 .hnav .ico{width:28px;height:28px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.35))}
@@ -939,12 +931,12 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 #home.enter #play{animation:riseIn var(--dur-enter) .2s var(--ease-bounce) both}
 #home.enter #arcade{animation:riseIn var(--dur-enter) .3s var(--ease-bounce) both}
 #home.enter .rail.left{animation:riseIn var(--dur-enter) .35s both}#home.enter .rail.right{animation:riseIn var(--dur-enter) .4s both}
-#home.enter .promo,#home.enter .hnav{animation:riseIn var(--dur-enter) .45s both}
+#home.enter .hnav{animation:riseIn var(--dur-enter) .45s both}
 #home.enter .home-top,#home.enter .home-row{animation:riseIn .4s both}
-@media (max-height:760px){#home .promo{display:none!important}}
 @media (max-height:690px){.rbtn span:not(.nbadge){display:none}.rbtn{min-height:50px;width:52px}.rbtn .ico{width:30px;height:30px}.hcard small{display:none}#home .gift{display:none}.pxp{display:none}#home .hdisc{width:48px;height:48px}}
 @media (max-height:620px){.rail{gap:6px}.rbtn{width:46px;min-height:44px;padding:4px}.rbtn .ico{width:26px;height:26px}#home .hdisc{width:42px;height:42px}#home #arcade .hdisc{width:38px;height:38px}#home #play{font-size:28px;padding-block:6px}#home #arcade{padding-block:5px}.hnav button{min-height:48px}.hnav .ico{width:24px;height:24px}.mascot{width:clamp(80px,16vh,120px)}}
 .hstage{padding-top:4px}
+#settings #setHow{display:flex;align-items:center;justify-content:center;gap:var(--space-2)}#settings #setHow .ico{width:24px;height:24px}
 @media (max-width:360px){.rbtn{width:56px;font-size:9.5px}.hcard>.txt>b{font-size:13px}#home #play{padding-right:16px}.pbar2{width:80px}}
 @media (prefers-reduced-motion:reduce){#home .logo,#home #play,#hChest.ready .mini,.m-eyes,.mascot,.mascot.cheer,#home.enter .hero,#home.enter #play,#home.enter #arcade,#home.enter .rail,#home.enter .promo,#home.enter .hnav,#home.enter .home-top,#home.enter .home-row{animation:none!important}}
 /* ===== player level: frames, profile, XP strip — on design tokens (design-system.md) ===== */
@@ -1041,7 +1033,6 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
     <div class="rail left">
       <button class="rbtn" id="hCos"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span>Cosmetice</span></button>
       <button class="rbtn" id="hChests"><svg class="ico" aria-hidden="true"><use href="#i-chest"/></svg><span>Cufere</span><span class="nbadge" id="hChestsDot" hidden>!</span></button>
-      <button class="rbtn" id="hHow"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg><span>Cum se joacă</span></button>
     </div>
     <div class="hero">
       <div class="hring" id="hRing" aria-hidden="true"></div>
@@ -1087,18 +1078,15 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
     </div>
     <div class="rail right">
       <button class="rbtn" id="hMis"><svg class="ico" aria-hidden="true"><use href="#i-target"/></svg><span>Misiuni</span><span class="nbadge" id="hMisDot" hidden></span></button>
-      <button class="rbtn" id="hRank"><svg class="ico" aria-hidden="true"><use href="#i-trophy"/></svg><span>Clasament</span></button>
       <button class="rbtn" id="hAch"><svg class="ico" aria-hidden="true"><use href="#i-medal"/></svg><span>Realizări</span></button>
     </div>
   </div>
   <button class="btn" id="play"><span class="shine"></span><span class="holdbar" aria-hidden="true"></span><span class="hdisc" aria-hidden="true"><svg class="ico"><use href="#i-play"/></svg></span><span class="htxt"><span class="blbl">JOACĂ</span><small id="playLvl">Nivelul 1</small><span class="hstars" id="playStars"></span></span></button>
   <button class="btn" id="arcade"><span class="shine"></span><span class="hdisc" aria-hidden="true"><svg class="ico"><use href="#i-gamepad"/></svg></span><span class="htxt"><span class="blbl">ARCADE <svg class="ico crown" aria-hidden="true"><use href="#i-crown"/></svg></span><small id="arcBest">Pe scor · fără sfârșit</small></span></button>
   <p class="gift" id="gift"></p>
-  <button class="promo" id="hPromo" hidden><span class="pic" id="hPromoIc" aria-hidden="true"></span><span class="ptxt"><b id="hPromoT"></b><small id="hPromoS"></small><span class="pbar" id="hPromoBar" hidden><i></i></span></span><span class="arrow" aria-hidden="true">›</span></button>
   <nav class="hnav" aria-label="Navigare principală">
     <button class="on" id="nHome" aria-current="page"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg><span>Acasă</span></button>
     <button id="nMap"><svg class="ico" aria-hidden="true"><use href="#i-map"/></svg><span>Niveluri</span></button>
-    <button id="nArc"><svg class="ico" aria-hidden="true"><use href="#i-gamepad"/></svg><span>Arcade</span></button>
     <button id="hShop"><svg class="ico" aria-hidden="true"><use href="#i-shop"/></svg><span>Magazin</span></button>
     <button id="hSet2"><svg class="ico" aria-hidden="true"><use href="#i-gear"/></svg><span>Setări</span></button>
   </nav>
@@ -1175,6 +1163,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
     <div class="toggle">Vibrații<button class="sw" id="swVib" role="switch" aria-label="Vibrații"></button></div>
     <div class="toggle">Contrast ridicat<button class="sw" id="swContrast" role="switch" aria-label="Contrast ridicat"></button></div>
     <p class="note" id="setNote"></p>
+    <button class="btn ghost" id="setHow"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg> Cum se joacă</button>
   </div>
 </div></div>
 
@@ -1182,7 +1171,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:28px;margin:0;color
 <div id="how" class="modal" hidden><div class="card how">
   <div class="card-head"><h2>Cum se joacă</h2><button class="x" data-close aria-label="Închide">✕</button></div>
   <h3 class="sec">De bază</h3>
-  <ul class="steps"><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-play"/></svg></span><span>Atinge un bloc care are drum liber în jos. Cele 9 bile cad prin pâlnie pe bandă.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-coin"/></svg></span><span>Bilele intră singure în cutia de sus de aceeași culoare. O cutie plină îți dă <b>1 monedă</b>.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-chest"/></svg></span><span>Poți sparge mai multe blocuri deodată, cât timp mai e loc pe bandă și în pâlnie.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-gift"/></svg></span><span>Blocurile ❓ își arată culoarea când devin accesibile. Cele în dungi sunt <b>Cutii Bazinga</b>, cu bile de 3 culori.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-star"/></svg></span><span><b>BAZINGA!</b> anulează ultima mutare, gratuit, dar doar când bara lui e plină. O umpli cu cutii completate și combo-uri.</span></li></ul>
+  <ul class="steps"><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-play"/></svg></span><span>Atinge un bloc care are drum liber în jos. Cele 9 bile cad prin pâlnie pe bandă.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-coin"/></svg></span><span>Bilele intră singure în cutia de sus de aceeași culoare. O cutie plină îți dă <b>1 monedă</b> (la rejucarea unui nivel, una din două).</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-chest"/></svg></span><span>Poți sparge mai multe blocuri deodată, cât timp mai e loc pe bandă și în pâlnie.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-gift"/></svg></span><span>Blocurile ❓ își arată culoarea când devin accesibile. Cele în dungi sunt <b>Cutii Bazinga</b>, cu bile de 3 culori.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-star"/></svg></span><span><b>BAZINGA!</b> anulează ultima mutare, gratuit, dar doar când bara lui e plină. O umpli cu cutii completate și combo-uri.</span></li></ul>
   <h3 class="sec">Niveluri speciale</h3>
   <ul class="steps"><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-fire"/></svg></span><span>Fiecare al 10-lea nivel e <b>GREU</b> 🔥: bandă mai scurtă, mai multe culori, mai multe surprize.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-skull"/></svg></span><span>La fiecare 25 de niveluri te așteaptă un <b>BOSS</b> ⚔️ cu 3 faze și bară de viață. Ai inimi ❤️: le pierzi când te lovește. Cutiile de culoarea lui slabă ✦ dau lovituri critice, iar dacă umpli una cât își încarcă atacul, îl întrerupi.</span></li><li><span class="sic" aria-hidden="true"><svg class="ico"><use href="#i-lock"/></svg></span><span>Pierzi dacă banda e plină și nicio bilă nu mai încape în cutii.</span></li></ul>
   <h3 class="sec">Arcade</h3>
@@ -1440,7 +1429,7 @@ let bossDiff='normal';
    and one per power-up used (max 2). Bazinga! undo is earned with combos, so it costs nothing. */
 const STAR_COINS=[0,10,25,50];
 // star targets tuned for humans (~2x a fast bot): 3 stars under par, 2 under par2, 1 for any win
-const parTime=(nBlocks,hard)=>Math.round((25+nBlocks*4.5)*(hard?1.25:1)/5)*5;
+const parTime=(nBlocks,hard)=>Math.round((25+nBlocks*4.5)*(hard?1.45:1)/5)*5;
 // boss: share of the time limit you may use for 3 / 2 stars (harder fights leave less spare time, so they are kinder)
 const BOSS_STAR={easy:[.62,.82],normal:[.72,.88],hard:[.82,.94]};
 const starTargets=(boss,nBlocks,hard)=>{if(boss){const f=BOSS_STAR[boss.diff]||BOSS_STAR.normal;return[Math.round(boss.limit*f[0]),Math.round(boss.limit*f[1])]}const p=parTime(nBlocks,hard);return[p,Math.round(p*1.7/5)*5]};
@@ -2063,7 +2052,7 @@ function refreshReach(){
 /* ---- undo history: a deep copy of the play state taken before every move ---- */
 function snapshot(meta){
   const snap=structuredClone({grid:S.grid,colsH:S.colsH,bb:S.bb,balls:S.balls,emitters:S.emitters,falling:S.falling,
-    charge:S.charge,combo:S.combo,earned:S.earned,cap:S.cap,tappable:S.tappable});
+    charge:S.charge,combo:S.combo,earned:S.earned,boxN:S.boxN||0,cap:S.cap,tappable:S.tappable});
   snap.meta=meta;S.hist.push(snap);if(S.hist.length>UNDO_DEPTH)S.hist.shift();
 }
 // BAZINGA! is free, but only works once combos have filled its bar
@@ -2123,12 +2112,11 @@ function tapAt(px,py){
 
 function holderDone(h){
   h.leaving=true;h.lt=0;sfx.cup();buzz(12);
-  S.earned++;addCoins(1,false);
+  S.boxN=(S.boxN||0)+1;const pay=!S.replay||S.boxN%2===1;if(pay){S.earned++;addCoins(1,false)}
   // celebration: confetti in the holder's colour and a coin that flies to the counter
   const cr=cv.getBoundingClientRect(),hx=cr.left+L.colX[h.k],hy=cr.top+h.y+L.hh/2;
   burst(hx,hy,{n:18,colors:[COLORS[h.color],'#fff',shade(COLORS[h.color],.4)],speed:300,grav:700,size:6,life:.9});
-  coinFly(hx,hy);
-  text('+1',L.colX[h.k],h.y-6,22,false,'#ffc94a');
+  if(pay){coinFly(hx,hy);text('+1',L.colX[h.k],h.y-6,22,false,'#ffc94a')}
   const now=S.time;S.combo=now-S.lastDone<1.3?S.combo+1:1;S.lastDone=now;S.comboMax=Math.max(S.comboMax||0,S.combo);
   let gain=1;if(S.combo>=2){gain=2;text('Combo x'+S.combo,L.colX[h.k],h.y-34,16)}
   const was=S.charge;S.charge=Math.min(MAXCHARGE,S.charge+gain);
@@ -2235,7 +2223,7 @@ function winLevel(){S.over=true;sfx.win();
     ...(br&&br.chest?[{label:'🎁 Deschide Cufărul Legendar',fn:()=>{openChest(br.chest);next()}}]:[]),
     {label:'Continuă',ghost:!!(br&&br.chest),fn:next},{label:'Rejoacă',ghost:true,fn:()=>playLevel(S.level,true)}]);
     $('#rX').innerHTML=`<div class="res-stars">${[0,1,2].map(()=>'<i>'+ico('star')+'</i>').join('')}</div>
-      <div class="res-facts">${B?`<span>⏱ ${fmtTime(S.time)}</span><span>❤️ ${B.hearts}/${B.heartsMax}</span>`:`<span>⏱ ${fmtTime(S.time)} · ⭐⭐⭐ ${fmtTime(S.par)} · ⭐⭐ ${fmtTime(S.par2)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>`}${bonus?`<span>⭐ bonus +${bonus}</span>`:''}${br?`<span>⚔️ ${BOSS_DIFF[B.diff].name}: +${br.coins}${br.first?'':' (rejucat)'}</span>`:''}${br&&br.title?`<span>🏅 ${br.title}</span>`:''}</div>`+
+      <div class="res-facts">${B?`<span>⏱ ${fmtTime(S.time)}</span><span>❤️ ${B.hearts}/${B.heartsMax}</span>`:`<span>⏱ ${fmtTime(S.time)} · ⭐⭐⭐ ${fmtTime(S.par)} · ⭐⭐ ${fmtTime(S.par2)}</span><span>✨ ${S.powersUsed} power-up${S.powersUsed===1?'':'-uri'}</span>${S.replay?'<span>🔁 rejucat: monede din cutii ×½</span>':''}`}${bonus?`<span>⭐ bonus +${bonus}</span>`:''}${br?`<span>⚔️ ${BOSS_DIFF[B.diff].name}: +${br.coins}${br.first?'':' (rejucat)'}</span>`:''}${br&&br.title?`<span>🏅 ${br.title}</span>`:''}</div>`+
       (br&&br.items.length?`<p class="note">Recompense exclusive:</p><div class="co-rewards">${br.items.map(([c,id])=>{const it=cosItem(c,id);return `<div class="rw sk r-boss" style="width:120px">${c==='bg'?`<div class="bgprev" style="background:${bgPreview(id)};height:40px"></div>`:`<canvas data-brprev="${c}:${id}" width="300" height="124"></canvas>`}<span>${it.name}</span><span class="rar">Boss</span></div>`}).join('')}</div>`:'');
     if(br)$('#rX').insertAdjacentHTML('beforeend',`<div class="boss-next">${bossNextTips(B,br).map(t=>`<p>${t}</p>`).join('')}</div>`);
     $('#rX').insertAdjacentHTML('beforeend',xpBlock(xpRes));xpBlockAnim(xpRes);
@@ -2244,6 +2232,8 @@ function winLevel(){S.over=true;sfx.win();
       const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,{n:18,colors:['#ffd23f','#fff3b0','#ff8c2a'],speed:300,grav:400})},350+i*380)});
     setTimeout(()=>{countUp(S.earned+bonus+(br?br.coins:0));paintCoins(true)},350+stars*380)},700);
 }
+// the power-ups that can get a stuck belt moving again
+const SAVE_PW=['magnet','belt','shuffle'];
 function checkEnd(dt){
   if(S.over)return;
   // arcade ends only when a block reaches the bottom edge (see arcadeUpdate)
@@ -2266,7 +2256,8 @@ function checkEnd(dt){
   const ready=S.charge>=MAXCHARGE&&S.hist.length>0;
   result('Blocat!','Banda e plină și nicio bilă nu mai încape în cutiile de sus.',[
     ...(ready?[{label:'⟲ BAZINGA! Anulează',fn:()=>{undo()}}]:[]),
-    {label:'Reîncearcă',ghost:ready,fn:()=>playLevel(S.level,true)},{label:'Harta nivelurilor',ghost:true,fn:()=>goMap(0)}]);
+    ...SAVE_PW.filter(id=>inv[id]>0).map(id=>{const p=POWERS.find(q=>q.id===id);return{label:`Folosește ${p.name} (${inv[id]})`,ghost:ready,fn:()=>{S.over=false;S.stuckT=0;usePower(id)}}}),
+    {label:'Reîncearcă',ghost:ready||SAVE_PW.some(id=>inv[id]>0),fn:()=>playLevel(S.level,true)},{label:'Harta nivelurilor',ghost:true,fn:()=>goMap(0)}]);
   shakeEl($('#result .card'));
 }
 
@@ -3794,6 +3785,79 @@ function plMigrate(){const p=plState();if(p.migrated)return;let xp=0;const R=XP_
   const m=store.get('arcMis',null);if(m&&m.done)xp+=m.done*XP_RULES.mission;
   p.migrated=true;store.set('player',p);if(xp>0)grantXP(xp)}
 
+
+/* ================= skill tree: permanent upgrades bought with Skill Points (SP) =================
+   Player level (XP) unlocks a skill, SP buy its tiers. Coins never buy SP. Everything about a skill lives in SKILLS:
+   its branch, the player level it needs, its value per tier, whether it changes play (then it is off in competitive modes). */
+const SK_COST=[1,2,3,4,5],SK_COST_UTIL=[1,1,2,3,4],SK_MAX=5;
+const SK_BRANCH={mastery:{name:'Mastery',sub:'control și utilitate'},fortune:{name:'Fortune',sub:'economie și recompense'},combat:{name:'Combat',sub:'bossi și Arcade'}};
+const pctS=v=>Math.round(v*100)+'%';
+const SKILLS=[
+  {id:'m1',br:'mastery',name:'Ultima șansă',lvl:5,play:true,v:[.9,.8,.7,.6,.5],
+    d:v=>'O dată pe nivel, la „Blocat!”, poți anula ultima mutare cu bara BAZINGA plină doar la '+pctS(v)+'.'},
+  {id:'m2',br:'mastery',name:'Combo Capacitor',lvl:8,play:true,v:[.02,.04,.06,.08,.1],
+    d:v=>'Bara BAZINGA se umple cu +'+pctS(v)+' mai repede.'},
+  {id:'m3',br:'mastery',name:'Tactical Insight',lvl:12,play:true,util:true,v:[12,10,8,6,5],
+    d:v=>'După '+v+' s fără nicio mutare, un bloc pe care îl poți sparge strălucește.'},
+  {id:'m4',br:'mastery',name:'Belt Reserve',lvl:18,play:true,v:[1,2,3,4,5],
+    d:v=>'+'+v+(v===1?' loc':' locuri')+' pe bandă la nivelurile din campanie.'},
+  {id:'f1',br:'fortune',name:'Golden Touch',lvl:5,v:[.02,.04,.06,.08,.1],
+    d:v=>'+'+pctS(v)+' monede din bonusul de stele.'},
+  {id:'f2',br:'fortune',name:'Treasure Lore',lvl:10,v:[.02,.04,.06,.08,.1],
+    d:v=>'Șansa de cosmetic din cuferele Basic și Epic crește cu '+pctS(v)+' din valoarea ei.'},
+  {id:'f3',br:'fortune',name:'Resourceful',lvl:15,v:[.02,.04,.06,.08,.1],
+    d:v=>'Power-up-urile din magazin costă cu '+pctS(v)+' mai puțin.'},
+  {id:'f4',br:'fortune',name:'Star Scholar',lvl:20,v:[.02,.04,.06,.08,.1],
+    d:v=>'+'+pctS(v)+' XP din nivelurile câștigate.'},
+  {id:'c1',br:'combat',name:'Weakpoint Master',lvl:10,play:true,v:[.02,.04,.06,.08,.1],
+    d:v=>'Loviturile normale în boss fac +'+pctS(v)+' daune.'},
+  {id:'c2',br:'combat',name:'Battle Instinct',lvl:20,play:true,v:[.1,.2,.3,.4,.5],
+    d:v=>'Ai +'+String(v).replace('.',',')+' s ca să reacționezi la atacurile bossului (Ușor și Normal).'},
+  {id:'c3',br:'combat',name:"Victor's Spoils",lvl:25,v:[.03,.06,.09,.12,.15],
+    d:v=>'+'+pctS(v)+' monede la prima victorie împotriva unui boss.'},
+  {id:'c4',br:'combat',name:'Arcade Rhythm',lvl:15,play:true,v:[.02,.04,.06,.08,.1],
+    d:v=>'Combo-ul din Arcade liber ține cu '+pctS(v)+' mai mult.'}];
+const skDef=id=>SKILLS.find(k=>k.id===id);
+const skCost=(k,tier)=>(k.util?SK_COST_UTIL:SK_COST)[tier]; // price of the tier after "tier" (0 = Tier I)
+// SP for the first win over each boss level on each difficulty
+const SP_BOSS={easy:1,normal:2,hard:3,nightmare:5};
+
+/* ---- save: bz2_skills = {v:1, sp, tier:{id:n}, got:{key:1}, mig} (created only when it is missing) ---- */
+// a value that is there but cannot be read is never replaced with an empty tree: every change is refused instead
+function skRead(){let raw=null;try{raw=localStorage.getItem('bz2_skills')}catch(e){}
+  let v=null;if(raw!=null){try{v=JSON.parse(raw)}catch(e){v=store.mem.skills||null;if(!v)return{ok:false,s:null}}}else v=store.get('skills',null);
+  const s=Object.assign({v:1,sp:0,tier:{},got:{},mig:false},v||{});s.tier=Object.assign({},s.tier);s.got=Object.assign({},s.got);
+  if(!(s.sp>=0))s.sp=0;return{ok:true,s}}
+function skState(){return skRead().s||{v:1,sp:0,tier:{},got:{},mig:false}}
+const skTier=id=>Math.max(0,Math.min(SK_MAX,skState().tier[id]||0));
+
+// the one place SP are granted; a key makes the same reward impossible to collect twice
+function grantSP(n,key){const r=skRead();if(!r.ok||!(n>0))return 0;const s=r.s;if(key&&s.got[key])return 0;
+  s.sp+=n;if(key)s.got[key]=1;store.set('skills',s);if(typeof paintSkDot==='function')paintSkDot();return n}
+
+// can this tier be bought right now? (the UI and the purchase use the same answer)
+function skCan(id){const k=skDef(id),r=skRead();if(!k)return{ok:false,why:'nu există'};if(!r.ok)return{ok:false,why:'salvare ilizibilă'};
+  const t=r.s.tier[id]||0,need=k.lvl,L=plLevel(plState().xp).L;
+  if(t>=SK_MAX)return{ok:false,why:'max',tier:t};
+  if(L<need)return{ok:false,why:'nivel',need,tier:t};
+  const cost=skCost(k,t);if(r.s.sp<cost)return{ok:false,why:'sp',cost,tier:t,sp:r.s.sp};
+  return{ok:true,cost,tier:t,sp:r.s.sp}}
+// SP go down and the tier goes up in the same write; nothing changes when a check fails
+function skBuy(id){const c=skCan(id);if(!c.ok)return c;const s=skRead().s;
+  s.sp-=c.cost;s.tier[id]=c.tier+1;store.set('skills',s);
+  const back=skState();if(back.tier[id]!==c.tier+1||back.sp!==s.sp)return{ok:false,why:'salvare'};
+  return{ok:true,tier:c.tier+1,sp:s.sp}}
+
+// skills that change play are off where scores are compared (daily challenge, a friend's duel) and while the test bot runs
+function skillsOff(){return !!window.__skillsOff||!!(S&&S.arcade&&S.arcade.mode!=='free')}
+// the value a skill has right now (0 when not bought, or when it changes play and play skills are off)
+function skVal(id){const k=skDef(id),t=skTier(id);if(!k||!t)return 0;if(k.play&&skillsOff())return 0;return k.v[t-1]}
+
+// players who beat bosses before the tree existed get those SP once (same keys as the live reward, so never twice)
+function skMigrate(){const r=skRead();if(!r.ok||r.s.mig)return;let n=0;
+  Object.keys(store.get('bossWins',{})).forEach(key=>{const d=key.split(':')[1];if(SP_BOSS[d])n+=grantSP(SP_BOSS[d],'boss:'+key)});
+  const s=skState();s.mig=true;store.set('skills',s);return n}
+
 /* ---- XP for a finished level (called from the win screen) ---- */
 function levelXP(stars,best,first,boss){const R=XP_RULES.level;
   if(boss)return first?BOSS_XP[boss.diff]:Math.round(BOSS_XP[boss.diff]*BOSS_XP.replayK);
@@ -4292,7 +4356,7 @@ function paintHome(){const l=store.get('level',1);$('#playLvl').textContent='Niv
   $('#gift').textContent=firstGift?'🎁 Cadou de bun venit: câte un power-up din fiecare!':'';paintHomeExtras()}
 function start(n,quiet){
   $$('.modal').forEach(m=>m.hidden=true);
-  S=makeLevel(n);showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);if(!S.boss)MUSIC.bpm=104;
+  S=makeLevel(n);S.replay=!S.boss&&n<store.get('level',1);S.boxN=0;showScreen('game');paused=false;layout();setHint();lastHud='';hud.sec=-1;hud.st=null;setMusicMode(!!S.boss);if(!S.boss)MUSIC.bpm=104;
   if(!quiet)levelIntro(n);
   window.claude?.hot?.snapshot?.(()=>({level:S.arcade?0:S.level,screen:S.arcade?'home':screen}));
 }
@@ -4637,7 +4701,7 @@ function openLevelPop(n){
   $('#lpFacts').innerHTML=`<span>🎨 ${probe.nColors} culori</span><span>🧱 ${probe.nBlocks} blocuri</span><span>🎢 ${D.cap} locuri</span>`;
   const bs=bestStars(n);
   $('#lpP').innerHTML=(D.hard?'Bandă mai scurtă, mai multe culori și mai multe surprize. Pregătește-ți power-up-urile!':'Sparge blocurile și umple toate cutiile.')+
-    `<br><b>⭐⭐⭐</b> sub <b>${fmtTime(probe.par)}</b> · <b>⭐⭐</b> sub <b>${fmtTime(probe.par2)}</b><br><small>fiecare power-up folosit scade o stea</small>`+(bs?`<br>Recordul tău: ${'⭐'.repeat(bs)}`:'');
+    `<br><b>⭐⭐⭐</b> sub <b>${fmtTime(probe.par)}</b> · <b>⭐⭐</b> sub <b>${fmtTime(probe.par2)}</b><br><small>fiecare power-up folosit scade o stea</small>`+(n<store.get('level',1)?'<br><small>🔁 Rejucat: doar jumătate din cutii dau monede</small>':'')+(bs?`<br>Recordul tău: ${'⭐'.repeat(bs)}`:'');
   $('#lpGo').onclick=()=>playLevel(n);
   showModal('lvlPop');
 }
@@ -4701,22 +4765,19 @@ $('#hShop').addEventListener('click',()=>openShop());
 $('#hCos').addEventListener('click',()=>{shopTab='ball';openShop()});
 $('#hChests').addEventListener('click',()=>{shopTab='chests';openShop()});
 $('#hMis').addEventListener('click',()=>{initAudio();openArcHub('mis')});
-$('#hRank').addEventListener('click',()=>{initAudio();openArcHub('rank')});
 $('#hAch').addEventListener('click',()=>{initAudio();openProfile('ach')});
 $('#nHome').addEventListener('click',()=>{sfx.ui();mascotCheer()});
 $('#nMap').addEventListener('click',()=>{initAudio();firstGift=false;goMap(0)});
-$('#nArc').addEventListener('click',()=>{initAudio();firstGift=false;openArcHub('play')});
 // the mascot reacts when tapped and when you come back to the menu
 function mascotCheer(){const m=$('#hMascot');if(!m||reduce)return;m.classList.remove('cheer');void m.offsetWidth;m.classList.add('cheer');clearTimeout(mascotCheer.t);mascotCheer.t=setTimeout(()=>m.classList.remove('cheer'),800)}
 $('#hMascot').addEventListener('click',()=>{initAudio();mascotCheer();sfx.boing&&sfx.boing();buzz(15);const r=$('#hMascot').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height*.35,{n:22,speed:320,grav:500,plain:true,colors:['#ffd23f','#fff3b0','#ff8a00']})});
-$('#hHow').addEventListener('click',()=>showModal('how'));
+$('#setHow').addEventListener('click',()=>{hideModal('settings');showModal('how')});
 $('#hSet2').addEventListener('click',()=>{paintSettings();showModal('settings')});
 $('#hCoins').addEventListener('click',()=>{shopTab='chests';openShop()});
 $('#hDaily').addEventListener('click',()=>{initAudio();openArcHub('play')});
 $('#hProfile').addEventListener('click',()=>{initAudio();openProfile()});
-$('#hPromo').addEventListener('click',()=>{initAudio();if(homePromoNow)homePromoNow.go()});
 // a soft click on every menu card (the big buttons already have their own transition sounds)
-$$('#home .rbtn,#home .hnav button,#hCoins,#hDaily,#hChest,#hProfile,#hPromo').forEach(b=>b.addEventListener('pointerdown',()=>{initAudio();sfx.ui()}));
+$$('#home .rbtn,#home .hnav button,#hCoins,#hDaily,#hChest,#hProfile').forEach(b=>b.addEventListener('pointerdown',()=>{initAudio();sfx.ui()}));
 $('#pauseBtn').addEventListener('click',()=>showModal('pause'));
 // leaving the app mid-level opens the pause menu, so coming back never drops you into a running board
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&screen==='game'&&S&&!S.over&&!paused&&!navBusy)showModal('pause')});
@@ -4821,22 +4882,8 @@ function drawHome(dt){homeT+=dt;wipe2d(hctx,hb);const W=innerWidth,H=innerHeight
   // a few twinkles around the castle
   for(let k=0;k<3;k++){const a=(Math.sin(t*2+k*2.1)+1)/2;if(a<.6)continue;const x=W*(.68+k*.09),y=H*(.06+k*.05);hctx.globalAlpha=(a-.6)/.4;hctx.fillStyle='#fffbe0';hctx.font='14px sans-serif';hctx.fillText('✦',x,y);hctx.globalAlpha=1}
   orbitHome(t)}
-/* ---- home: profile (real progress), daily shortcut, one contextual promo card built from real game data ---- */
-let homePromoNow=null;
+/* ---- home: profile (real progress), daily shortcut ---- */
 function homeEnter(){if(reduce)return;setTimeout(mascotCheer,700);const h=$('#home');h.classList.remove('enter');void h.offsetWidth;h.classList.add('enter');clearTimeout(homeEnter.t);homeEnter.t=setTimeout(()=>h.classList.remove('enter'),1500)}
-function homePromo(){
-  const n=arcClaimables();if(n){const ms=(store.get('arcMis',{list:[]}).list||[]).some(m=>m.p>=m.g);
-    return{em:'🎁',t:`${n} recompens${n>1?'e':'ă'} de luat în Arcade`,s:ms?'Ai misiuni terminate':'Provocarea zilei sau praguri de scor',go:()=>openArcHub(ms?'mis':'play')}}
-  const L0=store.get('level',1),nb=Math.max(25,Math.ceil(L0/25)*25),B=bossOf(nb),idx=B.items.findIndex(([c,id])=>!owns(c,id));
-  const bossItem=idx<0?null:{ball:B.items[idx][0]==='ball'?B.items[idx][1]:null,em:B.emoji,t:`Exclusiv: ${cosItem(...B.items[idx]).name}`,s:`Învinge ${B.name} la nivelul ${nb} ${idx?'pe Greu':'pe Normal sau mai greu'}`,go:()=>{firstGift=false;goMap(0)}};
-  if(bossItem&&nb-L0<=10)return bossItem;
-  const buy=[];['ball','fx','belt','bg'].forEach(cat=>COSMETICS[cat].forEach(o=>{if(o.price>0&&!owns(cat,o.id)&&o.price<=coins)buy.push({cat,o})}));
-  if(buy.length){buy.sort((a,b)=>b.o.price-a.o.price);const{cat,o}=buy[0];
-    return{ball:cat==='ball'?o.id:null,em:'🛒',t:`Îți permiți: ${o.name}`,s:`${RARITY[o.rar].name} · ${o.price} monede`,go:()=>{shopTab=cat==='belt'||cat==='bg'?'theme':cat;openShop()}}}
-  const best=arcBest(),cl=msClaimed(),mi=ARC_MS.findIndex((m,i)=>!cl.includes(i)&&best<m.s);
-  if(best>0&&mi>=0){const ms=ARC_MS[mi];return{em:'🕹️',t:`Arcade: ${fmtN(best)} / ${fmtN(ms.s)}`,s:'Următoarea recompensă: '+(ms.item?cosItem(...ms.item).name+' (exclusiv)':ms.chest?CHESTS[ms.chest].name:ms.coins+' monede'),prog:best/ms.s,go:()=>openArcHub('play')}}
-  if(bossItem)return bossItem;
-  return{em:'📅',t:'Provocarea zilei',s:'Aceeași tablă pentru toți. Fă 1.500 de puncte pentru un cufăr.',go:()=>openArcHub('play')}}
 // the daily challenge resets at local midnight (todayKey is local), so the card counts down to it
 function updateDailyUI(){const el=$('#hDailyT');if(!el)return;const d=dailyState(),now=new Date(),mid=new Date(now);mid.setHours(24,0,0,0);
   const s=Math.max(0,Math.floor((mid-now)/1000)),hh=String(Math.floor(s/3600)).padStart(2,'0'),mm=String(Math.floor(s/60)%60).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
@@ -4849,10 +4896,7 @@ function paintHomeExtras(){
   // stars already collected in the current zone, under JOACĂ
   {const z=Math.floor((L0-1)/10),st=store.get('stars',{});let got=0;for(let i=z*10+1;i<=z*10+10;i++)got+=st[i]||0;$('#playStars').innerHTML=got?ico('star')+` ${got}/30 în zonă`:''}
   paintPlayerCard();
-  const d=dailyState();updateDailyUI();$('#hDailyDot').hidden=d.plays>0;
-  const p=homePromoNow=homePromo(),ic=$('#hPromoIc');$('#hPromo').hidden=!p;if(!p)return;
-  $('#hPromoT').textContent=p.t;$('#hPromoS').textContent=p.s;const bar=$('#hPromoBar');bar.hidden=p.prog==null;if(p.prog!=null)bar.style.setProperty('--p',Math.round(Math.min(1,p.prog)*100)+'%');
-  if(p.ball){ic.innerHTML='<canvas width="92" height="92"></canvas>';const c2=ic.firstChild.getContext('2d'),sp=sprite('purple',20,p.ball),sz=sp.width/dpr*2;c2.drawImage(sp,46-sz/2,46-sz/2,sz,sz)}else ic.textContent=p.em}
+  const d=dailyState();updateDailyUI();$('#hDailyDot').hidden=d.plays>0;}
 /* ================= loop & input ================= */
 let last=performance.now();
 function frame(now){const dt=Math.min(1/30,(now-last)/1000);last=now;
@@ -4879,7 +4923,7 @@ buildPowers();sizeHome();sizeFx();paintCoins();
   idb.held=false;const q=idb.q;idb.q={};Object.keys(q).forEach(k=>idb.put(k,q[k]));
   if(restored){coins=store.get('coins',0);inv=store.get('inv',inv);Object.assign(SET,store.get('settings',{}));Object.assign(COS,store.get('cos',{}));spriteCache={};firstGift=false;
     achMem=null;achCheck(false);paintCoins();if(screen==='home')paintHome();lastHud=''}
-  plMigrate();if(screen==='home')paintHome()})();
+  plMigrate();skMigrate();if(screen==='home')paintHome()})();
 (()=>{let q=null;try{q=new URLSearchParams(location.search).get('c')}catch(e){}if(!q)return;const o=parseArcCode('BZ'+q);
   try{history.replaceState(null,'',location.pathname)}catch(e){}
   if(o){addFriend(o);arcIncoming=o;setTimeout(()=>openArcHub('rank'),700)}})();
